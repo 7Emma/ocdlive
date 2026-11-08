@@ -1,0 +1,414 @@
+{
+  "liveBroadcast": {
+    "isLive": true,
+    "isScheduled": false,
+    "streamTitle": "Direct Régie OCD Live · Plateau Talk-Show #LesOpportunitesCestDehors",
+    "platform": "youtube",
+    "streamUrl": "https://www.youtube.com/@BovannYT/live",
+    "viewersCount": 1420,
+    "scheduledTime": "Tous les soirs à 19h00 GMT",
+    "channelName": "@BovannYT"
+  },
+  "dailySlots": [
+    {
+      "id": "slot-1",
+      "label": "Créneau 1 — Matinale",
+      "hours": "09h00 – 11h00",
+      "description": "Interviews courtes, annonces officielles, lancements de journée"
+    },
+    {
+      "id": "slot-2",
+      "label": "Créneau 2 — Midi",
+      "hours": "11h30 – 13h30",
+      "description": "Talk-shows, débats de mi-journée, tables rondes"
+    },
+    {
+      "id": "slot-3",
+      "label": "Créneau 3 — Après-midi",
+      "hours": "14h30 – 16h30",
+      "description": "Enregistrement de podcasts, masterclasses, capsules"
+    },
+    {
+      "id": "slot-4",
+      "label": "Créneau 4 — Prime / Soirée",
+      "hours": "17h00 – 21h00",
+      "description": "Grand direct événementiel, sommet, concert ou émission live"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "res-001",
+      "ref": "OCD-842910",
+      "fullName": "Kouamé Jean-Marc",
+      "organization": "AfriqTech Summit 2026",
+      "email": "contact@afriqtech.org",
+      "phone": "+225 07 48 92 10 33",
+      "selectedOffer": "pack-journee",
+      "liveFormat": "live-presentiel",
+      "eventDate": "2026-11-15",
+      "selectedSlot": "slot-2",
+      "assignedSlotLabel": "11h30 - 14h30",
+      "eventLocation": "Hôtel Ivoire, Cocody Abidjan",
+      "message": "Captation live bilingue français/anglais pour 4 panels et retransmission simultanée sur YouTube et LinkedIn. Besoin du Starlink et d'un Aftermovie express.",
+      "status": "CONFIRME",
+      "budgetEstimated": 1500000,
+      "internalNotes": "Acompte 50% reçu. Équipe régie affectée : Marc (Réalisateur) + 3 cadreurs.",
+      "createdAt": "2026-11-06T10:14:00Z",
+      "updatedAt": "2026-11-07T14:30:00Z"
+    },
+    {
+      "id": "res-002",
+      "ref": "OCD-913402",
+      "fullName": "Aïcha Traoré",
+      "organization": "Fondation Bâtir Demain",
+      "email": "aicha.traore@batirdemain.ci",
+      "phone": "+225 05 88 12 44 90",
+      "selectedOffer": "pack-standard",
+      "liveFormat": "live-talkshow",
+      "eventDate": "2026-11-18",
+      "selectedSlot": "slot-3",
+      "assignedSlotLabel": "15h00 - 18h00",
+      "eventLocation": "Plateau Studio OCD Live Marcory",
+      "message": "Talk-show interactif avec 3 intervenants sur le mouvement des jeunes entrepreneurs. Besoin de prompteur et modération de chat en direct.",
+      "status": "NOUVEAU",
+      "budgetEstimated": 650000,
+      "internalNotes": "Nouvelle demande reçue via le site. À rappeler sur WhatsApp.",
+      "createdAt": "2026-11-08T09:20:00Z",
+      "updatedAt": "2026-11-08T09:20:00Z"
+    },
+    {
+      "id": "res-003",
+      "ref": "OCD-782109",
+      "fullName": "Didier Koffi",
+      "organization": "Label Babi Groove",
+      "email": "didier@babigroove.com",
+      "phone": "+225 01 02 43 89 12",
+      "selectedOffer": "pack-starter",
+      "liveFormat": "live-presentiel",
+      "eventDate": "2026-11-20",
+      "selectedSlot": "slot-4",
+      "assignedSlotLabel": "19h00 - 22h00",
+      "eventLocation": "Espace Canal aux Bois, Treichville",
+      "message": "Concert acoustique en live privé sur YouTube membre. Besoin de 3 caméras et enregistrement son multipiste.",
+      "status": "DEVIS_ENVOYE",
+      "budgetEstimated": 350000,
+      "internalNotes": "Devis envoyé par email. En attente de confirmation du client.",
+      "createdAt": "2026-11-07T16:45:00Z",
+      "updatedAt": "2026-11-08T11:00:00Z"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "cadreur-live-abidjan",
+      "title": "Cadreur / Opérateur Caméra Broadcast",
+      "company": "OCD Live Productions",
+      "location": "Abidjan (Plateau / Cocody)",
+      "contractType": "Freelance",
+      "category": "Audiovisuel & Régie",
+      "remuneration": "Selon barème de pige journalière",
+      "postedDate": "Hier",
+      "deadline": "20 Novembre 2026",
+      "description": "Dans le cadre du renforcement de nos équipes de captation sur les prochains sommets et plateaux TV, nous recherchons des cadreurs réactifs, maîtrisant le travail en multicaméra avec intercom.",
+      "requirements": [
+        "Maîtrise des caméras type Sony FX6 / FX9 / Blackmagic",
+        "Expérience avérée du direct (timing serré, suivi du conducteur)",
+        "Capacité à suivre les ordres de cadrage du réalisateur sans hésitation"
+      ]
+    },
+    {
+      "id": "monteur-reels-talkshow",
+      "title": "Monteur Vidéo Rythmé & Formats Courts (Reels / TikTok)",
+      "company": "OCD Live Media",
+      "location": "Abidjan / Télétravail partiel",
+      "contractType": "Freelance",
+      "category": "Production & Montage",
+      "remuneration": "Rémunération par capsule livrée",
+      "postedDate": "Il y a 3 jours",
+      "deadline": "25 Novembre 2026",
+      "description": "Nous recherchons un monteur talentueux pour transformer nos enregistrements d'émissions et de podcasts en extraits viraux ultra-dynamiques avec sous-titres animés et sound design percutant.",
+      "requirements": [
+        "Maîtrise de Premiere Pro ou DaVinci Resolve",
+        "Excellente culture des codes visuels TikTok / Instagram / Shorts",
+        "Capacité à extraire la punchline et le moment fort d'une vidéo d'1 heure"
+      ]
+    },
+    {
+      "id": "assistant-regie-evenement",
+      "title": "Assistant Régie Générale & Câblage Plateau",
+      "company": "OCD Live Terrain",
+      "location": "Abidjan & Déplacements intérieurs",
+      "contractType": "CDD / CDI",
+      "category": "Audiovisuel & Régie",
+      "remuneration": "Salaire selon profil [À VALIDER]",
+      "postedDate": "Il y a 5 jours",
+      "deadline": "30 Novembre 2026",
+      "description": "Le terrain a besoin de bras et d'énergie. En charge de l'installation, du passage de câbles SDI/HDMI/Fibre, de la mise en place des retours et du rangement du matériel après les lives.",
+      "requirements": [
+        "Ponctualité irréprochable et sens de la discipline",
+        "Rigueur dans le rangement et le soin du matériel sensible",
+        "Motivation totale à apprendre le métier aux côtés de techniciens seniors"
+      ]
+    },
+    {
+      "id": "hotes-hotesses-accueil",
+      "title": "Hôtes & Hôtesses d'Accueil Événementiel",
+      "company": "Partenaire Événements OCD",
+      "location": "Abidjan",
+      "contractType": "Casting / Tournage",
+      "category": "Événementiel & Accueil",
+      "remuneration": "Rémunération forfaitaire par événement",
+      "postedDate": "Cette semaine",
+      "deadline": "15 Décembre 2026",
+      "description": "Pour les grands sommets et conférences retransmis en direct, nous constituons notre vivier d'accueil pour l'orientation des intervenants VIP, la distribution des badges et l'assistance en salle.",
+      "requirements": [
+        "Excellente élocution et présentation soignée",
+        "Sens aigu du service et diplomatie",
+        "Bilinguisme Français/Anglais apprécié"
+      ]
+    }
+  ],
+  "applicants": [
+    {
+      "id": "app-001",
+      "opportunityId": "opp-01",
+      "opportunityRole": "Cadreur / Opérateur Caméra Mobile",
+      "fullName": "Yao Boris",
+      "email": "yao.boris.media@gmail.com",
+      "phone": "+225 07 11 22 33 44",
+      "portfolioUrl": "https://instagram.com/boris_cameraman",
+      "motivation": "Je suis le mouvement #OCD depuis le début avec Bovan. J'ai 3 ans d'expérience sur Sony FX3 et Ronin RS3. Je veux aller sur le terrain avec vous !",
+      "status": "ENTRETIEN",
+      "createdAt": "2026-11-07T14:10:00Z"
+    },
+    {
+      "id": "app-002",
+      "opportunityId": "opp-02",
+      "opportunityRole": "Technicien Régie Streaming & VMix",
+      "fullName": "Aminata Koné",
+      "email": "aminata.kone99@yahoo.fr",
+      "phone": "+225 05 99 88 77 66",
+      "portfolioUrl": "https://github.com/aminata-stream",
+      "motivation": "Passionnée de diffusion web et réseaux IP (SRT, RTMP, NDI). J'ai configuré plusieurs régies hybrides à Abidjan.",
+      "status": "NOUVEAU",
+      "createdAt": "2026-11-08T08:30:00Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "sommet-afrique-finance",
+      "slug": "sommet-afrique-finance-2026",
+      "title": "Sommet Afrique & Finance 2026",
+      "category": "Conference",
+      "client": "Banque Panafricaine de Développement",
+      "year": "2026",
+      "summary": "Captation multicaméra 6 flux, retransmission hybride bilingue et sonorisation pour 1 200 délégués.",
+      "description": "OCD Live a été missionné pour orchestrer l'intégralité de la couverture audiovisuelle du Sommet Afrique Finance. Avec plus de 1 200 participants sur place et 25 000 spectateurs en ligne, notre dispositif a garanti une retransmission bilingue sans faille.",
+      "image": "/images/studio-hero.png",
+      "metrics": [
+        {
+          "label": "Spectateurs en direct",
+          "value": "28 500+"
+        },
+        {
+          "label": "Caméras déployées",
+          "value": "6 flux 4K"
+        },
+        {
+          "label": "Délégués en salle",
+          "value": "1 200+"
+        },
+        {
+          "label": "Retransmission live",
+          "value": "100% bilingue"
+        }
+      ],
+      "deliverables": [
+        "Flux live bilingue diffusé en simultané",
+        "42 capsules thématiques extraites des panels",
+        "Aftermovie officiel projeté lors du dîner de clôture"
+      ],
+      "techSetup": [
+        "Régie mobile 8 entrées 4K",
+        "Starlink Business + Bonding 5G",
+        "Interprétation simultanée sans fil"
+      ]
+    },
+    {
+      "id": "plateau-talk-tech-africa",
+      "slug": "plateau-talk-tech-africa",
+      "title": "Tech Horizon Africa — Saison 2",
+      "category": "Plateau",
+      "client": "Africa Innovate Media",
+      "year": "2026",
+      "summary": "Série de 12 épisodes enregistrés dans le studio OCD Live avec habillage graphique interactif.",
+      "description": "Dans notre studio à la scénographie contemporaine valorisant les contours du continent africain, nous avons accueilli la production de la série Tech Horizon Africa. Un workflow rapide a permis la mise en ligne des épisodes en moins de 48h après chaque tournage.",
+      "image": "/images/studio-light.png",
+      "metrics": [
+        {
+          "label": "Épisodes produits",
+          "value": "12 épisodes"
+        },
+        {
+          "label": "Vues cumulées",
+          "value": "450 000+"
+        },
+        {
+          "label": "Délai de livraison",
+          "value": "48h / master"
+        },
+        {
+          "label": "Caméras robotisées",
+          "value": "3 tourelles 4K"
+        }
+      ],
+      "deliverables": [
+        "12 épisodes de 35 minutes au format 16:9",
+        "60 extraits au format vertical 9:16 avec sous-titres dynamiques",
+        "Packaging graphique complet (intro, outro, synthés)"
+      ],
+      "techSetup": [
+        "3 caméras tourelles PTZ 4K robotisées",
+        "Micros Shure SM7B avec préamplis de broadcast",
+        "Éclairage zénithal et contre-jours d'ambiance"
+      ]
+    },
+    {
+      "id": "forum-energies-durables",
+      "slug": "forum-international-energies-durables",
+      "title": "Forum International des Énergies",
+      "category": "Corporate",
+      "client": "Consortium Énergétique Africain",
+      "year": "2025",
+      "summary": "Captation plénière, régie mobile pour 3 salles en simultané et production d'un documentaire récapitulatif.",
+      "description": "Couverture technique complète sur 3 jours consécutifs, incluant la retransmission sur écran géant extérieur et la gestion de 18 duplex internationaux en visioconférence.",
+      "image": "/images/hero-cameraman.png",
+      "metrics": [
+        {
+          "label": "Salles en parallèle",
+          "value": "3 régies"
+        },
+        {
+          "label": "Audience globale",
+          "value": "42 000+"
+        },
+        {
+          "label": "Intervenants en duplex",
+          "value": "18 duplex"
+        },
+        {
+          "label": "Disponibilité du flux",
+          "value": "99.98% uptime"
+        }
+      ],
+      "deliverables": [
+        "Captation intégrale des 3 salles de conférence",
+        "Documentaire institutionnel de 15 minutes",
+        "Vignettes instantanées pour les réseaux sociaux"
+      ],
+      "techSetup": [
+        "Ponts réseau fibre optique dédiés",
+        "Grue de 7 mètres avec tête motorisée",
+        "Mélangeur vidéo avec incrustation PiP"
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": "art-1",
+      "slug": "reussir-la-captation-live-de-votre-conference",
+      "title": "5 clés indispensables pour réussir la captation en direct de votre événement",
+      "category": "Conseils techniques",
+      "date": "4 Novembre 2026",
+      "readTime": "4 min de lecture",
+      "excerpt": "Du repérage technique de la salle à la redondance de la connexion internet, découvrez les règles d'or pour un streaming sans accroc.",
+      "content": "Organiser un événement en direct ne laisse aucune place à l'improvisation. La captation multicaméra exige une préparation minutieuse : l'acoustique de la salle, l'éclairage de la tribune, l'intégration des présentations PowerPoint et surtout la redondance du réseau de transmission. Chez OCD Live, nous combinons liaisons satellitaires et agrégation 5G pour éliminer tout risque de coupure.",
+      "image": "/images/studio-hero.png"
+    },
+    {
+      "id": "art-2",
+      "slug": "inauguration-du-nouveau-plateau-ocd-live",
+      "title": "Découvrez notre nouveau plateau studio moderne dédié aux créateurs et entreprises",
+      "category": "Actualités OCD",
+      "date": "28 Octobre 2026",
+      "readTime": "3 min de lecture",
+      "excerpt": "Pensé pour les podcasts vidéo, talk-shows et interviews corporate, notre nouveau studio allie acoustique feutrée et identité visuelle affirmée.",
+      "content": "OCD Live franchit une nouvelle étape avec l'ouverture de son studio de pointe. Arborant une scénographie soignée intégrant un motif continental rétro-éclairé et des équipements de prise de vue 4K ultra-précis, ce lieu est taillé pour produire des contenus de niveau international.",
+      "image": "/images/studio-light.png"
+    }
+  ],
+  "bovanVideos": [
+    {
+      "id": "bovan-main",
+      "title": "Pourquoi ta chambre ne va jamais te nourrir : Sortir ou subir",
+      "duration": "16:42",
+      "views": "640K vues",
+      "badge": "VIDÉO MAÎTRESSE · MANIFESTE DU TERRAIN",
+      "thumbnail": "/images/bovan-dg.jpg",
+      "description": "Dans cette prise de parole percutante, Bovan s'adresse les yeux dans les yeux à la jeunesse : l'attente passive et les diplômes au placard ne paient aucune facture. Découvrez la philosophie brute d'OCD — Opportunités C'est Dehors.",
+      "youtubeUrl": "https://youtube.com/@ocdlive",
+      "isMain": true
+    },
+    {
+      "id": "bovan-v2",
+      "title": "Les 3 lois du dehors : Comment un jeune sans capital peut s'imposer",
+      "duration": "12:15",
+      "views": "420K vues",
+      "badge": "CONSEILS & ACTION",
+      "thumbnail": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&auto=format&fit=crop&q=85",
+      "description": "Conseils stratégiques pour débuter avec zéro franc, construire sa crédibilité sur le terrain et forcer les portes du succès sans attendre la permission de personne.",
+      "youtubeUrl": "https://youtube.com/@ocdlive"
+    },
+    {
+      "id": "bovan-v3",
+      "title": "Immersion Régie OCD Live : On filme les vrais bâtisseurs de l'Afrique",
+      "duration": "09:30",
+      "views": "290K vues",
+      "badge": "REPORTAGE EN DIRECT",
+      "thumbnail": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200&auto=format&fit=crop&q=85",
+      "description": "Caméras 4K et régies mobiles déployées sur les marchés, les chantiers et les sommets : la démonstration de force technique au service des talents de chez nous.",
+      "youtubeUrl": "https://youtube.com/@ocdlive"
+    }
+  ],
+  "youthPhotos": [
+    {
+      "id": "youth-1",
+      "title": "Artisans & Monteurs de Structures Scéniques",
+      "role": "Scénographie & Régie Terrain",
+      "location": "Koumassi, Abidjan",
+      "hashtag": "#UnOCDNeLacheRien",
+      "image": "/images/studio-team.jpg"
+    },
+    {
+      "id": "youth-2",
+      "title": "Cadreurs & Opérateurs Caméra Broadcast",
+      "role": "Prise de Vue & Réalisation Direct",
+      "location": "Plateau, Abidjan",
+      "hashtag": "#GénérationOCD",
+      "image": "/images/hero-cameraman.png"
+    },
+    {
+      "id": "youth-3",
+      "title": "Créatrices & Entrepreneures Street Food / Catering",
+      "role": "Entrepreneuriat Culinaire de Terrain",
+      "location": "Cocody, Abidjan",
+      "hashtag": "#LesOpportunitesCestDehors",
+      "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=85"
+    },
+    {
+      "id": "youth-4",
+      "title": "Jeunes Bâtisseurs & Techniciens Plateau",
+      "role": "Installation Régie & Lumière Studio",
+      "location": "Marcory, Abidjan",
+      "hashtag": "#OpportunitésCestDehors",
+      "image": "/images/studio-brand.png"
+    }
+  ],
+  "settings": {
+    "companyName": "OCD Live",
+    "phone": "+225 07 00 00 00 00",
+    "email": "contact@ocdlive.com",
+    "address": "Studio OCD Live, Abidjan, Côte d'Ivoire",
+    "maxLivesPerDay": 4,
+    "baseHourlyRateFcfa": 150000
+  }
+}

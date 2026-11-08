@@ -21,6 +21,14 @@ La plateforme allie exigence télévisuelle broadcast 4K et engagement de terrai
 - **Section Mouvement & Communauté #OCD** : Vitrine grand format des vidéos du PDG Bovan et galerie photographique des jeunes bâtisseurs sur le terrain.
 - **Portfolio Réalisations 4K** : Fiches projets détaillées avec indicateurs KPI en grille équilibrée, dispositif technique, livrables et contact direct.
 
+- **Console Régie & Administration (`/admin`)** :
+  - *Tableau de bord régie en direct* : Contrôle du flux (`EN DIRECT` / `HORS LIGNE`), plateforme, titre et spectateurs connectés en temps réel.
+  - *Gestionnaire des Devis & Réservations* : Suivi commercial des demandes entrantes avec bouton de contact direct WhatsApp (`https://wa.me/...`).
+  - *Mouvement #OCD & Recrutement* : Publication des opportunités terrain et suivi des candidatures des jeunes talents.
+  - *Gestionnaire de Portfolio & Actualités* : Création et publication de réalisations et d'articles de presse.
+  - *Gestionnaire Vidéos Bovan & Galerie* : Pilotage des masterclass en vedette sur l'accueil.
+  - *Accès sécurisé* : Authentification administrateur via `/admin/login` (`admin@ocdlive.ci` / `Bovan2026!`).
+
 ---
 
 ## 🛠️ Stack Technique

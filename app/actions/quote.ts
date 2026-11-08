@@ -1,5 +1,8 @@
 "use server";
 
+import { addReservation } from "@/lib/admin-store";
+import { PRICING_OFFERS } from "@/lib/data";
+
 export interface QuoteActionState {
   success: boolean;
   message: string;
@@ -70,26 +73,31 @@ export async function submitQuoteAction(
     };
   }
 
-  // Generate reference number for the booking
-  const reservationRef = `OCD-${Date.now().toString().slice(-6)}`;
+  // Calculate estimated budget from offer
+  const matchedOffer = PRICING_OFFERS.find((o) => o.id === selectedOffer);
+  const budgetEstimated = matchedOffer ? matchedOffer.rawPrice : 250000;
 
-  // Log complete reservation for the admin
-  console.log("=================================================");
-  console.log("=== NOUVELLE RÉSERVATION DE LIVE OCD LIVE ===");
-  console.log("RÉFÉRENCE :", reservationRef);
-  console.log("Date de réception :", new Date().toISOString());
-  console.log("Offre sélectionnée :", selectedOffer);
-  console.log("Format du live :", liveFormat);
-  console.log("Date souhaitée :", eventDate);
-  console.log("Créneau horaire :", selectedSlot);
-  console.log("Nom du contact :", fullName);
-  console.log("Organisation :", organization);
-  console.log("Email :", email);
-  console.log("Téléphone :", phone);
-  console.log("Lieu :", eventLocation || "Studio OCD Live");
-  console.log("Description du projet :", message);
-  console.log("Statut : EN ATTENTE DE VALIDATION PAR L'ADMINISTRATEUR (Max 4/jour)");
-  console.log("=================================================");
+  // Persist reservation into admin store
+  let reservationRef = `OCD-${Date.now().toString().slice(-6)}`;
+  try {
+    const saved = await addReservation({
+      fullName: fullName || "Client OCD Live",
+      organization,
+      email: email || "",
+      phone: phone || "",
+      selectedOffer,
+      liveFormat,
+      eventDate,
+      selectedSlot,
+      eventLocation: eventLocation || "Studio OCD Live Marcory",
+      message: message || "",
+      budgetEstimated,
+      internalNotes: `Créneau sélectionné : ${selectedSlot}. Demande en attente de vérification quota (4 lives/jour max).`,
+    });
+    reservationRef = saved.ref;
+  } catch (err) {
+    console.error("Failed to save reservation to admin store:", err);
+  }
 
   return {
     success: true,

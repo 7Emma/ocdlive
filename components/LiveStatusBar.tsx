@@ -1,18 +1,60 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { YoutubeIcon, FacebookIcon } from "@/components/SocialIcons";
+import { YoutubeIcon } from "@/components/SocialIcons";
 import { Radio, Sparkles } from "lucide-react";
 
+interface LiveState {
+  isLive: boolean;
+  streamTitle: string;
+  platform: string;
+  streamUrl: string;
+  viewersCount: number;
+  channelName: string;
+}
+
+const DEFAULT_STATE: LiveState = {
+  isLive: true,
+  streamTitle: "Direct Régie OCD Live · Plateau Talk-Show #LesOpportunitesCestDehors",
+  platform: "youtube",
+  streamUrl: "https://www.youtube.com/@BovannYT/live",
+  viewersCount: 1420,
+  channelName: "@BovannYT",
+};
+
 export default function LiveStatusBar() {
-  // Mode en direct (activé par défaut pour la démo, commutable en un clic)
-  const [isLive, setIsLive] = useState(true);
+  const [live, setLive] = useState<LiveState>(DEFAULT_STATE);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchLiveStatus() {
+      try {
+        const res = await fetch("/api/live-status", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted) {
+            setLive(data);
+          }
+        }
+      } catch {
+        // Fallback silently to default state
+      }
+    }
+
+    fetchLiveStatus();
+    const interval = setInterval(fetchLiveStatus, 15000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <aside className="live-status-bar" aria-label="Statut de diffusion en direct">
       <div className="nav-container live-status-container">
-        {isLive ? (
+        {live.isLive ? (
           /* =========================================================================
              1. ÉTAT ACTIF : LIVE EN COURS
           ========================================================================= */
@@ -23,30 +65,30 @@ export default function LiveStatusBar() {
                 EN DIRECT MAINTENANT
               </span>
               <span className="live-stream-title">
-                <strong>Plateau Tech Horizon Africa</strong> · Émission spéciale en direct d&apos;Abidjan
+                <strong>{live.streamTitle}</strong>
               </span>
             </div>
 
             <div className="live-actions-group">
               <span className="live-viewers-count">
                 <Radio className="w-3.5 h-3.5 text-[#f36b0b] animate-pulse" />
-                <span>1 850 connectés</span>
+                <span>{live.viewersCount.toLocaleString("fr-FR")} connectés</span>
               </span>
 
               <div className="live-channels">
                 <a
-                  href="https://youtube.com"
+                  href={live.streamUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="live-channel-pill yt"
-                  title="Suivre en direct sur YouTube"
+                  title={`Suivre en direct sur ${live.platform}`}
                 >
                   <YoutubeIcon className="w-3.5 h-3.5" />
-                  <span>YouTube ↗</span>
+                  <span style={{ textTransform: "capitalize" }}>{live.platform} ↗</span>
                 </a>
 
                 <a
-                  href="https://tiktok.com"
+                  href="https://tiktok.com/@bovan_officiel"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="live-channel-pill tt"
@@ -54,28 +96,7 @@ export default function LiveStatusBar() {
                 >
                   <span>TikTok ↗</span>
                 </a>
-
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="live-channel-pill fb"
-                  title="Suivre en direct sur Facebook"
-                >
-                  <FacebookIcon className="w-3.5 h-3.5" />
-                  <span>Facebook ↗</span>
-                </a>
               </div>
-
-              {/* Bouton pour tester l'état hors antenne */}
-              <button
-                type="button"
-                className="live-state-toggle"
-                onClick={() => setIsLive(false)}
-                title="Basculer vers l'état Hors Antenne pour tester"
-              >
-                Tester Hors Antenne
-              </button>
             </div>
           </div>
         ) : (
@@ -89,7 +110,7 @@ export default function LiveStatusBar() {
                 RÉGIE MOBILE DISPONIBLE
               </span>
               <span className="live-idle-text">
-                Prochain direct aujourd&apos;hui à <strong>17h00</strong> (Créneau 4/4) · <em>Capacité stricte : 4 lives/jour max</em>
+                Prochain direct aujourd&apos;hui à <strong>19h00 GMT</strong> · <em>Capacité stricte : 4 lives/jour max</em>
               </span>
             </div>
 
@@ -98,16 +119,6 @@ export default function LiveStatusBar() {
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Réserver un créneau direct →</span>
               </Link>
-
-              {/* Bouton pour réactiver le direct */}
-              <button
-                type="button"
-                className="live-state-toggle active"
-                onClick={() => setIsLive(true)}
-                title="Basculer vers l'état En Direct"
-              >
-                Simuler le Live 🔴
-              </button>
             </div>
           </div>
         )}
