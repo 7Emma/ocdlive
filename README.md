@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OCD Live — « Opportunités C'est Dehors »
 
-## Getting Started
+> **« Les opportunités, c'est dehors. On ne réussit pas enfermé dans sa chambre. »**  
+> Plateforme officielle d'**OCD Live**, le média, studio et régie mobile broadcast fondé pour propulser ceux qui entreprennent, créent et bâtissent sur le terrain.
 
-First, run the development server:
+---
+
+## 🚀 À Propos d'OCD Live
+
+**OCD Live** est l'infrastructure audiovisuelle du mouvement **#LesOpportunitesCestDehors**, initié par le créateur et entrepreneur **Bovan**. 
+
+La plateforme allie exigence télévisuelle broadcast 4K et engagement de terrain pour couvrir les sommets, conférences, émissions de plateau, masterclasses et initiatives de la jeunesse africaine.
+
+### 🌟 Fonctionnalités Clés
+- **Bandeau Broadcast Live Temps Réel** : Indicateur de diffusion en direct (`🔴 EN DIRECT MAINTENANT` / `⚪ HORS ANTENNE`) avec redirection directe en 1 clic vers les flux YouTube, TikTok et Facebook Live.
+- **Les 2 Formats de Live Innovants** :
+  - *Les Lives en Présentiel (« Immersion Terrain »)* : Régie mobile autonome tout-terrain (satellite Starlink Business + bonding 4G/5G multi-opérateurs), cadreurs mobiles stabilisés Ronin, et clipping viral instantané sous 30 min.
+  - *Les Lives à Distance (« Hub Connecté Mondial »)* : Duplex multi-villes à très faible latence (<0.5s), simulcast simultané en 16:9 paysage et 9:16 vertical natif (TikTok), chat 3D incrusté et mastering DSP Dante.
+- **Règle d'Exigence : 4 Lives par Jour Maximum** : Quota quotidien strict pour accorder une attention technique intégrale à chaque événement.
+- **Module de Réservation & Cadrage Technique en 4 Étapes** : Sélection du pack, configuration du format, planification du créneau horaire et confirmation des coordonnées.
+- **Section Mouvement & Communauté #OCD** : Vitrine grand format des vidéos du PDG Bovan et galerie photographique des jeunes bâtisseurs sur le terrain.
+- **Portfolio Réalisations 4K** : Fiches projets détaillées avec indicateurs KPI en grille équilibrée, dispositif technique, livrables et contact direct.
+
+---
+
+## 🛠️ Stack Technique
+
+- **Framework** : [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- **Bibliothèque UI** : [React 19](https://react.dev)
+- **Typage** : [TypeScript](https://www.typescriptlang.org)
+- **Styles** : [Tailwind CSS v4](https://tailwindcss.com) & CSS custom
+- **Icônes** : [Lucide React](https://lucide.dev)
+
+---
+
+## 💻 Démarrage Local
+
+Installez les dépendances et lancez le serveur de développement :
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pour générer le build de production :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 👥 Équipe & Direction
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Direction Générale** : Bovan — Directeur Général d'OCD Live
+- **Siège & Plateau** : Studio OCD Live, Abidjan, Côte d'Ivoire
+- **Contact** : [contact@ocdlive.com](mailto:contact@ocdlive.com)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 **OCD Live**. Tous droits réservés.
