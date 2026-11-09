@@ -82,24 +82,25 @@ export default function BovanCommunitySection() {
 
               <div style={{ display: "flex", alignItems: "center", gap: "14px", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <img
-                  src="/images/bovann-pdg.jpg"
-                  alt="Bovann PDG OCD Live"
+                  src="/images/bovann-avatar.jpg"
+                  alt="Bovann — PDG & Fondateur OCD Live"
                   style={{
-                    width: "56px",
-                    height: "56px",
+                    width: "60px",
+                    height: "60px",
                     borderRadius: "50%",
                     objectFit: "cover",
+                    objectPosition: "center",
                     border: "2px solid var(--orange)",
-                    boxShadow: "0 0 15px rgba(243, 107, 11, 0.4)",
+                    boxShadow: "0 0 20px rgba(243, 107, 11, 0.45)",
                     flexShrink: 0,
                   }}
                 />
                 <div>
-                  <strong style={{ display: "block", color: "#fff", fontSize: "14px" }}>
+                  <strong style={{ display: "block", color: "#fff", fontSize: "15px", letterSpacing: "-0.2px" }}>
                     Bovann
                   </strong>
-                  <small style={{ color: "var(--orange)", fontSize: "11px", fontWeight: 700 }}>
-                    PDG & Initiateur du Mouvement #LesOpportunitesCestDehors
+                  <small style={{ color: "var(--orange)", fontSize: "11px", fontWeight: 700, display: "block", marginTop: "2px" }}>
+                    ★ PDG d'OCD Live & Initiateur du Mouvement #LesOpportunitesCestDehors
                   </small>
                 </div>
               </div>

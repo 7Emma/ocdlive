@@ -127,6 +127,7 @@ export default function AboutPage() {
               alt="Bovann — Fondateur & PDG d'OCD Live"
               fill
               className="object-cover"
+              style={{ objectPosition: "center 18%" }}
               priority
             />
             <span

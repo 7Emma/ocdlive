@@ -141,12 +141,13 @@ export const COMPANY_INFO = {
     twitter: "https://x.com/ocdlive",
   },
   dg: {
-    name: "Bovan",
-    role: "Directeur Général d'OCD Live",
-    photo: "/images/bovan-dg.jpg",
+    name: "Bovann",
+    role: "PDG & Fondateur d'OCD Live",
+    photo: "/images/bovann-pdg.jpg",
+    avatar: "/images/bovann-avatar.jpg",
     quote:
       "Nous n'avons pas créé OCD Live pour faire de la vidéo de plus. Nous l'avons créé pour que la jeunesse et les bâtisseurs de ce continent arrêtent d'attendre dans leur chambre et prennent la parole dehors. Quand vous sortez, nous mettons nos caméras et nos régies au service de votre voix.",
-    quoteStatus: "Fondateur du mouvement #LesOpportunitesCestDehors",
+    quoteStatus: "PDG d'OCD Live & Initiateur du mouvement #LesOpportunitesCestDehors",
   },
   capacity: {
     maxLivesPerDay: 4,

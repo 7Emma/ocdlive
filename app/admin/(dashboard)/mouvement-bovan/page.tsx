@@ -12,13 +12,26 @@ export default async function AdminMouvementBovanPage() {
   return (
     <div>
       {/* Header */}
-      <div style={{ marginBottom: "28px" }}>
-        <h1 style={{ fontSize: "24px", fontWeight: "900", marginBottom: "6px" }}>
-          Vidéos PDG Bovan & Galerie du Mouvement #OCD
-        </h1>
-        <p style={{ fontSize: "14px", color: "var(--adm-text-muted)" }}>
-          Pilotez les masterclass de Bovan et la vitrine des jeunes bâtisseurs sur la page d'accueil.
-        </p>
+      <div style={{ marginBottom: "28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+        <div>
+          <h1 style={{ fontSize: "24px", fontWeight: "900", marginBottom: "6px" }}>
+            Vidéos PDG Bovann & Galerie du Mouvement #OCD
+          </h1>
+          <p style={{ fontSize: "14px", color: "var(--adm-text-muted)" }}>
+            Pilotez les masterclass de Bovann et la vitrine des jeunes bâtisseurs sur la page d'accueil.
+          </p>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "rgba(243, 107, 11, 0.08)", border: "1px solid rgba(243, 107, 11, 0.3)", padding: "6px 14px 6px 8px", borderRadius: "50px" }}>
+          <img
+            src="/images/bovann-avatar.jpg"
+            alt="Bovann PDG"
+            style={{ width: "38px", height: "38px", borderRadius: "50%", objectFit: "cover", border: "2px solid var(--adm-primary)" }}
+          />
+          <div>
+            <div style={{ fontSize: "13px", fontWeight: 800, color: "var(--adm-text-bright)" }}>Bovann</div>
+            <div style={{ fontSize: "10px", color: "var(--adm-primary)", fontWeight: 700 }}>PDG & Fondateur OCD</div>
+          </div>
+        </div>
       </div>
 
       {/* Videos Section */}
