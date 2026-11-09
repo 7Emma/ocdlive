@@ -13,18 +13,13 @@ import {
   LogOut,
 } from "lucide-react";
 import { verifyAdminSession, getAdminUser } from "@/lib/auth";
-import {
-  getLiveBroadcast,
-  getReservations,
-  getAdminStore,
-} from "@/lib/admin-store";
+import { getLiveBroadcast, getReservations, getAdminStore } from "@/lib/admin-store";
 import { logoutAction } from "@/app/actions/auth";
 import "../admin.css";
 
 export const metadata = {
   title: "Console Régie & Administration | OCD Live",
-  description:
-    "Espace de gestion des lives, réservations, opportunités et contenus d'OCD Live.",
+  description: "Espace de gestion des lives, réservations, opportunités et contenus d'OCD Live.",
   robots: { index: false, follow: false },
 };
 
@@ -45,12 +40,8 @@ export default async function AdminDashboardLayout({
   const reservations = await getReservations();
   const store = await getAdminStore();
 
-  const newReservationsCount = reservations.filter(
-    (r) => r.status === "NOUVEAU",
-  ).length;
-  const newApplicantsCount = store.applicants.filter(
-    (a) => a.status === "NOUVEAU",
-  ).length;
+  const newReservationsCount = reservations.filter((r) => r.status === "NOUVEAU").length;
+  const newApplicantsCount = store.applicants.filter((a) => a.status === "NOUVEAU").length;
 
   return (
     <div className="admin-layout">
@@ -69,18 +60,10 @@ export default async function AdminDashboardLayout({
         {/* Live Broadcast Indicator */}
         <div className="admin-sidebar-monitor">
           <div>
-            <div
-              style={{
-                fontSize: "11px",
-                color: "var(--adm-text-muted)",
-                marginBottom: "2px",
-              }}
-            >
+            <div style={{ fontSize: "11px", color: "var(--adm-text-muted)", marginBottom: "2px" }}>
               Signal Sortant
             </div>
-            <div
-              className={`monitor-status-pill ${live.isLive ? "is-live" : "is-offline"}`}
-            >
+            <div className={`monitor-status-pill ${live.isLive ? "is-live" : "is-offline"}`}>
               {live.isLive ? (
                 <>
                   <span className="pulsing-dot" />
@@ -195,21 +178,13 @@ export default async function AdminDashboardLayout({
             <div className="admin-user-info">
               <div className="admin-user-avatar">BV</div>
               <div>
-                <div className="admin-user-name">
-                  {user?.name || "Bovan (Direction)"}
-                </div>
-                <div className="admin-user-role">
-                  {user?.role || "Régie Master"}
-                </div>
+                <div className="admin-user-name">{user?.name || "Bovan (Direction)"}</div>
+                <div className="admin-user-role">{user?.role || "Régie Master"}</div>
               </div>
             </div>
 
             <form action={logoutAction}>
-              <button
-                type="submit"
-                className="admin-logout-btn"
-                title="Se déconnecter"
-              >
+              <button type="submit" className="admin-logout-btn" title="Se déconnecter">
                 <LogOut size={18} />
               </button>
             </form>
@@ -224,10 +199,7 @@ export default async function AdminDashboardLayout({
           <div className="admin-topbar-left">
             <div className="admin-quota-chip">
               <span className="quota-indicator" />
-              <span>
-                Règle d'or : <strong>Max 4 lives / jour</strong> (Qualité
-                garantie)
-              </span>
+              <span>Règle d'or : <strong>Max 4 lives / jour</strong> (Qualité garantie)</span>
             </div>
           </div>
 
