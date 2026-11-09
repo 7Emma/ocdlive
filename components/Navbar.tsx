@@ -8,6 +8,7 @@ import { WHATSAPP_RESERVATION_URL } from "@/lib/data";
 
 const NAV_LINKS = [
   { href: "/", label: "Accueil" },
+  { href: "/vendeurs-live", label: "🔴 Vendeurs en Live" },
   { href: "/a-propos", label: "À propos" },
   { href: "/services", label: "Nos services" },
   { href: "/tarifs", label: "Tarifs & Packs" },

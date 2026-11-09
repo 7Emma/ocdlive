@@ -4,6 +4,8 @@ import {
   PRICING_OFFERS,
   WHATSAPP_RESERVATION_URL,
   getWhatsAppReservationUrl,
+  SEED_VENDOR_LIVES,
+  PANAFRICAN_COUNTRIES,
 } from "@/lib/data";
 import ScrollToTop from "@/components/ScrollToTop";
 import BovanCommunitySection from "@/components/BovanCommunitySection";
@@ -472,6 +474,184 @@ export default function Home() {
 
       {/* 5. GÉNÉRATION OCD — LE MOUVEMENT DU TERRAIN */}
       <BovanCommunitySection />
+
+      {/* 5-BIS. LE HUB PANAFRICAIN — LES VENDEURS EN DIRECT EN AFRIQUE */}
+      <section
+        className="section"
+        style={{
+          background: "linear-gradient(180deg, #0a0a0c 0%, #111114 100%)",
+          borderTop: "1px solid var(--line)",
+          borderBottom: "1px solid var(--line)",
+          padding: "85px 0",
+        }}
+      >
+        <div className="container">
+          <div className="section-head" style={{ marginBottom: "28px" }}>
+            <div>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  color: "#ff3333",
+                  fontSize: "12px",
+                  fontWeight: 900,
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  marginBottom: "8px",
+                }}
+              >
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "#ff2222",
+                    boxShadow: "0 0 10px #ff2222",
+                  }}
+                />
+                HUB DU COMMERCE EN DIRECT · AFRIQUE
+              </div>
+              <h2 style={{ fontSize: "clamp(26px, 3.5vw, 42px)", margin: "0 0 10px" }}>
+                En ce moment en direct : <em>les vendeurs #OCD.</em>
+              </h2>
+              <p style={{ maxWidth: "680px", color: "var(--muted)", margin: 0 }}>
+                Au Cameroun, au Bénin, au Togo, en Côte d'Ivoire... découvrez qui vend en temps réel sur TikTok, Facebook et Instagram. Achetez en direct et soutenez la jeunesse battante !
+              </p>
+            </div>
+            <Link className="btn orange" href="/vendeurs-live">
+              Explorer tous les lives par pays →
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+              gap: "20px",
+            }}
+          >
+            {SEED_VENDOR_LIVES.slice(0, 3).map((live) => {
+              const country = PANAFRICAN_COUNTRIES.find((c) => c.code === live.country);
+              const cleanWa = live.whatsapp.replace(/\D/g, "");
+              const orderMsg = encodeURIComponent(
+                `Bonjour ${live.vendorName} ! J'ai vu votre vente en direct sur OCD Live ("${live.title}"). Quels sont les articles disponibles ? Merci !`
+              );
+              return (
+                <article
+                  key={live.id}
+                  style={{
+                    background: "#141416",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    borderRadius: "18px",
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div style={{ position: "relative", height: "170px", width: "100%" }}>
+                    <img
+                      src={live.thumbnailUrl || "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&auto=format&fit=crop&q=80"}
+                      alt={live.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        left: "10px",
+                        background: "#ff2222",
+                        color: "#fff",
+                        fontSize: "10px",
+                        fontWeight: 900,
+                        padding: "3px 8px",
+                        borderRadius: "50px",
+                      }}
+                    >
+                      ● EN DIRECT
+                    </span>
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "10px",
+                        left: "10px",
+                        background: "rgba(0,0,0,0.85)",
+                        backdropFilter: "blur(6px)",
+                        border: "1px solid rgba(243, 107, 11, 0.4)",
+                        color: "#fff",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        padding: "3px 10px",
+                        borderRadius: "50px",
+                      }}
+                    >
+                      {country?.flag} {live.city}
+                    </span>
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        background: "rgba(0,0,0,0.8)",
+                        color: "#fff",
+                        fontSize: "10.5px",
+                        fontWeight: 800,
+                        padding: "3px 8px",
+                        borderRadius: "50px",
+                      }}
+                    >
+                      {live.platform.toUpperCase()}
+                    </span>
+                  </div>
+
+                  <div style={{ padding: "18px", display: "flex", flexDirection: "column", gap: "10px", flex: 1 }}>
+                    <div style={{ fontSize: "11px", color: "var(--orange)", fontWeight: 800, textTransform: "uppercase" }}>
+                      Boutique : {live.vendorName}
+                    </div>
+                    <h3 style={{ fontSize: "15px", color: "#fff", margin: 0, lineHeight: 1.35, fontWeight: 800 }}>
+                      {live.title}
+                    </h3>
+                    <p style={{ fontSize: "12px", color: "#aaa", margin: 0, lineHeight: 1.45 }}>
+                      {live.productHighlights}
+                    </p>
+
+                    <div style={{ display: "flex", gap: "8px", marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                      <a
+                        href={live.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn orange"
+                        style={{ flex: 1, padding: "8px 10px", fontSize: "12px", justifyContent: "center" }}
+                      >
+                        Regarder le Live ↗
+                      </a>
+                      <a
+                        href={`https://wa.me/${cleanWa}?text=${orderMsg}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          background: "#25d366",
+                          color: "#08210f",
+                          fontWeight: 800,
+                          fontSize: "12px",
+                          borderRadius: "50px",
+                          padding: "8px 12px",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          textDecoration: "none",
+                        }}
+                      >
+                        WhatsApp ↗
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* 6. LE PORTFOLIO & LES RÉALISATIONS */}
       <section className="section work" id="work">

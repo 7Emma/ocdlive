@@ -56,7 +56,10 @@ export default function ContactPage() {
             "linear-gradient(90deg, #090909 20%, rgba(9, 9, 9, 0.88) 60%, rgba(9, 9, 9, 0.4)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=1800&auto=format&fit=crop&q=80') center/cover no-repeat",
         }}
       >
-        <div className="container" style={{ paddingTop: "50px", paddingBottom: "40px" }}>
+        <div
+          className="container"
+          style={{ paddingTop: "50px", paddingBottom: "40px" }}
+        >
           <div
             style={{
               fontSize: "11px",
@@ -99,14 +102,18 @@ export default function ContactPage() {
               margin: 0,
             }}
           >
-            Une question technique, un partenariat stratégique, une demande institutionnelle
-            ou une visite de notre plateau ? Nos équipes sont à votre entière disposition.
+            Une question technique, un partenariat stratégique, une demande
+            institutionnelle ou une visite de notre plateau ? Nos équipes sont à
+            votre entière disposition.
           </p>
         </div>
       </section>
 
       {/* BANDEAU PASSERELLE VERS LA RÉSERVATION */}
-      <section className="container" style={{ marginTop: "40px", marginBottom: "40px" }}>
+      <section
+        className="container"
+        style={{ marginTop: "40px", marginBottom: "40px" }}
+      >
         <div
           style={{
             background: "linear-gradient(145deg, #1f1610, #13100e)",
@@ -138,7 +145,13 @@ export default function ContactPage() {
               <CalendarCheck2 className="w-6 h-6" />
             </div>
             <div>
-              <h3 style={{ font: "800 16px Manrope, sans-serif", margin: "0 0 4px", color: "#fff" }}>
+              <h3
+                style={{
+                  font: "800 16px Manrope, sans-serif",
+                  margin: "0 0 4px",
+                  color: "#fff",
+                }}
+              >
                 Vous souhaitez réserver un créneau ou commander un pack live ?
               </h3>
               <p style={{ margin: 0, fontSize: "13px", color: "#bbb" }}>
@@ -170,7 +183,9 @@ export default function ContactPage() {
           }}
         >
           {/* COLONNE GAUCHE : COORDONNÉES & INFORMATIONS */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+          >
             <div
               style={{
                 background: "linear-gradient(145deg, #181818, #101010)",
@@ -185,10 +200,18 @@ export default function ContactPage() {
             >
               <div>
                 <label>Plateau & Administration</label>
-                <h2 style={{ font: "800 22px Manrope, sans-serif", margin: "6px 0 4px", color: "#fff" }}>
+                <h2
+                  style={{
+                    font: "800 22px Manrope, sans-serif",
+                    margin: "6px 0 4px",
+                    color: "#fff",
+                  }}
+                >
                   Coordonnées Officielles
                 </h2>
-                <p style={{ color: "var(--muted)", fontSize: "13px", margin: 0 }}>
+                <p
+                  style={{ color: "var(--muted)", fontSize: "13px", margin: 0 }}
+                >
                   Échangez directement avec la régie et la direction d'OCD Live.
                 </p>
               </div>
@@ -204,7 +227,13 @@ export default function ContactPage() {
                 }}
               >
                 {/* Adresse */}
-                <li style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+                <li
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "16px",
+                  }}
+                >
                   <div
                     style={{
                       width: "42px",
@@ -231,17 +260,36 @@ export default function ContactPage() {
                     >
                       Studio & Plateau Central
                     </span>
-                    <span style={{ color: "#fff", fontSize: "14px", fontWeight: 600 }}>
+                    <span
+                      style={{
+                        color: "#fff",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                      }}
+                    >
                       {COMPANY_INFO.address}
                     </span>
-                    <small style={{ display: "block", color: "#888", fontSize: "11px", marginTop: "3px" }}>
+                    <small
+                      style={{
+                        display: "block",
+                        color: "#888",
+                        fontSize: "11px",
+                        marginTop: "3px",
+                      }}
+                    >
                       Interventions mobiles dans tout le Togo & la sous-région
                     </small>
                   </div>
                 </li>
 
                 {/* Téléphone */}
-                <li style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+                <li
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "16px",
+                  }}
+                >
                   <div
                     style={{
                       width: "42px",
@@ -283,7 +331,13 @@ export default function ContactPage() {
                 </li>
 
                 {/* E-mail */}
-                <li style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+                <li
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "16px",
+                  }}
+                >
                   <div
                     style={{
                       width: "42px",
@@ -325,7 +379,13 @@ export default function ContactPage() {
                 </li>
 
                 {/* Horaires */}
-                <li style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+                <li
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "16px",
+                  }}
+                >
                   <div
                     style={{
                       width: "42px",
@@ -352,11 +412,25 @@ export default function ContactPage() {
                     >
                       Disponibilité de la Régie
                     </span>
-                    <span style={{ color: "#fff", fontSize: "14px", fontWeight: 600 }}>
+                    <span
+                      style={{
+                        color: "#fff",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                      }}
+                    >
                       Lundi – Samedi : 08h00 – 20h00
                     </span>
-                    <small style={{ display: "block", color: "#888", fontSize: "11px", marginTop: "3px" }}>
-                      Permanence technique 24/7 sur tournages & événements nocturnes
+                    <small
+                      style={{
+                        display: "block",
+                        color: "#888",
+                        fontSize: "11px",
+                        marginTop: "3px",
+                      }}
+                    >
+                      Permanence technique 24/7 sur tournages & événements
+                      nocturnes
                     </small>
                   </div>
                 </li>
@@ -375,16 +449,32 @@ export default function ContactPage() {
                 gap: "12px",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
                 <Sparkles className="w-5 h-5 text-[#f36b0b]" />
-                <h4 style={{ font: "800 15px Manrope, sans-serif", margin: 0, color: "#fff" }}>
+                <h4
+                  style={{
+                    font: "800 15px Manrope, sans-serif",
+                    margin: 0,
+                    color: "#fff",
+                  }}
+                >
                   La philosophie OCD Live
                 </h4>
               </div>
-              <p style={{ color: "var(--muted)", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
-                « Les opportunités, c'est dehors. » Nous ne sommes pas une agence enfermée
-                derrière des formulaires impersonnels : nos portes sont ouvertes à ceux qui
-                entreprennent, créent et bâtissent.
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "13px",
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                « Les opportunités, c'est dehors. » Nous ne sommes pas une
+                agence enfermée derrière des formulaires impersonnels : nos
+                portes sont ouvertes à ceux qui entreprennent, créent et
+                bâtissent.
               </p>
             </div>
           </div>
@@ -416,12 +506,26 @@ export default function ContactPage() {
                 >
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h2 style={{ font: "800 24px Manrope, sans-serif", color: "#fff", margin: "0 0 10px" }}>
+                <h2
+                  style={{
+                    font: "800 24px Manrope, sans-serif",
+                    color: "#fff",
+                    margin: "0 0 10px",
+                  }}
+                >
                   Message envoyé avec succès !
                 </h2>
-                <p style={{ color: "#ccc", fontSize: "14px", lineHeight: 1.7, margin: "0 0 24px" }}>
-                  Merci <strong>{name}</strong>. Votre message a été directement transmis à la direction
-                  d'OCD Live. Notre équipe reviendra vers vous sous 24 heures ouvrées.
+                <p
+                  style={{
+                    color: "#ccc",
+                    fontSize: "14px",
+                    lineHeight: 1.7,
+                    margin: "0 0 24px",
+                  }}
+                >
+                  Merci <strong>{name}</strong>. Votre message a été directement
+                  transmis à la direction d'OCD Live. Notre équipe reviendra
+                  vers vous sous 24 heures ouvrées.
                 </p>
                 <button
                   type="button"
@@ -438,20 +542,49 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <form
+                onSubmit={handleSubmit}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+              >
                 <div>
                   <label>Formulaire de contact direct</label>
-                  <h2 style={{ font: "800 22px Manrope, sans-serif", margin: "6px 0 4px", color: "#fff" }}>
+                  <h2
+                    style={{
+                      font: "800 22px Manrope, sans-serif",
+                      margin: "6px 0 4px",
+                      color: "#fff",
+                    }}
+                  >
                     Laissez-nous un message
                   </h2>
-                  <p style={{ color: "var(--muted)", fontSize: "13px", margin: 0 }}>
-                    Nous vous répondons rapidement avec une attention personnalisée.
+                  <p
+                    style={{
+                      color: "var(--muted)",
+                      fontSize: "13px",
+                      margin: 0,
+                    }}
+                  >
+                    Nous vous répondons rapidement avec une attention
+                    personnalisée.
                   </p>
                 </div>
 
                 {/* Nom & Entreprise */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <label htmlFor="contact-name" style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <label
+                    htmlFor="contact-name"
+                    style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}
+                  >
                     Nom complet ou Organisation *
                   </label>
                   <input
@@ -475,9 +608,28 @@ export default function ContactPage() {
                 </div>
 
                 {/* Email & Téléphone en grille */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    <label htmlFor="contact-email" style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "16px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    <label
+                      htmlFor="contact-email"
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: "#ddd",
+                      }}
+                    >
                       Adresse e-mail *
                     </label>
                     <input
@@ -500,8 +652,21 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    <label htmlFor="contact-phone" style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    <label
+                      htmlFor="contact-phone"
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: "#ddd",
+                      }}
+                    >
                       Numéro de téléphone
                     </label>
                     <input
@@ -525,8 +690,17 @@ export default function ContactPage() {
                 </div>
 
                 {/* Objet du contact */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <label htmlFor="contact-topic" style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <label
+                    htmlFor="contact-topic"
+                    style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}
+                  >
                     Objet de votre demande *
                   </label>
                   <select
@@ -553,8 +727,17 @@ export default function ContactPage() {
                 </div>
 
                 {/* Message */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <label htmlFor="contact-msg" style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <label
+                    htmlFor="contact-msg"
+                    style={{ fontSize: "12px", fontWeight: 700, color: "#ddd" }}
+                  >
                     Votre message *
                   </label>
                   <textarea
@@ -614,7 +797,8 @@ export default function ContactPage() {
                     lineHeight: 1.5,
                   }}
                 >
-                  🔒 Vos coordonnées restent strictement confidentielles et ne seront jamais cédées.
+                  🔒 Vos coordonnées restent strictement confidentielles et ne
+                  seront jamais cédées.
                 </p>
               </form>
             )}

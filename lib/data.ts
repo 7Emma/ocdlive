@@ -1100,6 +1100,39 @@ export const PAYMENT_METHODS: PaymentMethodItem[] = [
     color: "#f36b0b",
   },
   {
+    id: "wave",
+    label: "Wave (Sénégal & Côte d'Ivoire)",
+    badge: "0% Frais",
+    tagline: "Le paiement mobile instantané sans frais via QR code ou numéro Wave",
+    icon: "🌊",
+    operator: "Wave Digital Finance",
+    accountNumber: "+225 07 00 00 00 / +221 77 00 00 00",
+    instructions: "Effectuez votre virement Wave direct vers notre compte marchand officiel pour confirmation instantanée.",
+    color: "#1dc4ff",
+  },
+  {
+    id: "mtn_momo",
+    label: "MTN Mobile Money (MoMo)",
+    badge: "Bénin, Côte d'Ivoire, Cameroun",
+    tagline: "Paiement direct sécurisé via le réseau MTN MoMo",
+    icon: "🟡",
+    operator: "MTN MoMo",
+    accountNumber: "+229 97 00 00 00 / +237 67 00 00 00",
+    instructions: "Transfert direct MTN Mobile Money avec reçu de validation immédiat par SMS.",
+    color: "#ffcc00",
+  },
+  {
+    id: "orange_money",
+    label: "Orange Money",
+    badge: "CI, Sénégal, Cameroun, Mali",
+    tagline: "Paiement sécurisé via Orange Money Afrique",
+    icon: "🟠",
+    operator: "Orange Money",
+    accountNumber: "+225 07 00 00 00",
+    instructions: "Paiement via Orange Money avec notification instantanée.",
+    color: "#ff7900",
+  },
+  {
     id: "especes_studio",
     label: "Espèces / Acompte au Studio ou sur Place",
     badge: "Sur Rendez-vous",
@@ -1109,5 +1142,204 @@ export const PAYMENT_METHODS: PaymentMethodItem[] = [
     accountNumber: "Studio OCD Live, Lomé",
     instructions: "Réglez directement à notre studio à Lomé ou convenez d'un paiement lors de l'installation de l'équipe dans vos locaux.",
     color: "#e5e2de",
+  },
+];
+
+/* ==========================================================================
+   HUB PANAFRICAIN DES VENDEURS EN DIRECT (#LesOpportunitésC'estDehors)
+   ========================================================================== */
+
+export interface PanafricanCountry {
+  code: string;
+  name: string;
+  flag: string;
+  phoneCode: string;
+  cities: string[];
+}
+
+export const PANAFRICAN_COUNTRIES: PanafricanCountry[] = [
+  { code: "TG", name: "Togo", flag: "🇹🇬", phoneCode: "+228", cities: ["Lomé", "Kara", "Kpalimé", "Sokodé", "Atakpamé"] },
+  { code: "BJ", name: "Bénin", flag: "🇧🇯", phoneCode: "+229", cities: ["Cotonou", "Porto-Novo", "Parakou", "Abomey-Calavi"] },
+  { code: "CM", name: "Cameroun", flag: "🇨🇲", phoneCode: "+237", cities: ["Douala", "Yaoundé", "Bafoussam", "Garoua", "Kribi"] },
+  { code: "CI", name: "Côte d'Ivoire", flag: "🇨🇮", phoneCode: "+225", cities: ["Abidjan", "Bouaké", "Yamoussoukro", "San-Pédro"] },
+  { code: "SN", name: "Sénégal", flag: "🇸🇳", phoneCode: "+221", cities: ["Dakar", "Thiès", "Saint-Louis", "Mbour"] },
+  { code: "BF", name: "Burkina Faso", flag: "🇧🇫", phoneCode: "+226", cities: ["Ouagadougou", "Bobo-Dioulasso", "Koudougou"] },
+  { code: "GN", name: "Guinée", flag: "🇬🇳", phoneCode: "+224", cities: ["Conakry", "Kindia", "Kankan"] },
+  { code: "ML", name: "Mali", flag: "🇲🇱", phoneCode: "+223", cities: ["Bamako", "Sikasso", "Ségou"] },
+  { code: "CG", name: "Congo & RDC", flag: "🇨🇬", phoneCode: "+242", cities: ["Brazzaville", "Kinshasa", "Pointe-Noire"] },
+  { code: "DIASPORA", name: "Diaspora", flag: "🌍", phoneCode: "+33", cities: ["Paris", "Bruxelles", "Montréal", "Londres", "New York"] },
+];
+
+export interface LiveCategory {
+  id: string;
+  label: string;
+  icon: string;
+  description: string;
+}
+
+export const LIVE_CATEGORIES: LiveCategory[] = [
+  { id: "mode", label: "Mode & Vêtements", icon: "👗", description: "Robes, friperie chic, pagnes, costumes, streetwear" },
+  { id: "chaussures", label: "Chaussures & Maroquinerie", icon: "👠", description: "Baskets, talons, sacs à main de luxe, ceintures" },
+  { id: "beaute", label: "Cosmétiques & Perruques", icon: "💄", description: "Mèches brésiliennes, soins de peau bio, parfums, maquillage" },
+  { id: "tech", label: "Téléphonie & High-Tech", icon: "📱", description: "iPhones, Android, ordinateurs, AirPods, montres connectées" },
+  { id: "food", label: "Street Food & Pâtisserie", icon: "🍲", description: "Gâteaux de fête, plats africains en direct, épices, traiteurs" },
+  { id: "maison", label: "Maison & Électroménager", icon: "🏠", description: "Draps, rideaux, vaisselle, robots de cuisine, décoration" },
+  { id: "bijoux", label: "Bijoux & Montres", icon: "💎", description: "Bagues en or/argent, montres de luxe, parures, colliers" },
+  { id: "auto", label: "Auto, Moto & Pièces", icon: "🚗", description: "Véhicules d'occasion, motos, jantes, pièces détachées" },
+];
+
+export interface RegieValidationSlot {
+  id: string;
+  time: string;
+  label: string;
+  badge: string;
+  description: string;
+}
+
+export const REGIE_VALIDATION_SLOTS: RegieValidationSlot[] = [
+  { id: "slot-08h", time: "08h00 GMT", label: "Session Matinale", badge: "08H00", description: "Vérification des lancements de journée et marchés matinaux" },
+  { id: "slot-11h", time: "11h30 GMT", label: "Session Midi", badge: "11H30", description: "Vérification des ventes de la pause-déjeuner et food" },
+  { id: "slot-18h", time: "18h00 GMT", label: "Session Après-Midi", badge: "18H00", description: "Vérification pour les pics d'audience de sortie de travail" },
+  { id: "slot-21h", time: "21h00 GMT", label: "Session Nocturne / Prime", badge: "21H00", description: "Vérification pour les grands déballages nocturnes et ventes privées" },
+];
+
+export interface VendorLive {
+  id: string;
+  vendorName: string;
+  brandName?: string;
+  country: string; // e.g. "CM", "BJ", "TG", "CI", "SN"
+  city: string;
+  category: string; // id from LIVE_CATEGORIES
+  title: string;
+  productHighlights: string;
+  platform: "tiktok" | "facebook" | "instagram" | "youtube";
+  liveUrl: string;
+  whatsapp: string;
+  validationSlot: string; // e.g. "21h00 GMT"
+  status: "PENDING" | "APPROVED" | "REJECTED" | "ENDED";
+  isFeatured?: boolean;
+  viewsEstimated?: string;
+  submittedAt: string;
+  approvedAt?: string;
+  thumbnailUrl?: string;
+}
+
+export const SEED_VENDOR_LIVES: VendorLive[] = [
+  {
+    id: "live-cm-01",
+    vendorName: "Boutique Glamour Douala",
+    brandName: "Glamour 237",
+    country: "CM",
+    city: "Douala",
+    category: "mode",
+    title: "🔥 Arrivage direct Dubai : Robes chics de soirée & ensembles tailleurs",
+    productHighlights: "Promo exclusive à partir de 12 000 FCFA · Tailles 36 à 48",
+    platform: "tiktok",
+    liveUrl: "https://www.tiktok.com",
+    whatsapp: "+237690112233",
+    validationSlot: "21h00 GMT",
+    status: "APPROVED",
+    isFeatured: true,
+    viewsEstimated: "1.4K connectés",
+    submittedAt: "2026-11-09T18:15:00Z",
+    approvedAt: "2026-11-09T18:25:00Z",
+    thumbnailUrl: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: "live-bj-02",
+    vendorName: "Mèches Royales Cotonou",
+    brandName: "Mèches Royales BJ",
+    country: "BJ",
+    city: "Cotonou",
+    category: "beaute",
+    title: "✨ Déstockage Mèches Brésiliennes & Perruques Lace Frontal 100% Humaines",
+    productHighlights: "Offre 1 achetée = 1 kit d'entretien offert · Livraison Cotonou & Calavi",
+    platform: "facebook",
+    liveUrl: "https://www.facebook.com",
+    whatsapp: "+22997112233",
+    validationSlot: "18h00 GMT",
+    status: "APPROVED",
+    isFeatured: true,
+    viewsEstimated: "850 connectés",
+    submittedAt: "2026-11-09T17:30:00Z",
+    approvedAt: "2026-11-09T17:45:00Z",
+    thumbnailUrl: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: "live-tg-03",
+    vendorName: "Lomé Sneakers Hub",
+    brandName: "Lomé Sneakers Hub",
+    country: "TG",
+    city: "Lomé (Quartier Déckon)",
+    category: "chaussures",
+    title: "👟 Vente flash Baskets & Sneakers streetwear originales",
+    productHighlights: "Pointures 38 à 46 · Livraison rapide Lomé & expédition UEMOA",
+    platform: "tiktok",
+    liveUrl: "https://www.tiktok.com",
+    whatsapp: "+22890112233",
+    validationSlot: "18h00 GMT",
+    status: "APPROVED",
+    isFeatured: true,
+    viewsEstimated: "920 connectés",
+    submittedAt: "2026-11-09T17:40:00Z",
+    approvedAt: "2026-11-09T18:00:00Z",
+    thumbnailUrl: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: "live-ci-04",
+    vendorName: "Abidjan Tech Deal",
+    brandName: "Abidjan Tech Deal",
+    country: "CI",
+    city: "Abidjan (Cocody)",
+    category: "tech",
+    title: "📱 Déballage iPhone 15 & 16 scellés + AirPods Pro avec garantie 1 an",
+    productHighlights: "Paiement Wave ou Orange Money · Facture & garantie délivrées",
+    platform: "tiktok",
+    liveUrl: "https://www.tiktok.com",
+    whatsapp: "+22507112233",
+    validationSlot: "21h00 GMT",
+    status: "APPROVED",
+    isFeatured: true,
+    viewsEstimated: "2.1K connectés",
+    submittedAt: "2026-11-09T19:00:00Z",
+    approvedAt: "2026-11-09T19:10:00Z",
+    thumbnailUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: "live-sn-05",
+    vendorName: "Dakar Traiteur & Saveurs",
+    brandName: "Dakar Délices",
+    country: "SN",
+    city: "Dakar (Almadies)",
+    category: "food",
+    title: "🥘 Préparation & Dégustation en Direct : Box Gastronomie Sénégalaise",
+    productHighlights: "Box apéro, pastels, thiéboudienne royal pour réceptions",
+    platform: "instagram",
+    liveUrl: "https://www.instagram.com",
+    whatsapp: "+22177112233",
+    validationSlot: "11h30 GMT",
+    status: "APPROVED",
+    viewsEstimated: "610 connectés",
+    submittedAt: "2026-11-09T11:00:00Z",
+    approvedAt: "2026-11-09T11:20:00Z",
+    thumbnailUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: "live-cm-06",
+    vendorName: "Yaoundé Bijoux & Éclat",
+    brandName: "Éclat 237",
+    country: "CM",
+    city: "Yaoundé (Bastos)",
+    category: "bijoux",
+    title: "💍 Parures de mariée & Montres de prestige en vente privée",
+    productHighlights: "Certificats d'authenticité inclus · Expédition sécurisée",
+    platform: "facebook",
+    liveUrl: "https://www.facebook.com",
+    whatsapp: "+23767112233",
+    validationSlot: "21h00 GMT",
+    status: "PENDING",
+    viewsEstimated: "En attente de session",
+    submittedAt: "2026-11-09T19:15:00Z",
+    thumbnailUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80",
   },
 ];

@@ -42,6 +42,7 @@ export default async function AdminDashboardLayout({
 
   const newReservationsCount = reservations.filter((r) => r.status === "NOUVEAU").length;
   const newApplicantsCount = store.applicants.filter((a) => a.status === "NOUVEAU").length;
+  const pendingVendorLivesCount = (store.vendorLives || []).filter((l) => l.status === "PENDING").length;
 
   return (
     <div className="admin-layout">
@@ -104,19 +105,26 @@ export default async function AdminDashboardLayout({
           <Link href="/admin/lives" className="admin-nav-link">
             <div className="admin-nav-item-left">
               <Radio size={18} />
-              <span>Régie & Direct</span>
+              <span>Régie & Lives Vendeurs</span>
             </div>
-            {live.isLive && (
-              <span
-                style={{
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  background: "#ff3333",
-                  boxShadow: "0 0 6px #ff3333",
-                }}
-              />
-            )}
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              {pendingVendorLivesCount > 0 && (
+                <span className="admin-nav-badge" title={`${pendingVendorLivesCount} live(s) vendeur(s) à modérer`}>
+                  {pendingVendorLivesCount}
+                </span>
+              )}
+              {live.isLive && (
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "#ff3333",
+                    boxShadow: "0 0 6px #ff3333",
+                  }}
+                />
+              )}
+            </div>
           </Link>
 
           <Link href="/admin/reservations" className="admin-nav-link">

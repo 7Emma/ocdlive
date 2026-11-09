@@ -91,6 +91,9 @@ export default function Footer() {
               <br />
               L’expérience du live, pensée autrement.
             </p>
+            <p style={{ fontSize: "11px", color: "var(--orange)", fontWeight: 800, margin: "8px 0 14px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              ✦ Une entité de Bovann Group · En synergie avec House of Challenge (4M+)
+            </p>
             <a
               href={WHATSAPP_RESERVATION_URL}
               target="_blank"
@@ -105,6 +108,7 @@ export default function Footer() {
           <div className="footer-column">
             <h3>Liens rapides</h3>
             <Link href="/">Accueil</Link>
+            <Link href="/vendeurs-live">🔴 Vendeurs en Live (Afrique)</Link>
             <Link href="/a-propos">À propos & Bovan</Link>
             <Link href="/services">Nos services & Lives</Link>
             <Link href="/tarifs">Tarifs & Packs FCFA</Link>

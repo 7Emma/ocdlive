@@ -46,12 +46,22 @@ const FAQS = [
 
 export default function TarifsPage() {
   return (
-    <main className="page-with-bg-graphics" style={{ paddingTop: "40px", paddingBottom: "90px", position: "relative" }}>
+    <main
+      className="page-with-bg-graphics"
+      style={{
+        paddingTop: "40px",
+        paddingBottom: "90px",
+        position: "relative",
+      }}
+    >
       {/* GRAPHISME D'ARRIÈRE-PLAN : VAGUE ORANGE & SILHOUETTE AFRIQUE */}
       <PageBackgroundGraphics />
 
       {/* Header */}
-      <section className="container" style={{ marginBottom: "40px", position: "relative", zIndex: 2 }}>
+      <section
+        className="container"
+        style={{ marginBottom: "40px", position: "relative", zIndex: 2 }}
+      >
         <div className="section-head" style={{ marginBottom: "20px" }}>
           <div>
             <div className="eyebrow">

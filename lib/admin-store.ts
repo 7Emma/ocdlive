@@ -8,12 +8,14 @@ import {
   BOVAN_VIDEOS,
   YOUTH_PHOTOS,
   COMPANY_INFO,
+  SEED_VENDOR_LIVES,
   type LiveSlot,
   type OpportunityItem,
   type ProjectItem,
   type ArticleItem,
   type BovanVideoItem,
   type YouthPhotoItem,
+  type VendorLive,
 } from "./data";
 
 export type {
@@ -23,6 +25,7 @@ export type {
   ArticleItem,
   BovanVideoItem,
   YouthPhotoItem,
+  VendorLive,
 };
 
 export interface LiveBroadcastState {
@@ -94,6 +97,7 @@ export interface AdminStoreData {
   articles: ArticleItem[];
   bovanVideos: BovanVideoItem[];
   youthPhotos: YouthPhotoItem[];
+  vendorLives: VendorLive[];
   settings: {
     companyName: string;
     phone: string;
@@ -240,6 +244,7 @@ function getDefaultStore(): AdminStoreData {
     articles: ARTICLES_DATA,
     bovanVideos: BOVAN_VIDEOS,
     youthPhotos: YOUTH_PHOTOS,
+    vendorLives: SEED_VENDOR_LIVES,
     settings: {
       companyName: COMPANY_INFO.name,
       phone: COMPANY_INFO.phone,
@@ -256,11 +261,17 @@ let memoryStore: AdminStoreData | null = null;
 
 export async function getAdminStore(): Promise<AdminStoreData> {
   if (memoryStore) {
+    if (!memoryStore.vendorLives || !Array.isArray(memoryStore.vendorLives)) {
+      memoryStore.vendorLives = SEED_VENDOR_LIVES;
+    }
     return memoryStore;
   }
   try {
     const raw = await fs.readFile(STORE_PATH, "utf-8");
     memoryStore = JSON.parse(raw) as AdminStoreData;
+    if (!memoryStore.vendorLives || !Array.isArray(memoryStore.vendorLives)) {
+      memoryStore.vendorLives = SEED_VENDOR_LIVES;
+    }
     return memoryStore;
   } catch {
     // Essai dans /tmp si environnement serverless (Netlify / Lambda)
@@ -268,6 +279,9 @@ export async function getAdminStore(): Promise<AdminStoreData> {
       const tmpPath = path.join("/tmp", "admin-store.json");
       const tmpRaw = await fs.readFile(tmpPath, "utf-8");
       memoryStore = JSON.parse(tmpRaw) as AdminStoreData;
+      if (!memoryStore.vendorLives || !Array.isArray(memoryStore.vendorLives)) {
+        memoryStore.vendorLives = SEED_VENDOR_LIVES;
+      }
       return memoryStore;
     } catch {
       memoryStore = getDefaultStore();
@@ -441,4 +455,61 @@ export async function updateSettings(
   store.settings = { ...store.settings, ...patch };
   await saveAdminStore(store);
   return store.settings;
+}
+
+export async function getVendorLives(): Promise<VendorLive[]> {
+  const store = await getAdminStore();
+  return store.vendorLives || SEED_VENDOR_LIVES;
+}
+
+export async function addVendorLive(
+  data: Omit<VendorLive, "id" | "submittedAt" | "status">
+): Promise<VendorLive> {
+  const store = await getAdminStore();
+  const newLive: VendorLive = {
+    ...data,
+    id: `vlive-${Date.now().toString(36)}`,
+    submittedAt: new Date().toISOString(),
+    status: "PENDING",
+  };
+  store.vendorLives = [newLive, ...(store.vendorLives || [])];
+  await saveAdminStore(store);
+  return newLive;
+}
+
+export async function updateVendorLiveStatus(
+  id: string,
+  status: VendorLive["status"]
+): Promise<VendorLive | null> {
+  const store = await getAdminStore();
+  const live = store.vendorLives.find((l) => l.id === id);
+  if (!live) return null;
+  live.status = status;
+  if (status === "APPROVED") {
+    live.approvedAt = new Date().toISOString();
+  }
+  await saveAdminStore(store);
+  return live;
+}
+
+export async function toggleVendorLiveFeatured(
+  id: string
+): Promise<VendorLive | null> {
+  const store = await getAdminStore();
+  const live = store.vendorLives.find((l) => l.id === id);
+  if (!live) return null;
+  live.isFeatured = !live.isFeatured;
+  await saveAdminStore(store);
+  return live;
+}
+
+export async function deleteVendorLive(id: string): Promise<boolean> {
+  const store = await getAdminStore();
+  const initialLen = store.vendorLives.length;
+  store.vendorLives = store.vendorLives.filter((l) => l.id !== id);
+  if (store.vendorLives.length !== initialLen) {
+    await saveAdminStore(store);
+    return true;
+  }
+  return false;
 }
