@@ -155,6 +155,17 @@ export const COMPANY_INFO = {
   },
 };
 
+export const WHATSAPP_RESERVATION_URL =
+  "https://wa.me/22890000000?text=Bonjour%20OCD%20Live%20!%20Je%20souhaite%20r%C3%A9server%20un%20live%20pour%20mon%20activit%C3%A9.%20Pouvez-vous%20me%20confirmer%20les%20disponibilit%C3%A9s%20%3F";
+
+export function getWhatsAppReservationUrl(offerName?: string) {
+  const base = "https://wa.me/22890000000";
+  const msg = offerName
+    ? `Bonjour OCD Live ! Je souhaite réserver la formule "${offerName}" pour mon activité. Pouvez-vous me confirmer les créneaux disponibles ?`
+    : "Bonjour OCD Live ! Je souhaite réserver un live pour mon activité. Pouvez-vous me renseigner sur les disponibilités ?";
+  return `${base}?text=${encodeURIComponent(msg)}`;
+}
+
 export const DAILY_LIVE_SLOTS: LiveSlot[] = [
   {
     id: "slot-1",

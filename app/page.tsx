@@ -2,6 +2,8 @@ import Link from "next/link";
 import {
   LIVE_FORMATS,
   PRICING_OFFERS,
+  WHATSAPP_RESERVATION_URL,
+  getWhatsAppReservationUrl,
 } from "@/lib/data";
 import ScrollToTop from "@/components/ScrollToTop";
 import BovanCommunitySection from "@/components/BovanCommunitySection";
@@ -36,9 +38,14 @@ export default function Home() {
             <Link className="btn orange" href="/services">
               Découvrir nos 2 formats de live →
             </Link>
-            <Link className="btn outline" href="/reservation">
-              ▶ Réserver une prestation ↗
-            </Link>
+            <a
+              className="btn outline"
+              href={WHATSAPP_RESERVATION_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              ▶ Réserver sur WhatsApp ↗
+            </a>
           </div>
           <div className="hero-note">
             <span /> Quand vous sortez, nous mettons nos caméras au service de
@@ -216,15 +223,17 @@ export default function Home() {
                       <span key={i}>{pill}</span>
                     ))}
                   </div>
-                  <Link
-                    href={`/reservation?format=${fmt.id === "live-presentiel" ? "presentiel" : "distance"}`}
+                  <a
+                    href={getWhatsAppReservationUrl(fmt.title)}
+                    target="_blank"
+                    rel="noreferrer"
                     className={`btn ${fmt.id === "live-presentiel" ? "orange" : "outline"}`}
                     style={{ width: "100%", justifyContent: "center" }}
                   >
                     Réserver en{" "}
                     {fmt.id === "live-presentiel" ? "présentiel" : "à distance"}{" "}
-                    →
-                  </Link>
+                    sur WhatsApp →
+                  </a>
                 </div>
               </div>
             ))}
@@ -446,9 +455,14 @@ export default function Home() {
           </div>
 
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <Link className="btn orange" href="/reservation">
-              Réserver un créneau live ↗
-            </Link>
+            <a
+              className="btn orange"
+              href={WHATSAPP_RESERVATION_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Réserver sur WhatsApp ↗
+            </a>
             <Link className="btn outline" href="/a-propos">
               Découvrir la vision & l'équipe →
             </Link>
@@ -671,13 +685,15 @@ export default function Home() {
                   </small>
                 </div>
 
-                <Link
+                <a
                   className={offer.isPopular ? "btn orange" : "btn outline"}
-                  href={`/reservation?offre=${offer.slug}`}
+                  href={getWhatsAppReservationUrl(offer.title)}
+                  target="_blank"
+                  rel="noreferrer"
                   style={{ width: "100%", justifyContent: "center" }}
                 >
-                  Réserver ce pack →
-                </Link>
+                  Réserver ce pack sur WhatsApp →
+                </a>
               </div>
             ))}
           </div>
@@ -733,9 +749,14 @@ export default function Home() {
               quotidiens en quelques clics.
             </p>
           </div>
-          <Link className="btn white" href="/reservation">
-            Réserver mon direct →
-          </Link>
+          <a
+            className="btn white"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver mon direct sur WhatsApp →
+          </a>
         </div>
       </section>
     </>

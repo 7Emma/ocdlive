@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   CheckCircle2,
   Clock,
@@ -8,7 +7,12 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { PRICING_OFFERS, DAILY_LIVE_SLOTS } from "@/lib/data";
+import {
+  PRICING_OFFERS,
+  DAILY_LIVE_SLOTS,
+  WHATSAPP_RESERVATION_URL,
+  getWhatsAppReservationUrl,
+} from "@/lib/data";
 import PageBackgroundGraphics from "@/components/PageBackgroundGraphics";
 
 export const metadata: Metadata = {
@@ -63,9 +67,14 @@ export default function TarifsPage() {
               studio.
             </p>
           </div>
-          <Link className="btn orange" href="/reservation">
-            Réserver un créneau direct ↗
-          </Link>
+          <a
+            className="btn orange"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp ↗
+          </a>
         </div>
 
         {/* Bannière Valeur Ajoutée : Équipe personnalisée dans vos locaux */}
@@ -404,13 +413,15 @@ export default function TarifsPage() {
               </div>
 
               <div>
-                <Link
-                  href={`/reservation?offre=${offer.slug}`}
+                <a
+                  href={getWhatsAppReservationUrl(offer.title)}
+                  target="_blank"
+                  rel="noreferrer"
                   className={offer.isPopular ? "btn orange" : "btn outline"}
                   style={{ width: "100%", justifyContent: "center" }}
                 >
-                  Réserver ce pack →
-                </Link>
+                  Réserver sur WhatsApp →
+                </a>
                 {offer.note && (
                   <p
                     style={{
@@ -514,9 +525,14 @@ export default function TarifsPage() {
               vous répond sous 24h.
             </p>
           </div>
-          <Link className="btn white" href="/reservation">
-            Accéder à la réservation →
-          </Link>
+          <a
+            className="btn white"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp →
+          </a>
         </div>
       </section>
     </main>

@@ -12,7 +12,7 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
-import { COMPANY_INFO } from "@/lib/data";
+import { COMPANY_INFO, WHATSAPP_RESERVATION_URL } from "@/lib/data";
 
 const CONTACT_TOPICS = [
   "Renseignement général / Information",
@@ -142,18 +142,20 @@ export default function ContactPage() {
                 Vous souhaitez réserver un créneau ou commander un pack live ?
               </h3>
               <p style={{ margin: 0, fontSize: "13px", color: "#bbb" }}>
-                Pack Découverte (15 000 FCFA), Événement (50 000 FCFA), Production 4K ou Régie sur mesure : utilisez notre tunnel dédié en 4 étapes.
+                Pack Découverte (15 000 FCFA), Standard (35 000 FCFA) ou Production sur mesure : échangez directement avec notre régie sur WhatsApp.
               </p>
             </div>
           </div>
 
-          <Link
+          <a
             className="btn orange"
-            href="/reservation"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
             style={{ whiteSpace: "nowrap" }}
           >
-            Accéder au module de réservation ↗
-          </Link>
+            Réserver sur WhatsApp ↗
+          </a>
         </div>
       </section>
 

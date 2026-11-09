@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { COMPANY_INFO } from "@/lib/data";
+import { COMPANY_INFO, WHATSAPP_RESERVATION_URL } from "@/lib/data";
 import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 import {
   YoutubeIcon,
@@ -91,9 +91,14 @@ export default function Footer() {
               <br />
               L’expérience du live, pensée autrement.
             </p>
-            <Link href="/reservation" className="footer-cta">
-              Parlons de votre projet ↗
-            </Link>
+            <a
+              href={WHATSAPP_RESERVATION_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="footer-cta"
+            >
+              Réserver sur WhatsApp ↗
+            </a>
           </div>
 
           {/* Colonne 2 : Liens rapides */}
@@ -104,7 +109,13 @@ export default function Footer() {
             <Link href="/services">Nos services & Lives</Link>
             <Link href="/tarifs">Tarifs & Packs FCFA</Link>
             <Link href="/realisations">Nos réalisations</Link>
-            <Link href="/reservation">Réserver un créneau</Link>
+            <a
+              href={WHATSAPP_RESERVATION_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Réserver sur WhatsApp
+            </a>
           </div>
 
           {/* Colonne 3 : Informations */}

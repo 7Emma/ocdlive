@@ -12,7 +12,12 @@ import {
   Video,
   Globe2,
 } from "lucide-react";
-import { SERVICES_DATA, LIVE_FORMATS } from "@/lib/data";
+import {
+  SERVICES_DATA,
+  LIVE_FORMATS,
+  WHATSAPP_RESERVATION_URL,
+  getWhatsAppReservationUrl,
+} from "@/lib/data";
 import PageBackgroundGraphics from "@/components/PageBackgroundGraphics";
 
 export const metadata: Metadata = {
@@ -51,9 +56,14 @@ export default function ServicesPage() {
               concrètes.
             </p>
           </div>
-          <Link className="btn orange" href="/reservation">
-            Réserver une prestation ↗
-          </Link>
+          <a
+            className="btn orange"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp ↗
+          </a>
         </div>
       </section>
 
@@ -292,8 +302,10 @@ export default function ServicesPage() {
                     ))}
                   </div>
 
-                  <Link
-                    href={`/reservation?format=${format.id === "live-presentiel" ? "presentiel" : "distance"}`}
+                  <a
+                    href={getWhatsAppReservationUrl(format.title)}
+                    target="_blank"
+                    rel="noreferrer"
                     className={`btn ${idx === 0 ? "orange" : "outline"}`}
                     style={{ width: "100%", justifyContent: "center" }}
                   >
@@ -301,8 +313,8 @@ export default function ServicesPage() {
                     {format.id === "live-presentiel"
                       ? "présentiel"
                       : "à distance"}{" "}
-                    →
-                  </Link>
+                    sur WhatsApp →
+                  </a>
                 </div>
               </div>
             ))}
@@ -549,13 +561,15 @@ export default function ServicesPage() {
                     paddingTop: "16px",
                   }}
                 >
-                  <Link
-                    href="/reservation"
+                  <a
+                    href={WHATSAPP_RESERVATION_URL}
+                    target="_blank"
+                    rel="noreferrer"
                     className="btn orange"
                     style={{ width: "100%", justifyContent: "center" }}
                   >
-                    Réserver ce service ↗
-                  </Link>
+                    Réserver sur WhatsApp ↗
+                  </a>
                 </div>
               </div>
             </article>
@@ -605,9 +619,14 @@ export default function ServicesPage() {
               sous 24h.
             </p>
           </div>
-          <Link className="btn white" href="/reservation">
-            Réserver ma prestation ↗
-          </Link>
+          <a
+            className="btn white"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp ↗
+          </a>
         </div>
       </section>
     </main>

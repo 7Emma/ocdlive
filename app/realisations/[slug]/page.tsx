@@ -11,7 +11,7 @@ import {
   ArrowRight,
   ShieldCheck,
 } from "lucide-react";
-import { PROJECTS_DATA } from "@/lib/data";
+import { PROJECTS_DATA, WHATSAPP_RESERVATION_URL } from "@/lib/data";
 import "../realisations.css";
 
 interface Props {
@@ -206,9 +206,14 @@ export default async function ProjectDetailPage({ params }: Props) {
 
               {/* Appel à l'action vers la réservation */}
               <div>
-                <Link href="/reservation?offre=evenement" className="sidebar-cta-btn">
-                  Planifier un projet similaire <ArrowRight className="w-4 h-4" />
-                </Link>
+                <a
+                  href={WHATSAPP_RESERVATION_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="sidebar-cta-btn"
+                >
+                  Planifier sur WhatsApp <ArrowRight className="w-4 h-4" />
+                </a>
                 <p className="sidebar-note" style={{ marginTop: "14px" }}>
                   <ShieldCheck className="w-3.5 h-3.5 inline mr-1 text-[#f36b0b]" />
                   Capacité maîtrisée : 4 lives maximum par jour
@@ -291,9 +296,14 @@ export default async function ProjectDetailPage({ params }: Props) {
             <h2>Vous souhaitez obtenir une estimation pour votre événement ?</h2>
             <p>Notre régisseur général vous propose un cadrage technique précis sous 24h.</p>
           </div>
-          <Link className="btn white" href="/reservation">
-            Réserver un créneau →
-          </Link>
+          <a
+            className="btn white"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp →
+          </a>
         </div>
       </section>
     </article>

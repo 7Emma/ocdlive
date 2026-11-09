@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LiveStatusBar from "@/components/LiveStatusBar";
+import { WHATSAPP_RESERVATION_URL } from "@/lib/data";
 
 const NAV_LINKS = [
   { href: "/", label: "Accueil" },
@@ -114,19 +115,26 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <Link
+          <a
             className="btn orange mobile-cta"
-            href="/reservation"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
             onClick={close}
           >
-            Demander un devis ↗
-          </Link>
+            Réserver sur WhatsApp ↗
+          </a>
         </nav>
 
         {/* Desktop CTA */}
-        <Link className="btn orange desktop-cta" href="/reservation">
-          Demander un devis ↗
-        </Link>
+        <a
+          className="btn orange desktop-cta"
+          href={WHATSAPP_RESERVATION_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Réserver sur WhatsApp ↗
+        </a>
       </div>
     </header>
   );

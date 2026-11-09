@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { PROJECTS_DATA, ProjectItem } from "@/lib/data";
+import { PROJECTS_DATA, ProjectItem, WHATSAPP_RESERVATION_URL } from "@/lib/data";
 import "./realisations.css";
 
 const CATEGORIES = [
@@ -39,9 +39,14 @@ export default function RealisationsPage() {
               sommets internationaux réalisés par les équipes d'OCD Live.
             </p>
           </div>
-          <Link className="btn orange" href="/reservation">
-            Réserver une captation ↗
-          </Link>
+          <a
+            className="btn orange"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp ↗
+          </a>
         </div>
       </section>
 
@@ -116,9 +121,14 @@ export default function RealisationsPage() {
             <h2>Un projet de conférence, concert ou émission ?</h2>
             <p>Nos régies mobiles 4K interviennent avec réactivité et précision.</p>
           </div>
-          <Link className="btn white" href="/reservation">
-            Réserver ma captation →
-          </Link>
+          <a
+            className="btn white"
+            href={WHATSAPP_RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Réserver sur WhatsApp →
+          </a>
         </div>
       </section>
     </main>

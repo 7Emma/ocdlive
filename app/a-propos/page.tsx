@@ -10,7 +10,7 @@ import {
   Radio,
   Cpu,
 } from "lucide-react";
-import { COMPANY_INFO } from "@/lib/data";
+import { COMPANY_INFO, WHATSAPP_RESERVATION_URL } from "@/lib/data";
 import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 
 export const metadata: Metadata = {
@@ -177,9 +177,14 @@ export default function AboutPage() {
               d'affronter la réalité avec ambition.
             </p>
             <div style={{ marginTop: "12px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
-              <Link className="btn orange" href="/reservation">
-                Réserver un créneau live →
-              </Link>
+              <a
+                className="btn orange"
+                href={WHATSAPP_RESERVATION_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Réserver sur WhatsApp →
+              </a>
               <Link className="btn outline" href="/services">
                 Découvrir nos 2 formats de direct
               </Link>

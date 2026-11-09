@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { YoutubeIcon } from "@/components/SocialIcons";
 import { Radio, Sparkles } from "lucide-react";
+import { WHATSAPP_RESERVATION_URL } from "@/lib/data";
 
 interface LiveState {
   isLive: boolean;
@@ -115,10 +115,15 @@ export default function LiveStatusBar() {
             </div>
 
             <div className="live-idle-actions">
-              <Link href="/reservation" className="live-reserve-link">
+              <a
+                href={WHATSAPP_RESERVATION_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="live-reserve-link"
+              >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Réserver un créneau direct →</span>
-              </Link>
+                <span>Réserver sur WhatsApp →</span>
+              </a>
             </div>
           </div>
         )}
