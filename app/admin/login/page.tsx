@@ -29,17 +29,17 @@ export default function AdminLoginPage() {
           >
             <div
               style={{
-                width: "48px",
-                height: "48px",
-                borderRadius: "14px",
-                background: "linear-gradient(135deg, #ff5500, #ff8833)",
+                width: "50px",
+                height: "50px",
+                borderRadius: "16px",
+                background: "linear-gradient(135deg, var(--adm-orange), var(--adm-orange-light))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 8px 24px rgba(255, 85, 0, 0.3)",
+                boxShadow: "0 8px 25px var(--adm-orange-glow)",
               }}
             >
-              <Radio size={24} color="#ffffff" />
+              <Radio size={24} color="#170e08" />
             </div>
           </div>
 
