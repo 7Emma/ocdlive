@@ -1,7 +1,7 @@
 import Link from "next/link";
 import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 
-export const instant = false;
+export const dynamic = "force-dynamic";
 import {
   Radio,
   CalendarCheck,

@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 
 const ADMIN_COOKIE_NAME = "ocd_admin_session";
 // Default credentials for OCD Live Administration
-export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@ocdlive.ci";
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@ocdlive.com";
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "Bovan2026!";
 const SESSION_TOKEN = "ocd_admin_token_authenticated_2026";
 

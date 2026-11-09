@@ -1,6 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 
-export const instant = false;
+export const dynamic = "force-dynamic";
 import { getAdminStore, saveAdminStore } from "@/lib/admin-store";
 import { revalidatePath } from "next/cache";
 

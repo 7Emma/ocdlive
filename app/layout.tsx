@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import "./globals.css";
 import "./home.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PublicNavbar, PublicFooter } from "@/components/PublicChrome";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ocdlive.com"),
@@ -49,6 +47,16 @@ export const metadata: Metadata = {
       "Production audiovisuelle, captation multicaméra en direct et streaming événementiel de pointe.",
     images: ["/images/studio-hero.png"],
   },
+  icons: {
+    icon: [
+      { url: "/icon.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png?v=3", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico?v=3", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -59,13 +67,9 @@ export default function RootLayout({
   return (
     <html lang="fr" className="dark scroll-smooth">
       <body className="min-h-screen bg-[#09090b] text-[#f4f4f5] flex flex-col antialiased selection:bg-[#ff6600] selection:text-white">
-        <Suspense fallback={<div className="h-20" />}>
-          <Navbar />
-        </Suspense>
+        <PublicNavbar />
         <main className="flex-1">{children}</main>
-        <Suspense fallback={null}>
-          <Footer />
-        </Suspense>
+        <PublicFooter />
       </body>
     </html>
   );

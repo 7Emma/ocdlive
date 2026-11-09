@@ -61,3 +61,153 @@
   background-image: radial-gradient(rgba(255, 102, 0, 0.12) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* CARTE AFRIQUE OCD LIVE */
+
+.africa-map {
+  background: transparent !important;
+  isolation: isolate;
+}
+
+.africa-map svg {
+  background: transparent !important;
+}
+
+.africa-map path {
+  transition: fill 0.3s ease;
+}
+
+.africa-hub-badge {
+  position: absolute;
+  bottom: 3%;
+  left: 3%;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 9px 15px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(243, 107, 11, 0.65);
+  border-radius: 50px;
+
+  color: var(--africa-map-text, #ffffff);
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.hub-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  background: #ff7100;
+
+  box-shadow: 0 0 12px #ff7100;
+
+  animation: hubPulse 1.8s infinite;
+}
+
+@keyframes hubPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.5);
+  }
+}
+
+/* Version sur fond clair */
+
+.africa-map.light {
+  --africa-map-text: #242424;
+}
+
+/* Version footer : en arrière-plan absolu sans jamais impacter la hauteur, couleur orange vive et éclatante */
+
+.africa-map.footer {
+  position: absolute !important;
+  right: -25px !important;
+  bottom: -15px !important;
+  width: 500px !important;
+  max-width: 52vw !important;
+  height: 450px !important;
+  aspect-ratio: auto !important;
+  opacity: 0.85 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  filter: drop-shadow(0 0 35px rgba(243, 107, 11, 0.55)) !important;
+}
+
+@media (max-width: 640px) {
+  .africa-hub-badge {
+    font-size: 8px;
+    padding: 7px 10px;
+  }
+}
+
+/* ==========================================================================
+   SIGNATURE D'ARRIÈRE-PLAN OCD LIVE : VAGUE NEON GAUCHE & SILHOUETTE AFRIQUE DROITE
+   ========================================================================== */
+
+.page-with-bg-graphics {
+  position: relative;
+  overflow: hidden;
+  background: #080808;
+  min-height: 100vh;
+}
+
+.bg-graphics-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-graphic-left {
+  position: absolute;
+  left: -40px;
+  top: 420px;
+  width: min(320px, 35vw);
+  height: 480px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 25px rgba(243, 107, 11, 0.45));
+}
+
+.bg-graphic-right {
+  position: absolute;
+  right: -50px;
+  top: 280px;
+  width: min(360px, 38vw);
+  height: 520px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 28px rgba(243, 107, 11, 0.5));
+}
+
+.bg-graphic-stroke {
+  filter: drop-shadow(0 0 12px rgba(243, 107, 11, 0.9));
+}
+
+@media (max-width: 900px) {
+  .bg-graphic-left {
+    opacity: 0.35;
+    width: 200px;
+  }
+  .bg-graphic-right {
+    opacity: 0.3;
+    width: 240px;
+    right: -70px;
+  }
+}
+
+

@@ -252,25 +252,44 @@ function getDefaultStore(): AdminStoreData {
   };
 }
 
+let memoryStore: AdminStoreData | null = null;
+
 export async function getAdminStore(): Promise<AdminStoreData> {
+  if (memoryStore) {
+    return memoryStore;
+  }
   try {
     const raw = await fs.readFile(STORE_PATH, "utf-8");
-    return JSON.parse(raw) as AdminStoreData;
+    memoryStore = JSON.parse(raw) as AdminStoreData;
+    return memoryStore;
   } catch {
-    const initial = getDefaultStore();
+    // Essai dans /tmp si environnement serverless (Netlify / Lambda)
     try {
-      await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
-      await fs.writeFile(STORE_PATH, JSON.stringify(initial, null, 2), "utf-8");
-    } catch (writeErr) {
-      console.error("Could not write default store to disk:", writeErr);
+      const tmpPath = path.join("/tmp", "admin-store.json");
+      const tmpRaw = await fs.readFile(tmpPath, "utf-8");
+      memoryStore = JSON.parse(tmpRaw) as AdminStoreData;
+      return memoryStore;
+    } catch {
+      memoryStore = getDefaultStore();
+      return memoryStore;
     }
-    return initial;
   }
 }
 
 export async function saveAdminStore(data: AdminStoreData): Promise<void> {
-  await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
-  await fs.writeFile(STORE_PATH, JSON.stringify(data, null, 2), "utf-8");
+  memoryStore = data;
+  try {
+    await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
+    await fs.writeFile(STORE_PATH, JSON.stringify(data, null, 2), "utf-8");
+  } catch {
+    // Repli sur /tmp en cas de système de fichiers en lecture seule (serverless Netlify)
+    try {
+      const tmpPath = path.join("/tmp", "admin-store.json");
+      await fs.writeFile(tmpPath, JSON.stringify(data, null, 2), "utf-8");
+    } catch {
+      // Mémoire vive déjà mise à jour
+    }
+  }
 }
 
 /* =========================================================================

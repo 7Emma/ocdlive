@@ -91,21 +91,70 @@ export async function createOpportunityAction(formData: FormData): Promise<void>
   const isAuth = await verifyAdminSession();
   assertAuth(isAuth);
 
-  const title = formData.get("role")?.toString().trim() || formData.get("title")?.toString().trim() || "Poste Régie";
+  const title =
+    formData.get("role")?.toString().trim() ||
+    formData.get("title")?.toString().trim() ||
+    "Opportunité Jeunesse OCD";
+
+  const type = (formData.get("opportunityType")?.toString().trim() ||
+    "Formation & Masterclass") as OpportunityItem["type"];
+
+  const company =
+    formData.get("company")?.toString().trim() ||
+    (type?.includes("Formation")
+      ? "OCD Live Academy"
+      : type?.includes("Mentorat")
+      ? "Bovan Mouvement #OCD"
+      : type?.includes("Casting")
+      ? "House of Challenge & OCD"
+      : "OCD Live Productions");
+
   const categoryRaw = formData.get("department")?.toString().trim() || "Audiovisuel & Régie";
-  const category = (categoryRaw.includes("Son")
-    ? "Audiovisuel & Régie"
-    : categoryRaw.includes("Social")
-    ? "Communication & Réseaux"
-    : "Audiovisuel & Régie") as OpportunityItem["category"];
-  const contractTypeRaw = formData.get("type")?.toString().trim() || "Freelance";
-  const contractType = (contractTypeRaw.includes("CDD")
-    ? "CDD / CDI"
-    : contractTypeRaw.includes("Stage")
-    ? "Stage"
-    : "Freelance") as OpportunityItem["contractType"];
-  const location = formData.get("location")?.toString().trim() || "Lomé (Terrain & Studio)";
-  const remuneration = formData.get("compensation")?.toString().trim() || "Rémunération forfaitaire par événement";
+  const category = (
+    categoryRaw.includes("Son")
+      ? "Audiovisuel & Régie"
+      : categoryRaw.includes("Montage") || categoryRaw.includes("Post-production")
+      ? "Production & Montage"
+      : categoryRaw.includes("Social") || categoryRaw.includes("Communication")
+      ? "Communication & Réseaux"
+      : categoryRaw.includes("Entrepreneuriat")
+      ? "Entrepreneuriat & Création"
+      : categoryRaw.includes("Accueil") || categoryRaw.includes("Événementiel")
+      ? "Événementiel & Accueil"
+      : "Audiovisuel & Régie"
+  ) as OpportunityItem["category"];
+
+  const contractType =
+    formData.get("type")?.toString().trim() ||
+    (type?.includes("Formation")
+      ? "Formation Pratique Gratuite"
+      : type?.includes("Mentorat")
+      ? "Mentorat 3 Mois"
+      : type?.includes("Casting")
+      ? "Casting Ouvert"
+      : "Freelance / Pige");
+
+  const location =
+    formData.get("location")?.toString().trim() || "Lomé (Studio & Terrain)";
+  const remuneration =
+    formData.get("compensation")?.toString().trim() ||
+    (type?.includes("Formation")
+      ? "Prise en charge intégrale"
+      : type?.includes("Mentorat")
+      ? "Accompagnement offert"
+      : "Rémunération forfaitaire");
+  const duration = formData.get("duration")?.toString().trim() || "Selon planning";
+  const spots = formData.get("spots")?.toString().trim() || "Places limitées";
+  const badge =
+    formData.get("badge")?.toString().trim() ||
+    (type?.includes("Formation")
+      ? "FORMATION 100% PRATIQUE"
+      : type?.includes("Mentorat")
+      ? "MENTORAT BOVAN"
+      : type?.includes("Casting")
+      ? "CASTING OUVERT"
+      : "MISSION RÉMUNÉRÉE");
+
   const description = formData.get("description")?.toString().trim() || "";
   const requirementsRaw = formData.get("requirements")?.toString() || "";
   const requirements = requirementsRaw
@@ -115,15 +164,26 @@ export async function createOpportunityAction(formData: FormData): Promise<void>
 
   await addOpportunity({
     title,
-    company: "OCD Live (Régie & Mouvement)",
+    type,
+    company,
     location,
     category,
     contractType,
     remuneration,
+    duration,
+    spots,
+    badge,
     postedDate: "Aujourd'hui",
     deadline: "Permanent",
     description,
-    requirements: requirements.length > 0 ? requirements : ["Motivation terrain", "Esprit d'équipe #OCD"],
+    requirements:
+      requirements.length > 0
+        ? requirements
+        : ["Motivation terrain", "Esprit d'équipe #OCD"],
+    benefits: [
+      "Attestation ou intégration réseau OCD Live",
+      "Visibilité auprès de la communauté Bovan",
+    ],
   });
 
   revalidatePath("/opportunites");

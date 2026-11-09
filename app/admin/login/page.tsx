@@ -80,8 +80,8 @@ export default function AdminLoginPage() {
                 name="email"
                 type="email"
                 required
-                defaultValue="admin@ocdlive.ci"
-                placeholder="admin@ocdlive.ci"
+                defaultValue="admin@ocdlive.com"
+                placeholder="admin@ocdlive.com"
                 className="admin-input"
                 style={{ paddingLeft: "42px" }}
               />

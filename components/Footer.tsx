@@ -54,8 +54,15 @@ export default function Footer() {
           - À droite l'arrondi en bas (border-bottom-right-radius)
       */}
       <div className="footer-card">
-        {/* Filigrane Carte d'Afrique (Lomé au cœur du direct panafricain) */}
-        <AfricaMapGraphic variant="footer" />
+        {/* Carte d'Afrique en arrière-plan avec couleur orange signature éclatante */}
+        <AfricaMapGraphic
+          variant="footer"
+          width="500px"
+          height="450px"
+          showHubBadge={false}
+          showRays={false}
+          showLomeBeacon={true}
+        />
 
         <div className="footer-main">
           {/* Colonne 1 : Logo & Slogan */}

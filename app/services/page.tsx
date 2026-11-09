@@ -13,6 +13,7 @@ import {
   Globe2,
 } from "lucide-react";
 import { SERVICES_DATA, LIVE_FORMATS } from "@/lib/data";
+import PageBackgroundGraphics from "@/components/PageBackgroundGraphics";
 
 export const metadata: Metadata = {
   title: "Nos Services Audiovisuels & Formats de Lives — OCD Live",
@@ -30,9 +31,12 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
 
 export default function ServicesPage() {
   return (
-    <main style={{ paddingTop: "40px", paddingBottom: "90px" }}>
+    <main className="page-with-bg-graphics" style={{ paddingTop: "40px", paddingBottom: "90px", position: "relative" }}>
+      {/* GRAPHISME D'ARRIÈRE-PLAN : VAGUE ORANGE & SILHOUETTE AFRIQUE */}
+      <PageBackgroundGraphics />
+
       {/* Header Introduction */}
-      <section className="container" style={{ marginBottom: "50px" }}>
+      <section className="container" style={{ marginBottom: "50px", position: "relative", zIndex: 2 }}>
         <div className="section-head" style={{ marginBottom: "20px" }}>
           <div>
             <div className="eyebrow">

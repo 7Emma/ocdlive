@@ -9,6 +9,7 @@ import {
   Users,
 } from "lucide-react";
 import { PRICING_OFFERS, DAILY_LIVE_SLOTS } from "@/lib/data";
+import PageBackgroundGraphics from "@/components/PageBackgroundGraphics";
 
 export const metadata: Metadata = {
   title: "Tarifs & Packs Audiovisuels en FCFA — OCD Live Lomé (Togo)",
@@ -41,9 +42,12 @@ const FAQS = [
 
 export default function TarifsPage() {
   return (
-    <main style={{ paddingTop: "40px", paddingBottom: "90px" }}>
+    <main className="page-with-bg-graphics" style={{ paddingTop: "40px", paddingBottom: "90px", position: "relative" }}>
+      {/* GRAPHISME D'ARRIÈRE-PLAN : VAGUE ORANGE & SILHOUETTE AFRIQUE */}
+      <PageBackgroundGraphics />
+
       {/* Header */}
-      <section className="container" style={{ marginBottom: "40px" }}>
+      <section className="container" style={{ marginBottom: "40px", position: "relative", zIndex: 2 }}>
         <div className="section-head" style={{ marginBottom: "20px" }}>
           <div>
             <div className="eyebrow">
@@ -53,8 +57,10 @@ export default function TarifsPage() {
               Des packs calibrés <em>pour émerger dehors.</em>
             </h1>
             <p>
-              6 formules claires et symétriques en Franc CFA, adaptées aux créateurs, entrepreneurs, commerces
-              et institutions. Une équipe technique complète mobilisée directement dans vos locaux ou en studio.
+              6 formules claires et symétriques en Franc CFA, adaptées aux
+              créateurs, entrepreneurs, commerces et institutions. Une équipe
+              technique complète mobilisée directement dans vos locaux ou en
+              studio.
             </p>
           </div>
           <Link className="btn orange" href="/reservation">
@@ -65,7 +71,8 @@ export default function TarifsPage() {
         {/* Bannière Valeur Ajoutée : Équipe personnalisée dans vos locaux */}
         <div
           style={{
-            background: "linear-gradient(135deg, rgba(243, 107, 11, 0.12), rgba(18, 18, 18, 0.95))",
+            background:
+              "linear-gradient(135deg, rgba(243, 107, 11, 0.12), rgba(18, 18, 18, 0.95))",
             border: "1px solid rgba(243, 107, 11, 0.35)",
             borderRadius: "20px",
             padding: "20px 24px",
@@ -94,16 +101,28 @@ export default function TarifsPage() {
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <strong style={{ color: "#fff", fontSize: "15px", display: "block" }}>
+              <strong
+                style={{ color: "#fff", fontSize: "15px", display: "block" }}
+              >
                 Une équipe personnalisée mobilisée directement dans vos locaux
               </strong>
               <span style={{ color: "#aaa", fontSize: "13px" }}>
-                Cadreurs, ingénieur son et régie mobile installés chez vous à Lomé ou accès à notre plateau studio.
+                Cadreurs, ingénieur son et régie mobile installés chez vous à
+                Lomé ou accès à notre plateau studio.
               </span>
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--orange)", fontSize: "13px", fontWeight: 700 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "var(--orange)",
+              fontSize: "13px",
+              fontWeight: 700,
+            }}
+          >
             <MapPin className="w-4 h-4" />
             <span>Lomé & Tout le Togo</span>
           </div>
@@ -126,21 +145,56 @@ export default function TarifsPage() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Clock className="w-5 h-5 text-[#f36b0b]" />
-            <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "var(--light)" }}>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "1.2px",
+                color: "var(--light)",
+              }}
+            >
               Discipline & Qualité Broadcast
             </span>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", alignItems: "center" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "24px",
+              alignItems: "center",
+            }}
+          >
             <div>
-              <h2 style={{ fontSize: "clamp(20px, 2.8vw, 28px)", margin: "0 0 10px 0", color: "#fff" }}>
+              <h2
+                style={{
+                  fontSize: "clamp(20px, 2.8vw, 28px)",
+                  margin: "0 0 10px 0",
+                  color: "#fff",
+                }}
+              >
                 Capacité exclusive : 4 créneaux par jour maximum
               </h2>
-              <p style={{ color: "var(--muted)", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
-                Chaque prestation mobilise une équipe dédiée complète. Cette limitation stricte garantit une
-                attention maximale, zéro coupure et un accompagnement sur mesure pour chacun de vos directs.
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "14px",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                Chaque prestation mobilise une équipe dédiée complète. Cette
+                limitation stricte garantit une attention maximale, zéro coupure
+                et un accompagnement sur mesure pour chacun de vos directs.
               </p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "10px",
+              }}
+            >
               {DAILY_LIVE_SLOTS.map((slot) => (
                 <div
                   key={slot.id}
@@ -152,7 +206,13 @@ export default function TarifsPage() {
                     textAlign: "center",
                   }}
                 >
-                  <strong style={{ color: "var(--orange)", fontSize: "14px", display: "block" }}>
+                  <strong
+                    style={{
+                      color: "var(--orange)",
+                      fontSize: "14px",
+                      display: "block",
+                    }}
+                  >
                     {slot.hours}
                   </strong>
                   <span style={{ fontSize: "11px", color: "#aaa" }}>
@@ -222,7 +282,14 @@ export default function TarifsPage() {
               )}
 
               <div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: "8px",
+                  }}
+                >
                   <span
                     style={{
                       fontSize: "11px",
@@ -249,10 +316,23 @@ export default function TarifsPage() {
                   )}
                 </div>
 
-                <h3 style={{ font: "800 22px Manrope, sans-serif", margin: "0 0 10px 0", color: "#fff" }}>
+                <h3
+                  style={{
+                    font: "800 22px Manrope, sans-serif",
+                    margin: "0 0 10px 0",
+                    color: "#fff",
+                  }}
+                >
                   {offer.title}
                 </h3>
-                <p style={{ color: "var(--muted)", fontSize: "13px", lineHeight: 1.55, margin: "0 0 18px 0" }}>
+                <p
+                  style={{
+                    color: "var(--muted)",
+                    fontSize: "13px",
+                    lineHeight: 1.55,
+                    margin: "0 0 18px 0",
+                  }}
+                >
                   {offer.description}
                 </p>
 
@@ -264,20 +344,58 @@ export default function TarifsPage() {
                     margin: "18px 0",
                   }}
                 >
-                  <div style={{ font: "900 32px Manrope, sans-serif", color: "var(--orange)" }}>
+                  <div
+                    style={{
+                      font: "900 32px Manrope, sans-serif",
+                      color: "var(--orange)",
+                    }}
+                  >
                     {offer.price}
                   </div>
-                  <small style={{ color: "#aaa", fontSize: "12px", display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
-                    <Users className="w-3.5 h-3.5 text-[#f36b0b]" /> Équipe personnalisée incluse (locaux ou studio)
+                  <small
+                    style={{
+                      color: "#aaa",
+                      fontSize: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      marginTop: "4px",
+                    }}
+                  >
+                    <Users className="w-3.5 h-3.5 text-[#f36b0b]" /> Équipe
+                    personnalisée incluse (locaux ou studio)
                   </small>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", color: "var(--light)", letterSpacing: "1px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      textTransform: "uppercase",
+                      color: "var(--light)",
+                      letterSpacing: "1px",
+                    }}
+                  >
                     Détail des prestations incluses
                   </span>
                   {offer.included.map((inc, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "13px", color: "#ccc" }}>
+                    <div
+                      key={i}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: "8px",
+                        fontSize: "13px",
+                        color: "#ccc",
+                      }}
+                    >
                       <CheckCircle2 className="w-4 h-4 text-[#f36b0b] shrink-0 mt-0.5" />
                       <span>{inc}</span>
                     </div>
@@ -294,7 +412,14 @@ export default function TarifsPage() {
                   Réserver ce pack →
                 </Link>
                 {offer.note && (
-                  <p style={{ fontSize: "11px", color: "#777", textAlign: "center", margin: "8px 0 0 0" }}>
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      color: "#777",
+                      textAlign: "center",
+                      margin: "8px 0 0 0",
+                    }}
+                  >
                     {offer.note}
                   </p>
                 )}
@@ -305,7 +430,15 @@ export default function TarifsPage() {
       </section>
 
       {/* FAQ */}
-      <section className="section" style={{ background: "#0b0b0b", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "75px 0" }}>
+      <section
+        className="section"
+        style={{
+          background: "#0b0b0b",
+          borderTop: "1px solid var(--line)",
+          borderBottom: "1px solid var(--line)",
+          padding: "75px 0",
+        }}
+      >
         <div className="container">
           <div className="section-head">
             <div>
@@ -316,7 +449,13 @@ export default function TarifsPage() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "24px",
+            }}
+          >
             {FAQS.map((faq, i) => (
               <div
                 key={i}
@@ -331,13 +470,28 @@ export default function TarifsPage() {
                   boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
                   <HelpCircle className="w-5 h-5 text-[#f36b0b] shrink-0" />
-                  <h3 style={{ font: "700 16px Manrope, sans-serif", margin: 0, color: "#fff" }}>
+                  <h3
+                    style={{
+                      font: "700 16px Manrope, sans-serif",
+                      margin: 0,
+                      color: "#fff",
+                    }}
+                  >
                     {faq.q}
                   </h3>
                 </div>
-                <p style={{ color: "var(--muted)", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
+                <p
+                  style={{
+                    color: "var(--muted)",
+                    fontSize: "13px",
+                    lineHeight: 1.7,
+                    margin: 0,
+                  }}
+                >
                   {faq.a}
                 </p>
               </div>
@@ -352,8 +506,13 @@ export default function TarifsPage() {
           <b className="contact-symbol">◉</b>
           <div>
             <small>Directement auprès de l'administrateur OCD Live Lomé</small>
-            <h2>Vous avez une question sur une formule ou un besoin sur mesure ?</h2>
-            <p>Notre équipe technique vérifie la disponibilité des 4 créneaux et vous répond sous 24h.</p>
+            <h2>
+              Vous avez une question sur une formule ou un besoin sur mesure ?
+            </h2>
+            <p>
+              Notre équipe technique vérifie la disponibilité des 4 créneaux et
+              vous répond sous 24h.
+            </p>
           </div>
           <Link className="btn white" href="/reservation">
             Accéder à la réservation →

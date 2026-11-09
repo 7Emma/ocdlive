@@ -49,6 +49,8 @@ export interface YouthPhotoItem {
   location: string;
   hashtag: string;
   image: string;
+  facebookUrl?: string;
+  isVideo?: boolean;
 }
 
 export interface PricingOfferItem {
@@ -65,18 +67,34 @@ export interface PricingOfferItem {
   note?: string;
 }
 
+export type OpportunityType =
+  | "Formation & Masterclass"
+  | "Encadrement & Mentorat"
+  | "Emploi & Mission Terrain"
+  | "Casting & Appel à Projets";
+
 export interface OpportunityItem {
   id: string;
   title: string;
+  type?: OpportunityType;
   company: string;
   location: string;
-  contractType: "Freelance" | "CDD / CDI" | "Stage" | "Casting / Tournage";
-  category: "Audiovisuel & Régie" | "Production & Montage" | "Événementiel & Accueil" | "Communication & Réseaux";
+  contractType: string;
+  category:
+    | "Audiovisuel & Régie"
+    | "Production & Montage"
+    | "Événementiel & Accueil"
+    | "Communication & Réseaux"
+    | "Entrepreneuriat & Création";
   remuneration: string;
+  duration?: string;
   postedDate: string;
   deadline: string;
+  badge?: string;
+  spots?: string;
   description: string;
   requirements: string[];
+  benefits?: string[];
 }
 
 export interface ProjectItem {
@@ -338,76 +356,281 @@ export const PRICING_OFFERS: PricingOfferItem[] = [
 ];
 
 export const OPPORTUNITIES_DATA: OpportunityItem[] = [
+  // 1. FORMATIONS & MASTERCLASSES
+  {
+    id: "formation-cadrage-4k",
+    title: "Masterclass Pratique : Cadrage 4K & Réalisation Multicaméra",
+    type: "Formation & Masterclass",
+    company: "OCD Live Academy",
+    location: "Lomé (Studio OCD Agoè & Régie Mobile)",
+    contractType: "Formation Pratique Gratuite",
+    category: "Audiovisuel & Régie",
+    remuneration: "Prise en charge 100% (Matériel fourni)",
+    duration: "2 semaines intensives (30h terrain)",
+    postedDate: "Aujourd'hui",
+    deadline: "18 Novembre 2026",
+    badge: "FORMATION 100% PRATIQUE",
+    spots: "12 places sélectionnées",
+    description:
+      "Prends en main les caméras broadcast réelles (Sony FX6, Blackmagic Studio), apprends le vocabulaire de régie, la gestion du tally, les ordres réalisateur et la prise d'angle dynamique sur les directs télévisés et streaming.",
+    requirements: [
+      "Jeunes passionnés d'image (débutants motivés ou autodidactes)",
+      "Disponibilité en soirée et week-ends pour les tournages réels",
+      "Discipline, ponctualité et esprit d'équipe #OCD",
+    ],
+    benefits: [
+      "Attestation officielle de compétences OCD Live",
+      "Intégration directe au vivier des cadreurs pigistes payés à la vacation",
+      "Repas et transport assurés sur les tournages en extérieur",
+    ],
+  },
+  {
+    id: "formation-montage-reels-tiktok",
+    title: "Bootcamp Express : Montage Vidéo Mobile & Formats Viraux (TikTok / Reels)",
+    type: "Formation & Masterclass",
+    company: "OCD Media Lab",
+    location: "Lomé & En Ligne",
+    contractType: "Bootcamp 5 Jours",
+    category: "Production & Montage",
+    remuneration: "Formation offerte + Prime au meilleur projet",
+    duration: "5 jours intensifs (3h / jour)",
+    postedDate: "Il y a 2 jours",
+    deadline: "22 Novembre 2026",
+    badge: "BOOTCAMP CRÉATEURS",
+    spots: "20 places",
+    description:
+      "Transforme des heures de directs bruts en capsules percutantes de 60 secondes qui captent des millions de vues. Storytelling court, hooks accrocheurs dès la première seconde, sous-titres animés et sound design percutant.",
+    requirements: [
+      "Avoir un smartphone récent ou un PC avec CapCut, Premiere ou DaVinci",
+      "Bonne culture des codes visuels et punchlines des réseaux sociaux",
+      "Capacité à synthétiser une séquence forte en moins de 45 secondes",
+    ],
+    benefits: [
+      "Possibilité d'embauche immédiate comme monteur freelance OCD",
+      "Accès à la banque de rushs exclusifs des émissions de Bovan",
+      "Coaching personnalisé par nos chefs monteurs",
+    ],
+  },
+  {
+    id: "formation-son-hf-broadcast",
+    title: "Stage Terrain : Prise de Son HF, Mixage Broadcast & Direct Extérieur",
+    type: "Formation & Masterclass",
+    company: "OCD Live Productions",
+    location: "Lomé (Sur sites événementiels & Foires)",
+    contractType: "Stage Pratique Terrain",
+    category: "Audiovisuel & Régie",
+    remuneration: "Bourse de stage + Défraiement transport",
+    duration: "3 semaines",
+    postedDate: "Cette semaine",
+    deadline: "25 Novembre 2026",
+    badge: "STAGE TERRAIN",
+    spots: "6 places",
+    description:
+      "Le son représente 70% de l'impact d'un direct. Apprends la gestion des fréquences HF sans fil, le placement des micros cravates/serre-tête, la lutte contre le vent et le larsen, et le mixage numérique en temps réel.",
+    requirements: [
+      "Bonne oreille, rigueur technique et sang-froid",
+      "Notions de base en électricité ou audio analogique appréciées",
+      "Motivation totale pour le direct sans filet",
+    ],
+    benefits: [
+      "Manipulation de consoles numériques professionnelles",
+      "Attestation de stage pratique certifiée",
+      "Missions rémunérées dès validation du stage",
+    ],
+  },
+
+  // 2. ENCADREMENT & MENTORAT BOVAN
+  {
+    id: "mentorat-bovan-terrain",
+    title: "Programme d'Incubation & Mentorat Terrain par Bovan",
+    type: "Encadrement & Mentorat",
+    company: "Bovan Mouvement #OCD",
+    location: "Lomé & Déplacements Sous-région",
+    contractType: "Mentorat Exclusif 3 Mois",
+    category: "Entrepreneuriat & Création",
+    remuneration: "Gratuit / Accompagnement stratégique offert",
+    duration: "Promotion de 3 mois",
+    postedDate: "Hier",
+    deadline: "30 Novembre 2026",
+    badge: "MENTORAT DIRECT BOVAN",
+    spots: "5 jeunes entrepreneurs sélectionnés",
+    description:
+      "Tu as déjà une activité réelle dehors (commerce, street food, artisanat, atelier, prestation) et tu veux exploser ta visibilité ? Le PDG Bovan et l'équipe OCD accompagnent 5 jeunes battants : refonte d'image, stratégie de vente et passage en live devant 4 millions d'abonnés.",
+    requirements: [
+      "Avoir une activité ou un commerce déjà existant sur le terrain",
+      "Faire preuve de labeur acharné et incarner l'esprit #LesOpportunitesCestDehors",
+      "Être prêt à être filmé et à partager son quotidien avec franchise et vérité",
+    ],
+    benefits: [
+      "Passage en direct et diffusion sur les comptes de Bovan (4M+ abonnés)",
+      "Conseils business et commercialisation en tête-à-tête avec Bovan",
+      "Création de visuels et vidéos promotionnelles gratuites",
+    ],
+  },
+  {
+    id: "coaching-prise-parole-live",
+    title: "Coaching Oratoire : Prise de Parole Face Caméra & Vente Flash en Direct",
+    type: "Encadrement & Mentorat",
+    company: "OCD Talent Factory",
+    location: "Lomé (Plateau Live Talk-Show)",
+    contractType: "Coaching Intensif",
+    category: "Communication & Réseaux",
+    remuneration: "Accompagnement offert sur casting",
+    duration: "Session de 3 week-ends",
+    postedDate: "Il y a 4 jours",
+    deadline: "20 Novembre 2026",
+    badge: "COACHING SCÈNE & LIVE",
+    spots: "8 candidats retenus",
+    description:
+      "Comment captiver une audience en direct sans bafouiller ? Comment présenter un produit et susciter l'achat en temps réel ? Maîtrise ta posture, ta voix, ton regard caméra et ton pitch commercial avec les animateurs vedettes d'OCD Live.",
+    requirements: [
+      "Aisance relationnelle naturelle et énergie communicative",
+      "Envie d'animer des ventes en direct, des chroniques ou des interviews",
+      "Disponibilité les samedis matin à Lomé",
+    ],
+    benefits: [
+      "Tournage d'une bande-démo professionnelle en studio 4K",
+      "Opportunités de co-animation rémunérée sur nos lives partenaires",
+      "Mise en relation avec des marques togolaises et régionales",
+    ],
+  },
+
+  // 3. EMPLOIS & MISSIONS TERRAIN
   {
     id: "cadreur-live-lome",
     title: "Cadreur / Opérateur Caméra Broadcast",
+    type: "Emploi & Mission Terrain",
     company: "OCD Live Productions",
     location: "Lomé (Agoè-Nyivé / Tokoin)",
-    contractType: "Freelance",
+    contractType: "Freelance / Pige Rémunérée",
     category: "Audiovisuel & Régie",
-    remuneration: "Selon barème de pige journalière",
+    remuneration: "Pige journalière (25 000 à 60 000 FCFA / jour selon mission)",
+    duration: "Missions régulières selon calendrier événementiel",
     postedDate: "Hier",
     deadline: "20 Novembre 2026",
+    badge: "PIGE RÉMUNÉRÉE",
+    spots: "4 postes ouverts",
     description:
-      "Dans le cadre du renforcement de nos équipes de captation sur les prochains sommets et plateaux TV, nous recherchons des cadreurs réactifs, maîtrisant le travail en multicaméra avec intercom.",
+      "Dans le cadre du renforcement de nos équipes de captation sur les prochains sommets, concerts et plateaux TV, nous recrutons des cadreurs réactifs maîtrisant le travail en régie multicaméra avec intercom.",
     requirements: [
       "Maîtrise des caméras type Sony FX6 / FX9 / Blackmagic",
       "Expérience avérée du direct (timing serré, suivi du conducteur)",
       "Capacité à suivre les ordres de cadrage du réalisateur sans hésitation",
     ],
-  },
-  {
-    id: "monteur-reels-talkshow",
-    title: "Monteur Vidéo Rythmé & Formats Courts (Reels / TikTok)",
-    company: "OCD Live Media",
-    location: "Lomé / Télétravail partiel",
-    contractType: "Freelance",
-    category: "Production & Montage",
-    remuneration: "Rémunération par capsule livrée",
-    postedDate: "Il y a 3 jours",
-    deadline: "25 Novembre 2026",
-    description:
-      "Nous recherchons un monteur talentueux pour transformer nos enregistrements d'émissions et de podcasts en extraits viraux ultra-dynamiques avec sous-titres animés et sound design percutant.",
-    requirements: [
-      "Maîtrise de Premiere Pro ou DaVinci Resolve",
-      "Excellente culture des codes visuels TikTok / Instagram / Shorts",
-      "Capacité à extraire la punchline et le moment fort d'une vidéo d'1 heure",
+    benefits: [
+      "Paiement garanti et immédiat après clôture du live",
+      "Prise en charge transport et catering sur site",
+      "Accès aux équipements audiovisuels les plus modernes du Togo",
     ],
   },
   {
-    id: "assistant-regie-evenement",
-    title: "Assistant Régie Générale & Câblage Plateau",
-    company: "OCD Live Terrain",
-    location: "Lomé & Déplacements intérieurs",
+    id: "technicien-starlink-broadcast",
+    title: "Technicien Réseau & Déploiement Starlink Broadcast",
+    type: "Emploi & Mission Terrain",
+    company: "OCD Live Connectivity",
+    location: "Lomé & Mobilité Sous-régionale",
     contractType: "CDD / CDI",
     category: "Audiovisuel & Régie",
-    remuneration: "Salaire selon profil",
-    postedDate: "Il y a 5 jours",
+    remuneration: "Salaire mensuel attractif + Primes de mission",
+    duration: "Contrat temps plein",
+    postedDate: "Il y a 3 jours",
     deadline: "30 Novembre 2026",
+    badge: "POSTE CLÉ CDI / CDD",
+    spots: "2 techniciens",
     description:
-      "Le terrain a besoin de bras et d'énergie. En charge de l'installation, du passage de câbles SDI/HDMI/Fibre, de la mise en place des retours et du rangement du matériel après les lives.",
+      "Responsable de l'installation des kits satellites Starlink sur le terrain, du câblage réseau, de la configuration du bonding 4G/5G et de la garantie d'un flux sans coupure vers nos plateformes de streaming.",
     requirements: [
-      "Ponctualité irréprochable et sens de la discipline",
-      "Rigueur dans le rangement et le soin du matériel sensible",
-      "Motivation totale à apprendre le métier aux côtés de techniciens seniors",
+      "Compétences solides en réseaux IP, adressage et protocoles streaming (RTMP, SRT)",
+      "Réactivité extrême face aux imprévus de connexion",
+      "Permis de conduire et disponibilité pour déplacements régionaux",
+    ],
+    benefits: [
+      "Équipements et stations informatiques de pointe fournis",
+      "Prise en charge intégrale des frais de mission et hébergement",
+      "Cadre de travail jeune, dynamique et valorisant",
     ],
   },
   {
     id: "hotes-hotesses-accueil",
-    title: "Hôtes & Hôtesses d'Accueil Événementiel",
+    title: "Hôtes & Hôtesses d'Accueil VIP & Protocole Événementiel",
+    type: "Emploi & Mission Terrain",
     company: "Partenaire Événements OCD",
-    location: "Lomé (Togo)",
-    contractType: "Casting / Tournage",
+    location: "Lomé (Grands Hôtels & Palais des Congrès)",
+    contractType: "Missions Ponctuelles",
     category: "Événementiel & Accueil",
-    remuneration: "Rémunération forfaitaire par événement",
+    remuneration: "15 000 à 35 000 FCFA / vacation",
+    duration: "Selon dates d'événements",
     postedDate: "Cette semaine",
     deadline: "15 Décembre 2026",
+    badge: "MISSIONS VIP RÉMUNÉRÉES",
+    spots: "15 personnes",
     description:
-      "Pour les grands sommets et conférences retransmis en direct, nous constituons notre vivier d'accueil pour l'orientation des intervenants VIP, la distribution des badges et l'assistance en salle.",
+      "Pour les grands sommets institutionnels, forums économiques et soirées de gala retransmis en direct, nous constituons notre vivier d'accueil pour le protocole, l'orientation des personnalités VIP et l'assistance en salle.",
     requirements: [
-      "Excellente élocution et présentation soignée",
-      "Sens aigu du service et diplomatie",
-      "Bilinguisme Français/Anglais apprécié",
+      "Excellente élocution, courtoisie et présentation irréprochable",
+      "Sens aigu du service, de la discrétion et diplomatie",
+      "Bilinguisme Français / Anglais très apprécié",
+    ],
+    benefits: [
+      "Tenues élégantes fournies",
+      "Repas et logistique pris en charge",
+      "Opportunités de networking de haut niveau",
+    ],
+  },
+
+  // 4. CASTINGS & APPELS À PROJETS
+  {
+    id: "casting-chroniqueurs-ocd",
+    title: "Grand Casting : Nouveaux Visages & Chroniqueurs Plateaux OCD Live",
+    type: "Casting & Appel à Projets",
+    company: "House of Challenge & OCD Live",
+    location: "Lomé (Studio Plateau OCD)",
+    contractType: "Audition Ouverte",
+    category: "Communication & Réseaux",
+    remuneration: "Cachet par émission + Partage de revenus digitaux",
+    duration: "Saison 2026 / 2027",
+    postedDate: "Hier",
+    deadline: "28 Novembre 2026",
+    badge: "CASTING OUVERT",
+    spots: "4 chroniqueurs retenus",
+    description:
+      "Tu as une personnalité unique, de l'humour, de la répartie ou une expertise que tu souhaites partager avec la jeunesse africaine ? Viens auditionner pour animer une chronique hebdomadaire dans nos talk-shows en direct.",
+    requirements: [
+      "Jeunes de 18 à 35 ans résidant à Lomé ou environs",
+      "Envoyer une courte vidéo de présentation (1 min) ou se présenter au studio",
+      "Authenticité totale, franc-parler et énergie positive",
+    ],
+    benefits: [
+      "Plateau télévisé 4K et réalisation professionnelle à ta disposition",
+      "Exposition immédiate devant notre communauté de plusieurs millions de personnes",
+      "Accompagnement par des réalisateurs et producteurs confirmés",
+    ],
+  },
+  {
+    id: "tremplin-video-dehors",
+    title: "Tremplin Créateurs : Défi Vidéo 'Raconte ton Dehors' #LesOpportunitesCestDehors",
+    type: "Casting & Appel à Projets",
+    company: "Mouvement Bovan #OCD",
+    location: "Togo & Sous-région",
+    contractType: "Concours & Dotations",
+    category: "Production & Montage",
+    remuneration: "Cagnotte de 1 000 000 FCFA + Équipements de tournage",
+    duration: "Clôture des soumissions le 15 Décembre",
+    postedDate: "Cette semaine",
+    deadline: "15 Décembre 2026",
+    badge: "TREMPLIN & DOTATIONS",
+    spots: "3 lauréats primés",
+    description:
+      "Réalise une vidéo de 60 à 90 secondes montrant un jeune de ton quartier qui se bat avec dignité dans la rue (artisan, vendeur, mécanicien, couturier, cuisinier). Le jury de Bovan récompensera les récits les plus poignants et inspirants.",
+    requirements: [
+      "Filmé au smartphone ou à la caméra, sans artifice",
+      "Raconter une histoire humaine sincère avec le consentement de la personne",
+      "Taguer #LesOpportunitesCestDehors et @BovannYT",
+    ],
+    benefits: [
+      "1er Prix : Kit Caméra 4K + Micro HF sans fil + 500 000 FCFA",
+      "Diffusion en prime time sur la chaîne de Bovan (4M)",
+      "Intégration directe aux projets audiovisuels d'OCD Live",
     ],
   },
 ];
@@ -668,72 +891,77 @@ export const ARTICLES_DATA: ArticleItem[] = [
 export const BOVAN_VIDEOS: BovanVideoItem[] = [
   {
     id: "bovan-main",
-    title: "Pourquoi ta chambre ne va jamais te nourrir : Sortir ou subir",
-    duration: "16:42",
-    views: "640K vues",
-    badge: "VIDÉO MAÎTRESSE · MANIFESTE DU TERRAIN",
-    thumbnail: "/images/bovan-dg.jpg",
+    title: "Tu peux vendre sur un compte de 4 millions d'abonnés",
+    duration: "Vidéo Bovan · 4M Abonnés",
+    views: "4.2M abonnés",
+    badge: "🔥 VENDRE EN DIRECT · AUDIENCE DE 4 MILLIONS",
+    thumbnail: "/images/videos/bovan-video-1-4m.jpg",
     description:
-      "Dans cette prise de parole percutante, Bovan s'adresse les yeux dans les yeux à la jeunesse : l'attente passive et les diplômes au placard ne paient aucune facture. Découvrez la philosophie brute d'OCD — Opportunités C'est Dehors.",
-    youtubeUrl: "https://youtube.com/@ocdlive",
+      "Vendez vos vêtements, cosmétiques, créations culinaires et services en direct ou diffusez votre vidéo promotionnelle sur les comptes certifiés de Bovan et House of Challenge cumulant plus de 4 millions d'abonnés.",
+    youtubeUrl: "https://www.facebook.com/share/r/1cPEQC9cbn/",
     isMain: true,
   },
   {
     id: "bovan-v2",
-    title: "Les 3 lois du dehors : Comment un jeune sans capital peut s'imposer",
-    duration: "12:15",
-    views: "420K vues",
-    badge: "CONSEILS & ACTION",
-    thumbnail: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&auto=format&fit=crop&q=85",
+    title: "Seulement pour les OCD | Bovann",
+    duration: "Facebook Reel",
+    views: "45 K vues · 3,7 K réactions",
+    badge: "MOTIVATION & TERRAIN",
+    thumbnail: "/images/videos/bovan-video-2-ocd.jpg",
     description:
-      "Conseils stratégiques pour débuter avec zéro franc, construire sa crédibilité sur le terrain et forcer les portes du succès sans attendre la permission de personne.",
-    youtubeUrl: "https://youtube.com/@ocdlive",
+      "Conseils stratégiques et motivation de terrain par Bovan pour tous ceux qui se lèvent chaque matin pour créer leur propre opportunité.",
+    youtubeUrl: "https://www.facebook.com/reel/1439435511044757/",
   },
   {
     id: "bovan-v3",
-    title: "Immersion Régie OCD Live : On filme les vrais bâtisseurs de l'Afrique",
-    duration: "09:30",
-    views: "290K vues",
-    badge: "REPORTAGE EN DIRECT",
-    thumbnail: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200&auto=format&fit=crop&q=85",
+    title: "J'ai attrapé un OCD pour une surprise | Jojo le Comédien",
+    duration: "Facebook Reel",
+    views: "264 K vues · 23 K réactions",
+    badge: "JOJO LE COMÉDIEN & BOVAN",
+    thumbnail: "/images/videos/bovan-video-3-jojo.jpg",
     description:
-      "Caméras 4K et régies mobiles déployées sur les marchés, les chantiers et les sommets : la démonstration de force technique au service des talents de chez nous.",
-    youtubeUrl: "https://youtube.com/@ocdlive",
+      "Immersion en direct avec Jojo le Comédien et Bovan au cœur de l'action : force du mouvement, solidarité et surprise pour la jeunesse.",
+    youtubeUrl: "https://www.facebook.com/reel/1689606752582117/",
   },
 ];
 
 export const YOUTH_PHOTOS: YouthPhotoItem[] = [
   {
     id: "youth-1",
-    title: "Artisans & Monteurs de Structures Scéniques",
-    role: "Scénographie & Régie Terrain",
-    location: "Bè, Lomé",
-    hashtag: "#UnOCDNeLacheRien",
-    image: "/images/studio-team.jpg",
+    title: "Safiou Yaya Touré — + de 59 Km ce matin",
+    role: "« Rienneux lève-toi, les Opportunités C'est Dehors »",
+    location: "Lomé, Togo",
+    hashtag: "#LesOpportunitesCestDehors #CourageAuxOCD",
+    image: "/images/youth/safiou-yaya-toure.jpg",
+    facebookUrl: "https://www.facebook.com/share/p/1F1juknFmB/",
   },
   {
     id: "youth-2",
-    title: "Cadreurs & Opérateurs Caméra Broadcast",
-    role: "Prise de Vue & Réalisation Direct",
-    location: "Tokoin, Lomé",
-    hashtag: "#GénérationOCD",
-    image: "/images/hero-cameraman.png",
+    title: "Jojo le Comédien & l'énergie OCD",
+    role: "Humour, terrain & création de contenu pour la jeunesse",
+    location: "Lomé, Togo",
+    hashtag: "#JojoLeComedien #OCD",
+    image: "/images/youth/jojo-le-comedien-ocd.jpg",
+    facebookUrl: "https://www.facebook.com/jojolecomedienOfficiel/posts/pfbid02cjumcZ9bnSjv66omqxF3omxGHr31mRniJwtbdBLEw52xQPsGcWnsweAWsAY9GcL9l",
   },
   {
     id: "youth-3",
-    title: "Créatrices & Entrepreneures Street Food / Catering",
-    role: "Entrepreneuriat Culinaire de Terrain",
-    location: "Hedzranawoé, Lomé",
-    hashtag: "#LesOpportunitesCestDehors",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=85",
+    title: "Le travail d'un OCD ❤️",
+    role: "Bovann et la jeunesse togolaise en plein labeur",
+    location: "Lomé, Togo",
+    hashtag: "#LeTravailDunOCD #Terrain",
+    image: "/images/youth/bovann-travail-ocd.jpg",
+    facebookUrl: "https://www.facebook.com/share/p/1Cy3EZg5Fg/",
   },
   {
     id: "youth-4",
-    title: "Jeunes Bâtisseurs & Techniciens Plateau",
-    role: "Installation Régie & Lumière Studio",
-    location: "Agoè-Nyivé, Lomé",
-    hashtag: "#OpportunitésCestDehors",
-    image: "/images/studio-brand.png",
+    title: "La jeune qui se bat pour les opportunités",
+    role: "OCD à vie 🚀 — Commerce, courage & ambition quotidienne",
+    location: "Lomé, Togo",
+    hashtag: "#OCDaVie #FemmeDeTerrain",
+    image: "/images/youth/jeune-fille-ocd.jpg",
+    facebookUrl: "https://www.facebook.com/share/r/1CEivBV6n2/",
+    isVideo: true,
   },
 ];
 

@@ -293,45 +293,57 @@ export default function AboutPage() {
       </section>
 
       {/* SPOT 4 : COUVERTURE PANAFRICAINE & PRÉSENCE TERRAIN */}
-      <section className="section" style={{ background: "#0b0b0b", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+      <section className="section" style={{ background: "#0b0b0b", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "85px 0" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "40px", alignItems: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "48px", alignItems: "center" }}>
             <div>
-              <div className="eyebrow" style={{ marginBottom: "12px" }}>
+              <div className="eyebrow" style={{ marginBottom: "14px" }}>
                 <i /> Rayonnement Continental
               </div>
-              <h2 style={{ fontSize: "clamp(26px, 3.2vw, 38px)", margin: "0 0 16px", color: "#fff" }}>
+              <h2 style={{ fontSize: "clamp(28px, 3.4vw, 42px)", margin: "0 0 18px", color: "#fff", lineHeight: 1.2 }}>
                 Un ancrage à Lomé, <em>une portée sur toute l'Afrique.</em>
               </h2>
-              <p style={{ color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.7, margin: "0 0 24px" }}>
+              <p style={{ color: "var(--muted)", fontSize: "15px", lineHeight: 1.75, margin: "0 0 28px" }}>
                 Fondé par le PDG <strong>Bovan</strong>, OCD Live opère depuis son <strong>Studio Central à Lomé (Togo)</strong> pour déployer des régies multicaméras mobiles et des liaisons satellite Starlink partout en Afrique de l'Ouest (Togo, Bénin, Ghana, Côte d'Ivoire, Sénégal) et connecter la diaspora.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", background: "rgba(255,255,255,0.03)", padding: "14px 18px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  <span style={{ fontSize: "20px" }}>📍</span>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", background: "rgba(255,255,255,0.03)", padding: "16px 20px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <span style={{ fontSize: "22px" }}>📍</span>
                   <div>
-                    <strong style={{ color: "#fff", display: "block", fontSize: "14px" }}>Studio Central & Régie Fixe · Lomé, Togo</strong>
-                    <small style={{ color: "#aaa", fontSize: "12px" }}>Plateau insonorisé, régie 4K Blackmagic et accueil des invités VIP.</small>
+                    <strong style={{ color: "#fff", display: "block", fontSize: "14.5px" }}>Studio Central & Régie Fixe · Lomé, Togo</strong>
+                    <small style={{ color: "#aaa", fontSize: "12.5px" }}>Plateau insonorisé, régie 4K Blackmagic et accueil des invités VIP.</small>
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", background: "rgba(255,255,255,0.03)", padding: "14px 18px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  <span style={{ fontSize: "20px" }}>🚐</span>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", background: "rgba(255,255,255,0.03)", padding: "16px 20px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <span style={{ fontSize: "22px" }}>🚐</span>
                   <div>
-                    <strong style={{ color: "#fff", display: "block", fontSize: "14px" }}>Régies Mobiles Tout-Terrain</strong>
-                    <small style={{ color: "#aaa", fontSize: "12px" }}>Déploiement direct dans vos locaux d'entreprise, boutiques et foires.</small>
+                    <strong style={{ color: "#fff", display: "block", fontSize: "14.5px" }}>Régies Mobiles Tout-Terrain</strong>
+                    <small style={{ color: "#aaa", fontSize: "12.5px" }}>Déploiement direct dans vos locaux d'entreprise, boutiques et foires.</small>
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", background: "rgba(255,255,255,0.03)", padding: "14px 18px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  <span style={{ fontSize: "20px" }}>📡</span>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", background: "rgba(255,255,255,0.03)", padding: "16px 20px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <span style={{ fontSize: "22px" }}>📡</span>
                   <div>
-                    <strong style={{ color: "#fff", display: "block", fontSize: "14px" }}>Duplex Satellite & Réseau Diaspora</strong>
-                    <small style={{ color: "#aaa", fontSize: "12px" }}>Connexion en direct avec Paris, Londres, Montréal et les métropoles africaines.</small>
+                    <strong style={{ color: "#fff", display: "block", fontSize: "14.5px" }}>Duplex Satellite & Réseau Diaspora</strong>
+                    <small style={{ color: "#aaa", fontSize: "12.5px" }}>Connexion en direct avec Paris, Londres, Montréal et les métropoles africaines.</small>
                   </div>
                 </div>
               </div>
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AfricaMapGraphic variant="about" showRays={true} />
+            <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <AfricaMapGraphic
+                variant="about"
+                showRays={true}
+                showCityDots={true}
+                showCityNames={true}
+                showLomeBeacon={true}
+                showHubBadge={true}
+                width="100%"
+                style={{
+                  maxWidth: "680px",
+                  width: "100%",
+                }}
+              />
             </div>
           </div>
         </div>

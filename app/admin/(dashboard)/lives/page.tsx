@@ -1,6 +1,6 @@
 import { CheckCircle2, ExternalLink } from "lucide-react";
 
-export const instant = false;
+export const dynamic = "force-dynamic";
 import { getLiveBroadcast, getAdminStore } from "@/lib/admin-store";
 import { updateLiveBroadcastAction } from "@/app/actions/admin";
 

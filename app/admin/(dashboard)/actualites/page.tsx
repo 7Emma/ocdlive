@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-export const instant = false;
-import { PlusCircle, Trash2, ExternalLink } from "lucide-react";
+export const dynamic = "force-dynamic";
+import { PlusCircle, ExternalLink } from "lucide-react";
+import AdminDeleteButton from "@/components/AdminDeleteButton";
 import { getAdminStore } from "@/lib/admin-store";
 import { createArticleAction, deleteArticleAction } from "@/app/actions/admin";
 
@@ -85,18 +86,10 @@ export default async function AdminActualitesPage() {
                         await deleteArticleAction(art.slug);
                       }}
                     >
-                      <button
-                        type="submit"
-                        className="admin-logout-btn"
+                      <AdminDeleteButton
+                        confirmMessage={`Supprimer l'article ${art.title} ?`}
                         title="Supprimer cet article"
-                        onClick={(e) => {
-                          if (!confirm(`Supprimer l'article ${art.title} ?`)) {
-                            e.preventDefault();
-                          }
-                        }}
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      />
                     </form>
                   </div>
                 </div>

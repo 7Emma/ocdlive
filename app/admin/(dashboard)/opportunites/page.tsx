@@ -1,11 +1,7 @@
-import {
-  PlusCircle,
-  Trash2,
-  MessageSquare,
-  ExternalLink,
-} from "lucide-react";
+import { PlusCircle, Trash2, MessageSquare, ExternalLink } from "lucide-react";
+import AutoSubmitSelect from "@/components/AutoSubmitSelect";
 
-export const instant = false;
+export const dynamic = "force-dynamic";
 import { getAdminStore, type ApplicantItem } from "@/lib/admin-store";
 import {
   createOpportunityAction,
@@ -22,15 +18,25 @@ export default async function AdminOpportunitesPage() {
     <div>
       {/* Header */}
       <div style={{ marginBottom: "28px" }}>
-        <h1 style={{ fontSize: "24px", fontWeight: "900", marginBottom: "6px" }}>
+        <h1
+          style={{ fontSize: "24px", fontWeight: "900", marginBottom: "6px" }}
+        >
           Mouvement #LesOpportunitesCestDehors & Recrutement
         </h1>
         <p style={{ fontSize: "14px", color: "var(--adm-text-muted)" }}>
-          Gérez les opportunités de terrain pour la jeunesse et suivez les candidatures reçues par OCD Live.
+          Gérez les opportunités de terrain pour la jeunesse et suivez les
+          candidatures reçues par OCD Live.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "28px", marginBottom: "40px" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1.2fr 0.8fr",
+          gap: "28px",
+          marginBottom: "40px",
+        }}
+      >
         {/* Left Column: Active Opportunities */}
         <div className="admin-table-card">
           <div className="admin-table-head">
@@ -40,7 +46,14 @@ export default async function AdminOpportunitesPage() {
             </div>
           </div>
 
-          <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+          <div
+            style={{
+              padding: "20px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "16px",
+            }}
+          >
             {opportunities.map((opp) => (
               <div
                 key={opp.id}
@@ -61,19 +74,52 @@ export default async function AdminOpportunitesPage() {
                   }}
                 >
                   <div>
-                    <span
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", marginBottom: "6px" }}>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          fontSize: "10px",
+                          fontWeight: 800,
+                          textTransform: "uppercase",
+                          background: opp.type?.includes("Formation")
+                            ? "rgba(59, 130, 246, 0.18)"
+                            : opp.type?.includes("Mentorat")
+                            ? "rgba(168, 85, 247, 0.18)"
+                            : opp.type?.includes("Casting")
+                            ? "rgba(236, 72, 153, 0.18)"
+                            : "rgba(243, 107, 11, 0.18)",
+                          color: opp.type?.includes("Formation")
+                            ? "#60a5fa"
+                            : opp.type?.includes("Mentorat")
+                            ? "#c084fc"
+                            : opp.type?.includes("Casting")
+                            ? "#f472b6"
+                            : "var(--adm-orange)",
+                          border: "1px solid currentColor",
+                          padding: "2px 8px",
+                          borderRadius: "4px",
+                        }}
+                      >
+                        {opp.type || "Opportunité"}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: "var(--adm-text-muted)",
+                        }}
+                      >
+                        {opp.company} · {opp.category}
+                      </span>
+                    </div>
+                    <h4
                       style={{
-                        display: "inline-block",
-                        fontSize: "11px",
-                        fontWeight: 800,
-                        textTransform: "uppercase",
-                        color: "var(--adm-orange)",
+                        fontSize: "16px",
+                        fontWeight: "800",
+                        color: "#fff",
                         marginBottom: "4px",
                       }}
                     >
-                      {opp.category} · {opp.contractType}
-                    </span>
-                    <h4 style={{ fontSize: "16px", fontWeight: "800", color: "#fff" }}>
                       {opp.title}
                     </h4>
                   </div>
@@ -87,14 +133,21 @@ export default async function AdminOpportunitesPage() {
                     <button
                       type="submit"
                       className="admin-logout-btn"
-                      title="Supprimer cette offre"
+                      title="Supprimer cette opportunité"
                     >
                       <Trash2 size={16} />
                     </button>
                   </form>
                 </div>
 
-                <p style={{ fontSize: "13px", color: "#c0c7d2", marginBottom: "12px" }}>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#c0c7d2",
+                    marginBottom: "12px",
+                    lineHeight: 1.5,
+                  }}
+                >
                   {opp.description}
                 </p>
 
@@ -107,10 +160,15 @@ export default async function AdminOpportunitesPage() {
                     color: "var(--adm-text-muted)",
                     borderTop: "1px solid rgba(255, 255, 255, 0.06)",
                     paddingTop: "10px",
+                    flexWrap: "wrap",
+                    gap: "8px",
                   }}
                 >
                   <span>📍 {opp.location}</span>
-                  <span style={{ fontWeight: 700, color: "#fff" }}>💰 {opp.remuneration}</span>
+                  {opp.spots && <span>👥 {opp.spots}</span>}
+                  <span style={{ fontWeight: 700, color: "#fff" }}>
+                    💰 {opp.remuneration}
+                  </span>
                 </div>
               </div>
             ))}
@@ -119,76 +177,202 @@ export default async function AdminOpportunitesPage() {
 
         {/* Right Column: Create New Opportunity Form */}
         <div className="admin-table-card" style={{ padding: "28px" }}>
-          <h3 style={{ fontSize: "17px", fontWeight: "800", marginBottom: "20px" }}>
-            Publier une Nouvelle Offre #OCD
+          <h3
+            style={{
+              fontSize: "17px",
+              fontWeight: "800",
+              marginBottom: "6px",
+            }}
+          >
+            Publier une Opportunité #OCD
           </h3>
+          <p
+            style={{
+              fontSize: "13px",
+              color: "var(--adm-text-muted)",
+              marginBottom: "20px",
+            }}
+          >
+            Formation, Mentorat Bovan, Pige terrain ou Casting jeunes talents.
+          </p>
 
           <form action={createOpportunityAction}>
             <div className="admin-form-group">
+              <label className="admin-label" htmlFor="opportunityType">
+                Type d'opportunité
+              </label>
+              <select
+                id="opportunityType"
+                name="opportunityType"
+                className="admin-select"
+                defaultValue="Formation & Masterclass"
+              >
+                <option value="Formation & Masterclass">
+                  🎓 Formation & Masterclass
+                </option>
+                <option value="Encadrement & Mentorat">
+                  🚀 Encadrement & Mentorat Bovan
+                </option>
+                <option value="Emploi & Mission Terrain">
+                  💼 Emploi & Mission Terrain (Pige)
+                </option>
+                <option value="Casting & Appel à Projets">
+                  📢 Casting & Appel à Projets
+                </option>
+              </select>
+            </div>
+
+            <div className="admin-form-group">
               <label className="admin-label" htmlFor="role">
-                Intitulé du poste / Mission
+                Intitulé de l'opportunité
               </label>
               <input
                 id="role"
                 name="role"
                 type="text"
                 required
-                placeholder="Ex : Pilote Drone & Prises de Vues Aériennes"
+                placeholder="Ex : Masterclass Réalisation Multicaméra & Régie 4K"
                 className="admin-input"
               />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "14px",
+              }}
+            >
               <div className="admin-form-group">
-                <label className="admin-label" htmlFor="department">
-                  Pôle / Département
+                <label className="admin-label" htmlFor="company">
+                  Organisateur / Structure
                 </label>
-                <select id="department" name="department" className="admin-select">
-                  <option value="Régie & Plateau">Régie & Plateau</option>
-                  <option value="Prises de Vues & Caméra">Prises de Vues & Caméra</option>
-                  <option value="Ingénierie Son">Ingénierie Son</option>
-                  <option value="Community & Live Social">Community & Live Social</option>
-                  <option value="Post-production Express">Post-production Express</option>
-                </select>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  defaultValue="OCD Live Academy"
+                  placeholder="Ex : OCD Live Academy ou Bovan Mouvement"
+                  className="admin-input"
+                />
               </div>
 
               <div className="admin-form-group">
+                <label className="admin-label" htmlFor="department">
+                  Pôle / Domaine
+                </label>
+                <select
+                  id="department"
+                  name="department"
+                  className="admin-select"
+                >
+                  <option value="Audiovisuel & Régie">Audiovisuel & Régie</option>
+                  <option value="Production & Montage">Production & Montage</option>
+                  <option value="Communication & Réseaux">Communication & Réseaux</option>
+                  <option value="Entrepreneuriat & Création">Entrepreneuriat & Création</option>
+                  <option value="Événementiel & Accueil">Événementiel & Accueil</option>
+                </select>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "14px",
+              }}
+            >
+              <div className="admin-form-group">
                 <label className="admin-label" htmlFor="type">
-                  Type de contrat
+                  Format / Statut
                 </label>
                 <input
                   id="type"
                   name="type"
                   type="text"
-                  defaultValue="Freelance / Mission"
+                  defaultValue="Formation Pratique Gratuite"
+                  placeholder="Ex: Stage, Freelance, Mentorat 3 mois"
                   className="admin-input"
                 />
               </div>
-            </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="location">
-                  Lieu d'intervention
+                  Lieu
                 </label>
                 <input
                   id="location"
                   name="location"
                   type="text"
-                  defaultValue="Lomé (Terrain & Régie)"
+                  defaultValue="Lomé (Studio OCD & Terrain)"
                   className="admin-input"
                 />
               </div>
+            </div>
 
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "14px",
+              }}
+            >
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="compensation">
-                  Rémunération
+                  Rémunération / Prise en charge
                 </label>
                 <input
                   id="compensation"
                   name="compensation"
                   type="text"
-                  defaultValue="Rémunération forfaitaire par événement"
+                  defaultValue="Prise en charge intégrale (Matériel fourni)"
+                  className="admin-input"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label" htmlFor="spots">
+                  Nombre de places / Postes
+                </label>
+                <input
+                  id="spots"
+                  name="spots"
+                  type="text"
+                  defaultValue="12 places sélectionnées"
+                  className="admin-input"
+                />
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "14px",
+              }}
+            >
+              <div className="admin-form-group">
+                <label className="admin-label" htmlFor="duration">
+                  Durée de la mission / session
+                </label>
+                <input
+                  id="duration"
+                  name="duration"
+                  type="text"
+                  defaultValue="2 semaines intensives (30h)"
+                  className="admin-input"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label" htmlFor="badge">
+                  Badge visuel
+                </label>
+                <input
+                  id="badge"
+                  name="badge"
+                  type="text"
+                  defaultValue="FORMATION 100% PRATIQUE"
                   className="admin-input"
                 />
               </div>
@@ -196,34 +380,38 @@ export default async function AdminOpportunitesPage() {
 
             <div className="admin-form-group">
               <label className="admin-label" htmlFor="description">
-                Description de la mission
+                Description concrète de l'opportunité
               </label>
               <textarea
                 id="description"
                 name="description"
                 required
                 rows={3}
-                placeholder="Décrivez les responsabilités concrètes lors des tournages..."
+                placeholder="Décrivez ce que les jeunes vont apprendre, pratiquer ou réaliser sur le terrain..."
                 className="admin-textarea"
               />
             </div>
 
             <div className="admin-form-group">
               <label className="admin-label" htmlFor="requirements">
-                Critères requis (1 par ligne)
+                Critères ou prérequis (1 par ligne)
               </label>
               <textarea
                 id="requirements"
                 name="requirements"
                 rows={3}
-                defaultValue="Expérience sur caméra ou drone&#10;Disponibilité les week-ends&#10;Mentalité #OCD : rigueur, réactivité, esprit d'équipe"
+                defaultValue="Passionnés d'image et du direct&#10;Disponibilité pour les sessions pratiques&#10;Mentalité #OCD : soif d'apprendre et rigueur"
                 className="admin-textarea"
               />
             </div>
 
-            <button type="submit" className="admin-btn admin-btn-primary" style={{ width: "100%", padding: "14px" }}>
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary"
+              style={{ width: "100%", padding: "14px" }}
+            >
               <PlusCircle size={16} />
-              <span>Publier l'opportunité</span>
+              <span>Publier l'opportunité sur le site</span>
             </button>
           </form>
         </div>
@@ -234,7 +422,10 @@ export default async function AdminOpportunitesPage() {
         <div className="admin-table-head">
           <div className="table-title-box">
             <h3>Candidatures Reçues de la Jeunesse ({applicants.length})</h3>
-            <p>Talents ayant répondu à l'appel du mouvement #LesOpportunitesCestDehors</p>
+            <p>
+              Talents ayant répondu à l'appel du mouvement
+              #LesOpportunitesCestDehors
+            </p>
           </div>
         </div>
 
@@ -253,7 +444,10 @@ export default async function AdminOpportunitesPage() {
             <tbody>
               {applicants.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ textAlign: "center", padding: "30px" }}>
+                  <td
+                    colSpan={6}
+                    style={{ textAlign: "center", padding: "30px" }}
+                  >
                     Aucune candidature enregistrée pour l'instant.
                   </td>
                 </tr>
@@ -261,26 +455,43 @@ export default async function AdminOpportunitesPage() {
                 applicants.map((app) => {
                   const cleanPhone = app.phone.replace(/[^0-9]/g, "");
                   const waLink = `https://wa.me/${cleanPhone}?text=Bonjour%20${encodeURIComponent(
-                    app.fullName
+                    app.fullName,
                   )},%20l'équipe%20OCD%20Live%20a%20bien%20reçu%20votre%20candidature%20pour%20le%20poste%20de%20${encodeURIComponent(
-                    app.opportunityRole
+                    app.opportunityRole,
                   )}.`;
 
                   return (
                     <tr key={app.id}>
                       <td>
                         <div style={{ fontWeight: 800 }}>{app.fullName}</div>
-                        <div style={{ fontSize: "12px", color: "#60a5fa" }}>{app.phone}</div>
-                        <div style={{ fontSize: "11px", color: "var(--adm-text-muted)" }}>
+                        <div style={{ fontSize: "12px", color: "#60a5fa" }}>
+                          {app.phone}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "11px",
+                            color: "var(--adm-text-muted)",
+                          }}
+                        >
                           {app.email}
                         </div>
                       </td>
 
                       <td>
-                        <div style={{ fontWeight: 700, color: "var(--adm-orange)" }}>
+                        <div
+                          style={{
+                            fontWeight: 700,
+                            color: "var(--adm-orange)",
+                          }}
+                        >
                           {app.opportunityRole}
                         </div>
-                        <div style={{ fontSize: "11px", color: "var(--adm-text-muted)" }}>
+                        <div
+                          style={{
+                            fontSize: "11px",
+                            color: "var(--adm-text-muted)",
+                          }}
+                        >
                           {new Date(app.createdAt).toLocaleDateString("fr-FR")}
                         </div>
                       </td>
@@ -318,7 +529,12 @@ export default async function AdminOpportunitesPage() {
                             <ExternalLink size={12} />
                           </a>
                         ) : (
-                          <span style={{ fontSize: "12px", color: "var(--adm-text-muted)" }}>
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              color: "var(--adm-text-muted)",
+                            }}
+                          >
                             Non renseigné
                           </span>
                         )}
@@ -330,10 +546,10 @@ export default async function AdminOpportunitesPage() {
                             app.status === "RETENU"
                               ? "confirme"
                               : app.status === "ENTRETIEN"
-                              ? "devis_envoye"
-                              : app.status === "REFUSE"
-                              ? "annule"
-                              : "nouveau"
+                                ? "devis_envoye"
+                                : app.status === "REFUSE"
+                                  ? "annule"
+                                  : "nouveau"
                           }`}
                         >
                           {app.status}
@@ -341,7 +557,13 @@ export default async function AdminOpportunitesPage() {
                       </td>
 
                       <td>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "6px",
+                          }}
+                        >
                           <a
                             href={waLink}
                             target="_blank"
@@ -355,22 +577,31 @@ export default async function AdminOpportunitesPage() {
                           <form
                             action={async (formData: FormData) => {
                               "use server";
-                              const status = formData.get("status") as ApplicantItem["status"];
+                              const status = formData.get(
+                                "status",
+                              ) as ApplicantItem["status"];
                               await updateApplicantStatusAction(app.id, status);
                             }}
                           >
-                            <select
+                            <AutoSubmitSelect
                               name="status"
                               defaultValue={app.status}
                               className="admin-select"
-                              style={{ padding: "4px 8px", fontSize: "11px", height: "auto" }}
-                              onChange={(e) => e.target.form?.requestSubmit()}
+                              style={{
+                                padding: "4px 8px",
+                                fontSize: "11px",
+                                height: "auto",
+                              }}
                             >
                               <option value="NOUVEAU">Nouveau</option>
-                              <option value="ENTRETIEN">Entretien / Casting terrain</option>
-                              <option value="RETENU">Retenu dans l'équipe</option>
+                              <option value="ENTRETIEN">
+                                Entretien / Casting terrain
+                              </option>
+                              <option value="RETENU">
+                                Retenu dans l'équipe
+                              </option>
                               <option value="REFUSE">Non retenu</option>
-                            </select>
+                            </AutoSubmitSelect>
                           </form>
                         </div>
                       </td>

@@ -1,9 +1,10 @@
 import {
   MessageSquare,
-  Trash2,
 } from "lucide-react";
+import AdminDeleteButton from "@/components/AdminDeleteButton";
+import AutoSubmitSelect from "@/components/AutoSubmitSelect";
 
-export const instant = false;
+export const dynamic = "force-dynamic";
 import { getReservations, type ReservationStatus } from "@/lib/admin-store";
 import { updateReservationStatusAction, deleteReservationAction } from "@/app/actions/admin";
 
@@ -228,19 +229,18 @@ export default async function AdminReservationsPage() {
                               await updateReservationStatusAction(res.id, nextStatus);
                             }}
                           >
-                            <select
+                            <AutoSubmitSelect
                               name="status"
                               defaultValue={res.status}
                               className="admin-select"
                               style={{ padding: "4px 8px", fontSize: "11.5px", height: "auto" }}
-                              onChange={(e) => e.target.form?.requestSubmit()}
                             >
                               <option value="NOUVEAU">Nouveau</option>
                               <option value="DEVIS_ENVOYE">Devis envoyé</option>
                               <option value="CONFIRME">Confirmé (Acompte OK)</option>
                               <option value="TERMINE">Terminé</option>
                               <option value="ANNULE">Annulé</option>
-                            </select>
+                            </AutoSubmitSelect>
                           </form>
 
                           {/* Delete */}
@@ -250,19 +250,11 @@ export default async function AdminReservationsPage() {
                               await deleteReservationAction(res.id);
                             }}
                           >
-                            <button
-                              type="submit"
+                            <AdminDeleteButton
+                              confirmMessage={`Supprimer définitivement la réservation #${res.ref} (${res.fullName}) ?`}
+                              title="Supprimer la réservation"
                               className="admin-btn admin-btn-danger admin-btn-sm"
-                              style={{ width: "100%", justifyContent: "center" }}
-                              onClick={(e) => {
-                                if (!confirm("Supprimer cette réservation ?")) {
-                                  e.preventDefault();
-                                }
-                              }}
-                            >
-                              <Trash2 size={12} />
-                              <span>Supprimer</span>
-                            </button>
+                            />
                           </form>
                         </div>
                       </td>

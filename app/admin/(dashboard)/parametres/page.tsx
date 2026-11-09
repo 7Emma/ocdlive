@@ -1,6 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 
-export const instant = false;
+export const dynamic = "force-dynamic";
 import { getAdminStore } from "@/lib/admin-store";
 import { updateSettingsAction } from "@/app/actions/admin";
 
@@ -168,7 +168,7 @@ export default async function AdminParametresPage() {
                 lineHeight: "1.6",
               }}
             >
-              <div><strong>Identifiant :</strong> admin@ocdlive.ci</div>
+              <div><strong>Identifiant :</strong> admin@ocdlive.com</div>
               <div><strong>Rôle :</strong> Super Admin · Régie Master</div>
               <div><strong>Durée de session :</strong> 7 jours actifs</div>
             </div>
