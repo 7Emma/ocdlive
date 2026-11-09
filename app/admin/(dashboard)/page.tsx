@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 
 export const instant = false;
 import {
@@ -161,53 +162,77 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* 3. 4 Daily Slots Status Widget */}
-      <div className="admin-slots-widget">
-        <div className="slots-widget-head">
+      {/* 3. 4 Daily Slots Status Widget & Panafrican Coverage */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: "24px",
+          alignItems: "stretch",
+          marginBottom: "32px",
+        }}
+      >
+        <div className="admin-slots-widget" style={{ marginBottom: 0, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <div>
-            <h3>Disponibilité Quotidienne de la Régie (Règle des 4 Lives / Jour)</h3>
-            <p style={{ fontSize: "13px", color: "var(--adm-text-muted)", marginTop: "2px" }}>
-              Pour garantir une retransmission 4K sans compromis, OCD Live limite strictement sa régie à 4 lives par 24h.
-            </p>
-          </div>
-          <div style={{ fontSize: "12px", color: "var(--adm-orange)", fontWeight: 700 }}>
-            Date du jour : {new Date().toLocaleDateString("fr-FR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+            <div className="slots-widget-head">
+              <div>
+                <h3>Disponibilité Quotidienne de la Régie (Règle des 4 Lives / Jour)</h3>
+                <p style={{ fontSize: "13px", color: "var(--adm-text-muted)", marginTop: "2px" }}>
+                  Pour garantir une retransmission 4K sans compromis, OCD Live limite strictement sa régie à 4 lives par 24h.
+                </p>
+              </div>
+              <div style={{ fontSize: "12px", color: "var(--adm-orange)", fontWeight: 700 }}>
+                {new Date().toLocaleDateString("fr-FR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+              </div>
+            </div>
+
+            <div className="slots-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))" }}>
+              {store.dailySlots.map((slot, index) => {
+                const isLiveNow = live.isLive && index === 2;
+                const isReserved = index === 1;
+                return (
+                  <div
+                    key={slot.id}
+                    className={`slot-card ${isLiveNow ? "live-now" : isReserved ? "reserved" : ""}`}
+                  >
+                    <div className="slot-header">
+                      <span style={{ color: "var(--adm-text-muted)", fontSize: "11px" }}>Créneau #{index + 1}</span>
+                      <span
+                        className={`slot-badge ${
+                          isLiveNow
+                            ? "badge-live"
+                            : isReserved
+                            ? "badge-reserved"
+                            : "badge-available"
+                        }`}
+                      >
+                        {isLiveNow ? "En direct" : isReserved ? "Réservé" : "Disponible"}
+                      </span>
+                    </div>
+                    <div className="slot-time" style={{ fontSize: "14px" }}>{slot.hours}</div>
+                    <div className="slot-client-info" style={{ fontSize: "12px" }}>
+                      {slot.label}
+                      <div style={{ marginTop: "4px", fontSize: "10px", color: "var(--adm-text-muted)" }}>
+                        {slot.description}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        <div className="slots-grid">
-          {store.dailySlots.map((slot, index) => {
-            const isLiveNow = live.isLive && index === 2;
-            const isReserved = index === 1;
-            return (
-              <div
-                key={slot.id}
-                className={`slot-card ${isLiveNow ? "live-now" : isReserved ? "reserved" : ""}`}
-              >
-                <div className="slot-header">
-                  <span style={{ color: "var(--adm-text-muted)" }}>Créneau #{index + 1}</span>
-                  <span
-                    className={`slot-badge ${
-                      isLiveNow
-                        ? "badge-live"
-                        : isReserved
-                        ? "badge-reserved"
-                        : "badge-available"
-                    }`}
-                  >
-                    {isLiveNow ? "En direct" : isReserved ? "Réservé" : "Disponible"}
-                  </span>
-                </div>
-                <div className="slot-time">{slot.hours}</div>
-                <div className="slot-client-info">
-                  {slot.label}
-                  <div style={{ marginTop: "4px", fontSize: "11px", color: "var(--adm-text-muted)" }}>
-                    {slot.description}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        {/* SPOT 6 : CARTE D'AFRIQUE & HUB DE DIFFUSION LOMÉ */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <AfricaMapGraphic
+            variant="admin"
+            style={{
+              maxWidth: "100%",
+              height: "100%",
+              minHeight: "260px",
+            }}
+          />
         </div>
       </div>
 

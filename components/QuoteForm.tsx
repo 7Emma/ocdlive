@@ -2,7 +2,15 @@
 
 import { useActionState, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Send, CheckCircle2, AlertCircle, Loader2, Calendar, Clock, ShieldCheck } from "lucide-react";
+import {
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  Calendar,
+  Clock,
+  ShieldCheck,
+} from "lucide-react";
 import { submitQuoteAction, QuoteActionState } from "@/app/actions/quote";
 import { PRICING_OFFERS, DAILY_LIVE_SLOTS, LIVE_FORMATS, BUSINESS_ACTIVITIES, PAYMENT_METHODS } from "@/lib/data";
 
@@ -18,7 +26,7 @@ export default function QuoteForm() {
 
   const [state, formAction, isPending] = useActionState(
     submitQuoteAction,
-    initialState
+    initialState,
   );
 
   const [formData, setFormData] = useState({
@@ -42,7 +50,7 @@ export default function QuoteForm() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
@@ -142,7 +150,9 @@ export default function QuoteForm() {
             Capacité régie limitée à 4 lives par jour
           </strong>
           <span>
-            Toutes les réservations sont transmises à l'administrateur afin de garantir une concentration technique absolue et la disponibilité de nos équipes.
+            Toutes les réservations sont transmises à l'administrateur afin de
+            garantir une concentration technique absolue et la disponibilité de
+            nos équipes.
           </span>
         </div>
       </div>
@@ -258,7 +268,9 @@ export default function QuoteForm() {
             className="block text-xs font-bold uppercase tracking-wider text-white mb-2 flex items-center gap-1.5"
           >
             <Calendar className="w-3.5 h-3.5 text-[#ff6600]" />
-            <span>3. Date souhaitée <span className="text-[#ff6600]">*</span></span>
+            <span>
+              3. Date souhaitée <span className="text-[#ff6600]">*</span>
+            </span>
           </label>
           <input
             id="eventDate"
@@ -282,7 +294,10 @@ export default function QuoteForm() {
             className="block text-xs font-bold uppercase tracking-wider text-white mb-2 flex items-center gap-1.5"
           >
             <Clock className="w-3.5 h-3.5 text-[#ff6600]" />
-            <span>4. Créneau horaire (4 par jour) <span className="text-[#ff6600]">*</span></span>
+            <span>
+              4. Créneau horaire (4 par jour){" "}
+              <span className="text-[#ff6600]">*</span>
+            </span>
           </label>
           <select
             id="selectedSlot"
@@ -362,7 +377,8 @@ export default function QuoteForm() {
               htmlFor="organization"
               className="block text-xs text-zinc-400 mb-1.5"
             >
-              Organisation / Société <span className="text-zinc-600">(Facultatif)</span>
+              Organisation / Société{" "}
+              <span className="text-zinc-600">(Facultatif)</span>
             </label>
             <input
               id="organization"
@@ -433,7 +449,8 @@ export default function QuoteForm() {
           htmlFor="message"
           className="block text-xs font-bold uppercase tracking-wider text-white mb-2"
         >
-          6. Description de votre événement & besoins spécifiques <span className="text-[#ff6600]">*</span>
+          6. Description de votre événement & besoins spécifiques{" "}
+          <span className="text-[#ff6600]">*</span>
         </label>
         <textarea
           id="message"
@@ -446,9 +463,7 @@ export default function QuoteForm() {
           className="w-full bg-[#1b1b1f] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#ff6600] focus:ring-1 focus:ring-[#ff6600] transition-colors"
         />
         {state.errors?.message && (
-          <p className="text-red-400 text-xs mt-1">
-            {state.errors.message[0]}
-          </p>
+          <p className="text-red-400 text-xs mt-1">{state.errors.message[0]}</p>
         )}
       </div>
 
@@ -467,13 +482,13 @@ export default function QuoteForm() {
           htmlFor="consent"
           className="text-xs text-zinc-400 leading-relaxed cursor-pointer"
         >
-          J'accepte que les données saisies soient transmises à l'administrateur d'OCD Live pour le traitement et la confirmation de ma réservation de créneau live.
+          J'accepte que les données saisies soient transmises à l'administrateur
+          d'OCD Live pour le traitement et la confirmation de ma réservation de
+          créneau live.
         </label>
       </div>
       {state.errors?.consent && (
-        <p className="text-red-400 text-xs">
-          {state.errors.consent[0]}
-        </p>
+        <p className="text-red-400 text-xs">{state.errors.consent[0]}</p>
       )}
 
       {/* Bouton de confirmation */}

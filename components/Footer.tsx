@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { COMPANY_INFO } from "@/lib/data";
+import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 import {
   YoutubeIcon,
   FacebookIcon,
@@ -53,6 +54,9 @@ export default function Footer() {
           - À droite l'arrondi en bas (border-bottom-right-radius)
       */}
       <div className="footer-card">
+        {/* Filigrane Carte d'Afrique (Lomé au cœur du direct panafricain) */}
+        <AfricaMapGraphic variant="footer" />
+
         <div className="footer-main">
           {/* Colonne 1 : Logo & Slogan */}
           <div className="footer-about">

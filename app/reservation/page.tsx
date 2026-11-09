@@ -18,6 +18,7 @@ import {
   DAILY_LIVE_SLOTS,
 } from "@/lib/data";
 import { submitQuoteAction } from "@/app/actions/quote";
+import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 import "./reservation.css";
 
 const PACKS = PRICING_OFFERS.map((offer) => ({
@@ -48,15 +49,15 @@ function ReservationForm() {
   const searchParams = useSearchParams();
 
   // Query parameter parsing
-  const paramOffre = searchParams.get("offre") || searchParams.get("pack") || "";
+  const paramOffre =
+    searchParams.get("offre") || searchParams.get("pack") || "";
   const paramFormat = searchParams.get("format") || "";
   const paramActivite = searchParams.get("activite") || "";
 
   const initialPack =
     PACKS.find(
       (p) =>
-        p.id === paramOffre ||
-        p.slugAliases.includes(paramOffre.toLowerCase())
+        p.id === paramOffre || p.slugAliases.includes(paramOffre.toLowerCase()),
     )?.id || "live-1h30";
 
   const initialFormat = paramFormat === "distance" ? "distance" : "presentiel";
@@ -151,25 +152,34 @@ function ReservationForm() {
   return (
     <div className="reservation" id="reservation">
       {/* BARRE DE PROGRESSION */}
-      <div className="reservation-progress" aria-label="Étapes de la réservation">
+      <div
+        className="reservation-progress"
+        aria-label="Étapes de la réservation"
+      >
         <button
           type="button"
           className={`reservation-step ${!submittedData ? "active" : "completed"}`}
           onClick={() => {
-            document.getElementById("step-1")?.scrollIntoView({ behavior: "smooth" });
+            document
+              .getElementById("step-1")
+              ?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>01</span>
           <small>Pack</small>
         </button>
 
-        <div className={`reservation-progress-line ${selectedPack ? "filled" : ""}`} />
+        <div
+          className={`reservation-progress-line ${selectedPack ? "filled" : ""}`}
+        />
 
         <button
           type="button"
           className={`reservation-step ${selectedActivity ? "active" : ""}`}
           onClick={() => {
-            document.getElementById("step-2")?.scrollIntoView({ behavior: "smooth" });
+            document
+              .getElementById("step-2")
+              ?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>02</span>
@@ -182,7 +192,9 @@ function ReservationForm() {
           type="button"
           className={`reservation-step ${selectedFormat ? "active" : ""}`}
           onClick={() => {
-            document.getElementById("step-3")?.scrollIntoView({ behavior: "smooth" });
+            document
+              .getElementById("step-3")
+              ?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>03</span>
@@ -195,7 +207,9 @@ function ReservationForm() {
           type="button"
           className={`reservation-step ${selectedDate ? "active" : ""}`}
           onClick={() => {
-            document.getElementById("step-4")?.scrollIntoView({ behavior: "smooth" });
+            document
+              .getElementById("step-4")
+              ?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>04</span>
@@ -700,7 +714,9 @@ function ReservationForm() {
                 </div>
 
                 <div className="field">
-                  <label htmlFor="res-email">Adresse e-mail professionnelle *</label>
+                  <label htmlFor="res-email">
+                    Adresse e-mail professionnelle *
+                  </label>
                   <input
                     id="res-email"
                     type="email"
@@ -812,7 +828,13 @@ export default function ReservationPage() {
             className="bg-graphic-stroke"
           />
           <defs>
-            <linearGradient id="bgOrangeGradL" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient
+              id="bgOrangeGradL"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
               <stop offset="0%" stopColor="#f36b0b" stopOpacity="0.2" />
               <stop offset="50%" stopColor="#ff7b1a" stopOpacity="0.9" />
               <stop offset="100%" stopColor="#f36b0b" stopOpacity="0.2" />
@@ -820,35 +842,8 @@ export default function ReservationPage() {
           </defs>
         </svg>
 
-        {/* Vague fluide orange côté droit */}
-        <svg
-          className="bg-graphic-right"
-          viewBox="0 0 260 420"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M300,30 C180,95 110,210 160,320 C185,370 260,405 300,420"
-            stroke="url(#bgOrangeGradR)"
-            strokeWidth="38"
-            strokeLinecap="round"
-            opacity="0.65"
-          />
-          <path
-            d="M300,30 C180,95 110,210 160,320 C185,370 260,405 300,420"
-            stroke="#ff801a"
-            strokeWidth="10"
-            strokeLinecap="round"
-            className="bg-graphic-stroke"
-          />
-          <defs>
-            <linearGradient id="bgOrangeGradR" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#f36b0b" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#ff7b1a" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#f36b0b" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-        </svg>
+        {/* SPOT 3 : Silhouette de l'Afrique en flanc lumineux côté droit */}
+        <AfricaMapGraphic variant="flank" />
       </div>
 
       {/* HERO BANNER DE RÉSERVATION AVEC TRANSITION ASYMÉTRIQUE */}

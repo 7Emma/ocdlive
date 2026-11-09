@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { COMPANY_INFO, LIVE_FORMATS, BOVAN_VIDEOS, YOUTH_PHOTOS, PRICING_OFFERS } from "@/lib/data";
 import ScrollToTop from "@/components/ScrollToTop";
+import AfricaMapGraphic from "@/components/AfricaMapGraphic";
 import "./home.css";
 
 export default function Home() {
@@ -8,40 +9,47 @@ export default function Home() {
     <>
       <ScrollToTop />
 
-      {/* 1. HERO — LES OPPORTUNITÉS C'EST DEHORS */}
+      {/* 1. HERO — LES OPPORTUNITÉS C'EST DEHORS AVEC CARTE D'AFRIQUE */}
       <section className="hero" id="home">
         {/* Arc croissant lumineux orange en haut à gauche */}
         <div className="hero-crescent-left" aria-hidden="true" />
         <div className="hero-bg" />
         <div className="hero-overlay" />
-        <div className="container hero-content">
-          <div className="eyebrow">
-            <i /> Opportunités C'est Dehors · OCD Live
+        <div className="container hero-layout">
+          <div className="hero-content">
+            <div className="eyebrow">
+              <i /> Opportunités C'est Dehors · OCD Live Lomé
+            </div>
+            <h1>
+              Les opportunités,
+              <br />
+              c'est <em>dehors.</em>
+            </h1>
+            <p>
+              On ne réussit pas enfermé dans sa chambre. OCD Live est la scène,
+              le plateau et le direct où l'on filme ceux qui sortent, qui bougent
+              et qui construisent. L’expérience du live, pensée autrement.
+            </p>
+            <div className="actions">
+              <Link className="btn orange" href="/services">
+                Découvrir nos 2 formats de live →
+              </Link>
+              <Link className="btn outline" href="/reservation">
+                ▶ Réserver une prestation ↗
+              </Link>
+            </div>
+            <div className="hero-note">
+              <span /> Quand vous sortez, nous mettons nos caméras au service de votre voix.
+            </div>
           </div>
-          <h1>
-            Les opportunités,
-            <br />
-            c'est <em>dehors.</em>
-          </h1>
-          <p>
-            On ne réussit pas enfermé dans sa chambre. OCD Live est la scène,
-            le plateau et le direct où l'on filme ceux qui sortent, qui bougent
-            et qui construisent. L’expérience du live, pensée autrement.
-          </p>
-          <div className="actions">
-            <Link className="btn orange" href="/services">
-              Découvrir nos 2 formats de live →
-            </Link>
-            <Link className="btn outline" href="/reservation">
-              ▶ Réserver une prestation ↗
-            </Link>
-          </div>
-          <div className="hero-note">
-            <span /> Quand vous sortez, nous mettons nos caméras au service de votre voix.
+
+          {/* SPOT 1 : Silhouette de l'Afrique avec Balise Lomé et Rayons Broadcast */}
+          <div className="hero-map-col">
+            <AfricaMapGraphic variant="hero" />
           </div>
         </div>
         <div className="container hero-bottom">
-          <span>OCD LIVE — CRÉATION & DIFFUSION DIRECTE</span>
+          <span>OCD LIVE — HUB LOMÉ (TOGO) · CRÉATION & DIFFUSION DIRECTE</span>
           <span>Défiler pour découvrir ↓</span>
         </div>
 
@@ -312,6 +320,30 @@ export default function Home() {
             >
               Suivre Bovan sur YouTube ↗
             </a>
+          </div>
+
+          {/* SPOT 2 : CARTE PANAFRICAINE DU MOUVEMENT BOVAN */}
+          <div className="community-pan-african-card">
+            <div className="community-map-col">
+              <AfricaMapGraphic variant="community" showRays={true} />
+            </div>
+            <div className="community-text-col">
+              <span className="community-tag">🌍 Rayonnement Panafricain</span>
+              <h3>
+                Né dans la rue à Lomé, <em>propulsé sur tout le continent.</em>
+              </h3>
+              <p>
+                Le mouvement <strong>#LesOpportunitesCestDehors</strong> créé par <strong>Bovan</strong> rassemble
+                tous les jeunes, commerçants, créateurs et bâtisseurs qui refusent d'attendre dans leur chambre.
+                Depuis nos studios et régies mobiles à Lomé, nous diffusons l'énergie de ceux qui entreprennent
+                au Togo, en Afrique de l'Ouest et à travers toute la diaspora.
+              </p>
+              <div className="community-badges">
+                <span>📍 QG Central : Lomé (Togo)</span>
+                <span>📡 Déploiements UEMOA & Sous-région</span>
+                <span>⚡ Liaison Satellite Starlink Broadcast</span>
+              </div>
+            </div>
           </div>
 
           {/* 1. VIDÉOS DU PDG BOVAN EN GRAND FORMAT */}
