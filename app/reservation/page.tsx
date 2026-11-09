@@ -7,40 +7,58 @@ import "./reservation.css";
 
 const PACKS = [
   {
-    id: "pack-1h30",
-    slugAliases: ["decouverte", "pack-1h30", "1h30"],
-    title: "Pack Découverte",
-    subtitle: "1h30 de prestation live",
+    id: "live-1h30",
+    slugAliases: ["live-1h30", "pack-1h30", "1h30", "decouverte"],
+    title: "Live Direct 1h30",
+    subtitle: "Équipe dans vos locaux ou en studio",
     price: "15 000 FCFA",
     image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&auto=format&fit=crop&q=80",
-    features: "Régie mobile, 1 cadreur, diffusion HD",
+    features: "2 caméras, micros pros, direct réseaux & replay HD",
   },
   {
-    id: "pack-4h",
-    slugAliases: ["evenement", "pack-4h", "4h"],
-    title: "Pack Événement",
-    subtitle: "Jusqu'à 4h de direct continu",
-    price: "50 000 FCFA",
+    id: "live-4h",
+    slugAliases: ["live-4h", "pack-4h", "4h", "evenement"],
+    title: "Live Demi-Journée 4h",
+    subtitle: "Équipe dédiée dans vos locaux",
+    price: "30 000 FCFA",
     image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop&q=80",
-    features: "Multicaméra 2 flux, régisseur dédié",
+    features: "Multicaméra HD/4K, habillage dynamique, régisseur dédié",
   },
   {
-    id: "live-direct",
-    slugAliases: ["production", "live-direct", "plateau"],
-    title: "Pack Production",
-    subtitle: "Production & régie 4K complète",
-    price: "100 000 FCFA",
+    id: "live-video-hoc",
+    slugAliases: ["live-video-hoc", "pack-live-video", "house-of-challenge"],
+    title: "Pack Live + 1 Vidéo HOC",
+    subtitle: "Direct + publication House of Challenge",
+    price: "50 000 FCFA",
     image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&auto=format&fit=crop&q=80",
-    features: "Plateau studio ou extérieur, mixage son",
+    features: "Live sur place + 1 vidéo montée sur le compte House of Challenge",
   },
   {
-    id: "sur-mesure",
-    slugAliases: ["sur-mesure", "custom", "page-bovan"],
-    title: "Prestation sur mesure",
-    subtitle: "Cadrage technique personnalisé",
-    price: "Devis personnalisé",
+    id: "video-bovan",
+    slugAliases: ["video-bovan", "collab-bovan", "bovan"],
+    title: "Vidéo Collaboration avec Bovan",
+    subtitle: "Postée sur le compte officiel de Bovan",
+    price: "75 000 FCFA",
+    image: "/images/bovan-dg.jpg",
+    features: "Interview ou capsule immersive, validation éditoriale Bovan",
+  },
+  {
+    id: "double-video-media",
+    slugAliases: ["double-video-media", "pack-double", "double-impact"],
+    title: "Pack Double Impact",
+    subtitle: "2 vidéos sur Bovan ou House of Challenge",
+    price: "100 000 FCFA",
     image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&auto=format&fit=crop&q=80",
-    features: "Conférence, sommet, diffusion multicanale",
+    features: "2 vidéos publicitaires ou reportages avec visibilité démultipliée",
+  },
+  {
+    id: "campagne-semaine",
+    slugAliases: ["campagne-semaine", "promo-semaine", "campagne"],
+    title: "Campagne 1 Semaine Promo + 2 Vidéos",
+    subtitle: "Équipe mobilisée 1 semaine dans vos locaux",
+    price: "180 000 FCFA",
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&auto=format&fit=crop&q=80",
+    features: "Plusieurs directs sur la semaine + 2 vidéos HOC/Bovan + Starlink",
   },
 ];
 
@@ -63,7 +81,7 @@ function ReservationForm() {
       (p) =>
         p.id === paramOffre ||
         p.slugAliases.includes(paramOffre.toLowerCase())
-    )?.id || "pack-1h30";
+    )?.id || "live-1h30";
 
   const initialFormat =
     paramFormat === "distance" ? "distance" : "presentiel";
@@ -348,7 +366,7 @@ function ReservationForm() {
                   <input
                     id="res-name"
                     type="text"
-                    placeholder="Ex: Jean Kouassi / Société Tech Africa"
+                    placeholder="Ex: Koffi Mensah / Société Tech Togo"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -356,11 +374,11 @@ function ReservationForm() {
                 </div>
 
                 <div className="field">
-                  <label htmlFor="res-phone">Téléphone direct *</label>
+                  <label htmlFor="res-phone">Téléphone direct (WhatsApp disponible) *</label>
                   <input
                     id="res-phone"
                     type="tel"
-                    placeholder="Ex: +225 07 00 00 00 00"
+                    placeholder="Ex: +228 90 00 00 00"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -374,7 +392,7 @@ function ReservationForm() {
                   <input
                     id="res-email"
                     type="email"
-                    placeholder="contact@entreprise.com"
+                    placeholder="contact@entreprise.tg"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -382,11 +400,11 @@ function ReservationForm() {
                 </div>
 
                 <div className="field">
-                  <label htmlFor="res-location">Lieu de l'événement (Ville / Salle / Studio)</label>
+                  <label htmlFor="res-location">Lieu de l'événement (Vos locaux / Studio / Salle)</label>
                   <input
                     id="res-location"
                     type="text"
-                    placeholder="Ex: Plateau, Abidjan / En ligne"
+                    placeholder="Ex: Agoè, Lomé / Dans nos locaux d'entreprise / Studio OCD"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                   />

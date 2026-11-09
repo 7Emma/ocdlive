@@ -64,7 +64,7 @@ npm start
 ## 👥 Équipe & Direction
 
 - **Direction Générale** : Bovan — Directeur Général d'OCD Live
-- **Siège & Plateau** : Studio OCD Live, Abidjan, Côte d'Ivoire
+- **Siège & Plateau** : Studio OCD Live, Lomé, Togo
 - **Contact** : [contact@ocdlive.com](mailto:contact@ocdlive.com)
 
 ---

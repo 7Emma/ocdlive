@@ -327,7 +327,7 @@ export default function QuoteForm() {
               required
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+225 00 00 00 00"
+              placeholder="+228 90 00 00 00"
               className="w-full bg-[#1b1b1f] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#ff6600] focus:ring-1 focus:ring-[#ff6600] transition-colors"
             />
             {state.errors?.phone && (

@@ -15,7 +15,7 @@ import { COMPANY_INFO } from "@/lib/data";
 export const metadata: Metadata = {
   title: "À Propos d'OCD Live — Notre Histoire, Bovan & Vision",
   description:
-    "Découvrez l'histoire d'OCD Live (« Opportunités C'est Dehors »), le mot du DG Bovan, notre mission pour la jeunesse et nos équipements broadcast à Abidjan.",
+    "Découvrez l'histoire d'OCD Live (« Opportunités C'est Dehors »), le mot du DG Bovan, notre mission pour la jeunesse et nos équipements broadcast à Lomé (Togo).",
 };
 
 const VALUES = [
@@ -69,7 +69,7 @@ const EQUIPMENTS = [
       "Micros voix broadcast Shure SM7B avec préamplificateurs Cloudlifter",
       "Liaisons HF numériques Sennheiser avec micros cravates et serre-tête",
       "Consoles audio numériques Dante avec traitement dynamique en temps réel",
-      "Traitement acoustique professionnel de notre plateau à Abidjan",
+      "Traitement acoustique professionnel de notre plateau à Lomé",
     ],
   },
 ];
@@ -235,8 +235,8 @@ export default function AboutPage() {
                 Des moyens techniques <em>de haut vol.</em>
               </h2>
               <p>
-                Un plateau insonorisé et équipé à Abidjan, couplé à des régies
-                autonomes capables d'intervenir partout en Côte d'Ivoire et dans la sous-région.
+                Un plateau insonorisé et équipé à Lomé, couplé à des régies
+                autonomes capables d'intervenir directement dans vos locaux partout au Togo et dans la sous-région.
               </p>
             </div>
             <Link className="orange-link" href="/services">

@@ -25,7 +25,7 @@ export default function ActualitesPage() {
             </h1>
             <p>
               Retrouvez nos retours d'expérience, les coulisses de notre plateau
-              à Abidjan et les clés pour réussir vos retransmissions en direct.
+              à Lomé et les clés pour réussir vos retransmissions en direct.
             </p>
           </div>
           <Link className="btn orange" href="/contact">

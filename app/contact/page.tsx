@@ -233,7 +233,7 @@ export default function ContactPage() {
                       {COMPANY_INFO.address}
                     </span>
                     <small style={{ display: "block", color: "#888", fontSize: "11px", marginTop: "3px" }}>
-                      Interventions mobiles dans toute la Côte d'Ivoire & la sous-région
+                      Interventions mobiles dans tout le Togo & la sous-région
                     </small>
                   </div>
                 </li>
@@ -505,7 +505,7 @@ export default function ContactPage() {
                     <input
                       id="contact-phone"
                       type="tel"
-                      placeholder="+225 00 00 00 00"
+                      placeholder="+228 90 00 00 00"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       style={{

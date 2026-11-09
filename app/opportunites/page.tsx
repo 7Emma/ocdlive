@@ -40,7 +40,7 @@ export default function OpportunitesPage() {
             </h1>
             <p>
               Tu veux apprendre, travailler, tenir une caméra ou coordonner une régie ?
-              Découvre nos missions réelles et offres de tournage vérifiées à Abidjan et en région.
+              Découvre nos missions réelles et offres de tournage vérifiées à Lomé et en région.
             </p>
           </div>
           <a className="btn orange" href={`mailto:${COMPANY_INFO.email}?subject=Candidature%20Spontan%C3%A9e%20OCD%20Live`}>
@@ -87,7 +87,7 @@ export default function OpportunitesPage() {
               style={{
                 background: "linear-gradient(145deg, #181818, #101010)",
                 border: "1px solid var(--line)",
-                borderRadius: "8px",
+                borderRadius: "20px",
                 padding: "32px 28px",
                 display: "flex",
                 flexDirection: "column",

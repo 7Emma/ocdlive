@@ -175,7 +175,7 @@ export default async function AdminOpportunitesPage() {
                   id="location"
                   name="location"
                   type="text"
-                  defaultValue="Abidjan (Terrain & Régie)"
+                  defaultValue="Lomé (Terrain & Régie)"
                   className="admin-input"
                 />
               </div>

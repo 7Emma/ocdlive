@@ -104,7 +104,7 @@ export async function createOpportunityAction(formData: FormData): Promise<void>
     : contractTypeRaw.includes("Stage")
     ? "Stage"
     : "Freelance") as OpportunityItem["contractType"];
-  const location = formData.get("location")?.toString().trim() || "Abidjan (Terrain & Studio)";
+  const location = formData.get("location")?.toString().trim() || "Lomé (Terrain & Studio)";
   const remuneration = formData.get("compensation")?.toString().trim() || "Rémunération forfaitaire par événement";
   const description = formData.get("description")?.toString().trim() || "";
   const requirementsRaw = formData.get("requirements")?.toString() || "";

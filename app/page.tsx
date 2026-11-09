@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { COMPANY_INFO, LIVE_FORMATS, BOVAN_VIDEOS, YOUTH_PHOTOS } from "@/lib/data";
+import { COMPANY_INFO, LIVE_FORMATS, BOVAN_VIDEOS, YOUTH_PHOTOS, PRICING_OFFERS } from "@/lib/data";
 import ScrollToTop from "@/components/ScrollToTop";
 import "./home.css";
 
@@ -470,7 +470,7 @@ export default function Home() {
             </Link>
           </div>
           <p className="disclaimer">
-            Régies mobiles 4K et plateau insonorisé basés à Abidjan, opérant dans toute la sous-région.
+            Régies mobiles 4K et plateau insonorisé basés à Lomé, opérant dans toute la sous-région.
           </p>
         </div>
       </section>
@@ -487,158 +487,98 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <div>
-              <label>Formules & Tarifs en FCFA</label>
+              <label>Formules & Tarifs en FCFA · Lomé (Togo)</label>
               <h2>
-                Des tarifs clairs, <em>sans surprise.</em>
+                Des packs clairs, <em>sans surprise.</em>
               </h2>
               <p>
-                Règle d'exigence broadcast : <strong>4 créneaux de direct maximum par jour</strong> pour
-                une attention technique intégrale accordée à votre événement.
+                Règle d'exigence broadcast : <strong>4 créneaux de direct maximum par jour</strong> avec une
+                <strong> équipe personnalisée mobilisée directement dans vos locaux</strong> ou en studio.
               </p>
             </div>
             <Link className="btn orange" href="/tarifs">
-              Voir la grille tarifaire complète →
+              Voir la grille complète (6 packs) →
             </Link>
           </div>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: "20px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "24px",
             }}
           >
-            {/* Pack 1 */}
-            <div
-              style={{
-                background: "linear-gradient(145deg, #181818, #101010)",
-                border: "1px solid var(--line)",
-                borderRadius: "14px",
-                padding: "26px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              <span style={{ color: "var(--light)", fontSize: "11px", fontWeight: 800, textTransform: "uppercase" }}>
-                Format Éclair
-              </span>
-              <h3 style={{ font: "800 18px Manrope, sans-serif", margin: 0, color: "#fff" }}>
-                Pack Découverte
-              </h3>
-              <p style={{ color: "var(--muted)", fontSize: "12px", margin: 0 }}>
-                1h30 de prestation live en direct avec 1 cadreur et régie mobile.
-              </p>
-              <div style={{ font: "800 24px Manrope, sans-serif", color: "var(--orange)", margin: "8px 0" }}>
-                15 000 FCFA
-              </div>
-              <Link className="btn outline" href="/reservation?offre=pack-1h30" style={{ width: "100%", justifyContent: "center" }}>
-                Réserver ce pack →
-              </Link>
-            </div>
-
-            {/* Pack 2 (Populaire) */}
-            <div
-              style={{
-                background: "linear-gradient(145deg, #22150d, #140e09)",
-                border: "2px solid var(--orange)",
-                borderRadius: "14px",
-                padding: "26px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-                position: "relative",
-              }}
-            >
-              <span
+            {PRICING_OFFERS.map((offer) => (
+              <div
+                key={offer.id}
                 style={{
-                  position: "absolute",
-                  top: "-12px",
-                  right: "18px",
-                  background: "var(--orange)",
-                  color: "#111",
-                  fontSize: "10px",
-                  fontWeight: 900,
-                  padding: "4px 10px",
-                  borderRadius: "50px",
+                  background: offer.isPopular
+                    ? "linear-gradient(145deg, rgba(32, 22, 14, 0.95), rgba(16, 14, 12, 0.98))"
+                    : "linear-gradient(145deg, rgba(28, 28, 28, 0.85), rgba(16, 16, 16, 0.95))",
+                  border: offer.isPopular
+                    ? "2px solid var(--orange)"
+                    : "1px solid rgba(255, 255, 255, 0.09)",
+                  borderRadius: "20px",
+                  padding: "30px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  gap: "20px",
+                  position: "relative",
+                  boxShadow: offer.isPopular
+                    ? "0 14px 40px rgba(243, 107, 11, 0.22)"
+                    : "0 10px 30px rgba(0, 0, 0, 0.5)",
+                  transition: "transform 0.25s ease",
                 }}
               >
-                POPULAIRE
-              </span>
-              <span style={{ color: "var(--orange)", fontSize: "11px", fontWeight: 800, textTransform: "uppercase" }}>
-                Conférence & Direct
-              </span>
-              <h3 style={{ font: "800 18px Manrope, sans-serif", margin: 0, color: "#fff" }}>
-                Pack Événement
-              </h3>
-              <p style={{ color: "#bbb", fontSize: "12px", margin: 0 }}>
-                Jusqu'à 4h de retransmission continue avec multicaméra 2 flux et régisseur.
-              </p>
-              <div style={{ font: "800 24px Manrope, sans-serif", color: "var(--orange)", margin: "8px 0" }}>
-                50 000 FCFA
-              </div>
-              <Link className="btn orange" href="/reservation?offre=pack-4h" style={{ width: "100%", justifyContent: "center" }}>
-                Réserver ce pack →
-              </Link>
-            </div>
+                {offer.isPopular && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "-12px",
+                      right: "20px",
+                      background: "var(--orange)",
+                      color: "#170e08",
+                      fontSize: "10px",
+                      fontWeight: 900,
+                      padding: "4px 12px",
+                      borderRadius: "50px",
+                      letterSpacing: "1px",
+                    }}
+                  >
+                    POPULAIRE
+                  </span>
+                )}
 
-            {/* Pack 3 */}
-            <div
-              style={{
-                background: "linear-gradient(145deg, #181818, #101010)",
-                border: "1px solid var(--line)",
-                borderRadius: "14px",
-                padding: "26px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              <span style={{ color: "var(--light)", fontSize: "11px", fontWeight: 800, textTransform: "uppercase" }}>
-                Grand Plateau
-              </span>
-              <h3 style={{ font: "800 18px Manrope, sans-serif", margin: 0, color: "#fff" }}>
-                Pack Production
-              </h3>
-              <p style={{ color: "var(--muted)", fontSize: "12px", margin: 0 }}>
-                Plateau complet studio ou extérieur, régie 4K, mixage audio et duplex.
-              </p>
-              <div style={{ font: "800 24px Manrope, sans-serif", color: "#fff", margin: "8px 0" }}>
-                100 000 FCFA
-              </div>
-              <Link className="btn outline" href="/reservation?offre=live-direct" style={{ width: "100%", justifyContent: "center" }}>
-                Réserver ce pack →
-              </Link>
-            </div>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                    <span style={{ color: "var(--orange)", fontSize: "11px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px" }}>
+                      {offer.period || "Live OCD"}
+                    </span>
+                  </div>
+                  <h3 style={{ font: "800 20px Manrope, sans-serif", margin: "0 0 8px 0", color: "#fff" }}>
+                    {offer.title}
+                  </h3>
+                  <p style={{ color: "var(--muted)", fontSize: "13px", lineHeight: 1.5, margin: 0 }}>
+                    {offer.description}
+                  </p>
+                  <div style={{ font: "900 28px Manrope, sans-serif", color: "var(--orange)", margin: "16px 0 6px 0" }}>
+                    {offer.price}
+                  </div>
+                  <small style={{ color: "#aaa", fontSize: "11px", display: "block" }}>
+                    Équipe personnalisée dans vos locaux incluse
+                  </small>
+                </div>
 
-            {/* Pack 4 */}
-            <div
-              style={{
-                background: "linear-gradient(145deg, #181818, #101010)",
-                border: "1px solid var(--line)",
-                borderRadius: "14px",
-                padding: "26px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              <span style={{ color: "var(--light)", fontSize: "11px", fontWeight: 800, textTransform: "uppercase" }}>
-                Sur Mesure
-              </span>
-              <h3 style={{ font: "800 18px Manrope, sans-serif", margin: 0, color: "#fff" }}>
-                Prestation Spécifique
-              </h3>
-              <p style={{ color: "var(--muted)", fontSize: "12px", margin: 0 }}>
-                Tournées, diffusion multicanale et accompagnement éditorial dédié.
-              </p>
-              <div style={{ font: "800 22px Manrope, sans-serif", color: "#fff", margin: "8px 0" }}>
-                Sur devis
+                <Link
+                  className={offer.isPopular ? "btn orange" : "btn outline"}
+                  href={`/reservation?offre=${offer.slug}`}
+                  style={{ width: "100%", justifyContent: "center" }}
+                >
+                  Réserver ce pack →
+                </Link>
               </div>
-              <Link className="btn outline" href="/reservation?offre=sur-mesure" style={{ width: "100%", justifyContent: "center" }}>
-                Demander un cadrage →
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
