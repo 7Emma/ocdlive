@@ -844,7 +844,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 580px) {
   .packs {
     grid-template-columns: 1fr;
   }

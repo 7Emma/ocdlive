@@ -79,6 +79,30 @@ export default function BovanCommunitySection() {
                 <span>📡 Déploiements UEMOA & Sous-région</span>
                 <span>⚡ Liaison Satellite Starlink Broadcast</span>
               </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                <img
+                  src="/images/bovann-pdg.jpg"
+                  alt="Bovann PDG OCD Live"
+                  style={{
+                    width: "56px",
+                    height: "56px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    border: "2px solid var(--orange)",
+                    boxShadow: "0 0 15px rgba(243, 107, 11, 0.4)",
+                    flexShrink: 0,
+                  }}
+                />
+                <div>
+                  <strong style={{ display: "block", color: "#fff", fontSize: "14px" }}>
+                    Bovann
+                  </strong>
+                  <small style={{ color: "var(--orange)", fontSize: "11px", fontWeight: 700 }}>
+                    PDG & Initiateur du Mouvement #LesOpportunitesCestDehors
+                  </small>
+                </div>
+              </div>
             </div>
           </div>
 

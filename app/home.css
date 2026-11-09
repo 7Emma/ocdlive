@@ -755,6 +755,18 @@ h1,h2{font-family:Manrope,sans-serif}
   overflow: hidden;
 }
 
+@media (max-width: 520px) {
+  .bovan-video-card {
+    flex-direction: column;
+    padding: 12px;
+  }
+  .bovan-card-thumb {
+    width: 100%;
+    min-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+}
+
 /* GALERIE PHOTO DES JEUNES ENGAGÉS */
 .youth-gallery-head {
   display: flex;
@@ -783,7 +795,7 @@ h1,h2{font-family:Manrope,sans-serif}
 /* 2. GALERIE DES JEUNES DU MOUVEMENT EN ACTION — CARTES AÉRÉES ET ÉLÉGANTES */
 .youth-photos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 24px;
   margin-top: 28px;
 }
@@ -962,7 +974,7 @@ h1,h2{font-family:Manrope,sans-serif}
 /* LES 2 FORMATS DE LIVE INNOVANTS */
 .live-formats-innovative {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 28px;
   margin-bottom: 50px;
 }

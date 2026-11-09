@@ -102,27 +102,29 @@ export default function AboutPage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
             gap: "40px",
             alignItems: "center",
             background: "linear-gradient(145deg, #181818, #101010)",
             border: "1px solid var(--line)",
-            borderRadius: "8px",
+            borderRadius: "20px",
             padding: "clamp(24px, 4vw, 48px)",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.7)",
           }}
         >
           <div
             style={{
               position: "relative",
               aspectRatio: "3 / 4",
-              borderRadius: "6px",
+              borderRadius: "16px",
               overflow: "hidden",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
+              border: "1px solid rgba(243, 107, 11, 0.35)",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.8)",
             }}
           >
             <Image
-              src="/images/bovan-dg.jpg"
-              alt="Bovan — Directeur Général d'OCD Live"
+              src="/images/bovann-pdg.jpg"
+              alt="Bovann — Fondateur & PDG d'OCD Live"
               fill
               className="object-cover"
               priority
@@ -133,15 +135,17 @@ export default function AboutPage() {
                 bottom: "16px",
                 left: "16px",
                 background: "rgba(0, 0, 0, 0.85)",
+                backdropFilter: "blur(8px)",
                 border: "1px solid var(--orange)",
                 color: "#fff",
                 fontSize: "11px",
-                fontWeight: 700,
+                fontWeight: 800,
                 padding: "6px 14px",
                 borderRadius: "50px",
+                boxShadow: "0 4px 15px rgba(243, 107, 11, 0.35)",
               }}
             >
-              ● Bovan — Directeur Général d'OCD Live
+              ● Bovann — PDG & Fondateur OCD Live
             </span>
           </div>
 
@@ -295,7 +299,7 @@ export default function AboutPage() {
       {/* SPOT 4 : COUVERTURE PANAFRICAINE & PRÉSENCE TERRAIN */}
       <section className="section" style={{ background: "#0b0b0b", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "85px 0" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "48px", alignItems: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "48px", alignItems: "center" }}>
             <div>
               <div className="eyebrow" style={{ marginBottom: "14px" }}>
                 <i /> Rayonnement Continental
