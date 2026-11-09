@@ -64,9 +64,10 @@ export default async function AdminReservationsPage() {
               <tr>
                 <th>Réf. / Date</th>
                 <th>Client & Contact</th>
-                <th>Détails du Live</th>
-                <th>Date & Lieu</th>
-                <th>Budget Estimé</th>
+                <th>Activité & Produits</th>
+                <th>Offre & Format</th>
+                <th>Planning & Lieu</th>
+                <th>Acompte & Paiement</th>
                 <th>Statut</th>
                 <th>Actions Régie</th>
               </tr>
@@ -74,18 +75,15 @@ export default async function AdminReservationsPage() {
             <tbody>
               {reservations.length === 0 ? (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: "center", padding: "40px" }}>
+                  <td colSpan={8} style={{ textAlign: "center", padding: "40px" }}>
                     Aucune réservation enregistrée pour le moment.
                   </td>
                 </tr>
               ) : (
                 reservations.map((res) => {
                   const cleanPhone = res.phone.replace(/[^0-9]/g, "");
-                  const waLink = `https://wa.me/${cleanPhone}?text=Bonjour%20${encodeURIComponent(
-                    res.fullName
-                  )},%20l'équipe%20OCD%20Live%20revient%20vers%20vous%20concernant%20votre%20demande%20de%20live%20référence%20${
-                    res.ref
-                  }.`;
+                  const waText = `Bonjour ${res.fullName}, l'équipe OCD Live vous contacte suite à votre réservation #${res.ref} (${res.selectedOffer} - Activité : ${res.activityLabel || "Vente"}). Souhaitez-vous valider votre créneau ?`;
+                  const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waText)}`;
 
                   return (
                     <tr key={res.id}>
@@ -119,41 +117,86 @@ export default async function AdminReservationsPage() {
                         </div>
                       </td>
 
+                      {/* Activité commerciale */}
+                      <td>
+                        <div
+                          style={{
+                            display: "inline-block",
+                            background: "rgba(243, 107, 11, 0.15)",
+                            color: "var(--adm-orange)",
+                            border: "1px solid rgba(243, 107, 11, 0.3)",
+                            borderRadius: "50px",
+                            padding: "3px 10px",
+                            fontSize: "11px",
+                            fontWeight: 700,
+                            marginBottom: "4px",
+                          }}
+                        >
+                          {res.activityLabel || "Commerce général"}
+                        </div>
+                        {res.activityCustomDetails && (
+                          <div style={{ fontSize: "11.5px", color: "#aaa", fontStyle: "italic", maxWidth: "200px" }}>
+                            « {res.activityCustomDetails} »
+                          </div>
+                        )}
+                      </td>
+
                       {/* Live details */}
                       <td>
                         <div style={{ fontWeight: 700, color: "#fff" }}>{res.selectedOffer}</div>
-                        <div style={{ fontSize: "12px", color: "var(--adm-orange)" }}>
+                        <div style={{ fontSize: "12px", color: "#aaa" }}>
                           {res.liveFormat}
                         </div>
-                        <div
-                          style={{
-                            fontSize: "12px",
-                            color: "var(--adm-text-muted)",
-                            marginTop: "4px",
-                            maxWidth: "260px",
-                            whiteSpace: "normal",
-                            lineHeight: "1.3",
-                          }}
-                        >
-                          « {res.message.slice(0, 80)}... »
-                        </div>
+                        {res.message && (
+                          <div
+                            style={{
+                              fontSize: "11.5px",
+                              color: "var(--adm-text-muted)",
+                              marginTop: "4px",
+                              maxWidth: "220px",
+                              whiteSpace: "normal",
+                              lineHeight: "1.3",
+                            }}
+                          >
+                            « {res.message.slice(0, 60)}... »
+                          </div>
+                        )}
                       </td>
 
                       {/* Date & Location */}
                       <td>
                         <div style={{ fontWeight: 800 }}>📅 {res.eventDate}</div>
-                        <div style={{ fontSize: "12px", color: "var(--adm-text-muted)", marginTop: "2px" }}>
+                        <div style={{ fontSize: "12px", color: "var(--adm-orange)", marginTop: "2px" }}>
                           ⏰ {res.assignedSlotLabel || res.selectedSlot}
                         </div>
-                        <div style={{ fontSize: "12px", color: "#c0c7d2", marginTop: "4px" }}>
+                        <div style={{ fontSize: "11.5px", color: "#c0c7d2", marginTop: "4px", maxWidth: "180px" }}>
                           📍 {res.eventLocation}
                         </div>
                       </td>
 
-                      {/* Budget */}
+                      {/* Moyen de Paiement & Acompte */}
                       <td>
-                        <div style={{ fontWeight: 800, fontSize: "14px" }}>
+                        <div style={{ fontWeight: 800, fontSize: "13.5px", color: "#fff" }}>
                           {res.budgetEstimated ? formatFcfa(res.budgetEstimated) : "Sur devis"}
+                        </div>
+                        <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "2px" }}>
+                          <span
+                            style={{
+                              fontSize: "11px",
+                              color: "#e5e2de",
+                              background: "rgba(255,255,255,0.06)",
+                              padding: "2px 8px",
+                              borderRadius: "6px",
+                              display: "inline-block",
+                            }}
+                          >
+                            {res.paymentMethodLabel || res.paymentMethod || "T-Money"}
+                          </span>
+                          {res.depositAmountFcfa && (
+                            <span style={{ fontSize: "10.5px", color: res.depositStatus === "ACOMPTE_RECU" ? "#4ade80" : "#fbbf24" }}>
+                              Acompte: {res.depositAmountFcfa.toLocaleString("fr-FR")} F ({res.depositStatus === "ACOMPTE_RECU" ? "Reçu" : "En attente"})
+                            </span>
+                          )}
                         </div>
                       </td>
 

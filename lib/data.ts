@@ -736,3 +736,138 @@ export const YOUTH_PHOTOS: YouthPhotoItem[] = [
     image: "/images/studio-brand.png",
   },
 ];
+
+export interface BusinessActivityItem {
+  id: string;
+  label: string;
+  icon: string;
+  badge: string;
+  description: string;
+  examples: string;
+}
+
+export const BUSINESS_ACTIVITIES: BusinessActivityItem[] = [
+  {
+    id: "mode_vetements",
+    label: "Vente de Vêtements & Mode",
+    icon: "👗",
+    badge: "Mode & Prêt-à-porter",
+    description: "Présentation de collections, essayages en direct, promotions et ventes flash.",
+    examples: "Boutiques de vêtements, robes, costumes, friperie chic, chaussures & accessoires",
+  },
+  {
+    id: "cosmetique_beaute",
+    label: "Produits Cosmétiques & Beauté",
+    icon: "💄",
+    badge: "Beauté & Soins",
+    description: "Démonstrations de produits, soins capillaires, maquillage et routines bien-être.",
+    examples: "Gammes de soins bio, crèmes corporelles, sérums, perruques, maquillage pro",
+  },
+  {
+    id: "restauration_food",
+    label: "Street Food, Restauration & Traiteur",
+    icon: "🍔",
+    badge: "Food & Boissons",
+    description: "Mise en avant culinaire, inauguration de restaurant, dégustations et catering.",
+    examples: "Grillades, fast-food, pâtisserie, traiteur événementiel, jus naturels locaux",
+  },
+  {
+    id: "tech_electronique",
+    label: "High-Tech, Téléphonie & Électronique",
+    icon: "📱",
+    badge: "Tech & Gadgets",
+    description: "Unboxing, tests d'appareils en direct, comparatifs et promotions flash.",
+    examples: "Smartphones, ordinateurs portables, écouteurs, montres connectées, gaming",
+  },
+  {
+    id: "formation_coaching",
+    label: "Formation, Coaching & Masterclass",
+    icon: "🎓",
+    badge: "Savoir & Éducation",
+    description: "Masterclasses en direct, ateliers interactifs, webinaires et lancements d'offres.",
+    examples: "Formateurs, conférenciers, coachs business, experts finance, écoles de formation",
+  },
+  {
+    id: "evenement_culte",
+    label: "Événementiel, Culte & Célébration",
+    icon: "⛪",
+    badge: "Culte & Célébration",
+    description: "Retransmission de services religieux, concerts live, mariages et galas d'entreprise.",
+    examples: "Églises, chorales, célébrations privées, remises de prix, anniversaires",
+  },
+  {
+    id: "artisanat_deco",
+    label: "Artisanat, Mobilier & Décoration",
+    icon: "🛠️",
+    badge: "Artisanat & Déco",
+    description: "Savoir-faire togolais, créations d'art, mobilier et décoration d'intérieur.",
+    examples: "Menuiserie d'art, décoration d'espace, poterie, toiles et créations artisanales",
+  },
+  {
+    id: "autre",
+    label: "Autre Activité Commerciale",
+    icon: "📦",
+    badge: "Sur mesure",
+    description: "Toute autre activité commerciale ou prestation de terrain nécessitant une régie live.",
+    examples: "Immobilier, services financiers, concessions automobiles, commerce général",
+  },
+];
+
+export interface PaymentMethodItem {
+  id: string;
+  label: string;
+  badge: string;
+  tagline: string;
+  icon: string;
+  operator: string;
+  accountNumber: string;
+  instructions: string;
+  color: string;
+}
+
+export const PAYMENT_METHODS: PaymentMethodItem[] = [
+  {
+    id: "tmoney",
+    label: "T-Money (Togocom)",
+    badge: "Instantané Togo",
+    tagline: "Le moyen de paiement mobile le plus rapide et populaire au Togo",
+    icon: "🟢",
+    operator: "Togocom",
+    accountNumber: "+228 90 00 00 00",
+    instructions: "Effectuez votre transfert T-Money au numéro officiel OCD Live (+228 90 00 00 00). Validation instantanée par SMS & WhatsApp.",
+    color: "#00a859",
+  },
+  {
+    id: "moov_money",
+    label: "Moov Money (Flooz)",
+    badge: "Instantané Togo",
+    tagline: "Paiement direct sécurisé via Moov Africa Togo",
+    icon: "🔵",
+    operator: "Moov Africa",
+    accountNumber: "+228 99 00 00 00",
+    instructions: "Composez le code Flooz Moov Money vers le compte officiel OCD Live (+228 99 00 00 00) pour bloquer votre créneau.",
+    color: "#0055b8",
+  },
+  {
+    id: "carte_bancaire",
+    label: "Carte Bancaire (Visa / Mastercard)",
+    badge: "Paiement Sécurisé",
+    tagline: "Règlement en ligne 3D-Secure avec reçu officiel instantané",
+    icon: "💳",
+    operator: "Visa / Mastercard / GIM-UEMOA",
+    accountNumber: "Lien de paiement sécurisé",
+    instructions: "Un lien de paiement sécurisé vous sera transmis par email et WhatsApp dès confirmation du planning par la régie.",
+    color: "#f36b0b",
+  },
+  {
+    id: "especes_studio",
+    label: "Espèces / Acompte au Studio ou sur Place",
+    badge: "Sur Rendez-vous",
+    tagline: "Règlement physique à nos bureaux ou à l'arrivée de l'équipe",
+    icon: "🏢",
+    operator: "Comptabilité OCD Live",
+    accountNumber: "Studio OCD Live, Lomé",
+    instructions: "Réglez directement à notre studio à Lomé ou convenez d'un paiement lors de l'installation de l'équipe dans vos locaux.",
+    color: "#e5e2de",
+  },
+];

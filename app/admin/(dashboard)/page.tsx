@@ -230,9 +230,10 @@ export default async function AdminDashboardPage() {
               <tr>
                 <th>Réf & Date</th>
                 <th>Client / Contact</th>
+                <th>Activité & Produits</th>
                 <th>Offre & Format</th>
-                <th>Créneau Souhaité</th>
-                <th>Montant Estimé</th>
+                <th>Créneau</th>
+                <th>Paiement & Montant</th>
                 <th>Statut</th>
                 <th>Actions</th>
               </tr>
@@ -240,11 +241,8 @@ export default async function AdminDashboardPage() {
             <tbody>
               {recentReservations.map((res) => {
                 const cleanPhone = res.phone.replace(/[^0-9]/g, "");
-                const waLink = `https://wa.me/${cleanPhone}?text=Bonjour%20${encodeURIComponent(
-                  res.fullName
-                )},%20l'équipe%20OCD%20Live%20revient%20vers%20vous%20concernant%20votre%20demande%20de%20live%20référence%20${
-                  res.ref
-                }.`;
+                const waText = `Bonjour ${res.fullName}, l'équipe OCD Live vous contacte pour votre réservation #${res.ref} (${res.selectedOffer} - Activité : ${res.activityLabel || "Vente"}).`;
+                const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waText)}`;
 
                 return (
                   <tr key={res.id}>
@@ -271,15 +269,32 @@ export default async function AdminDashboardPage() {
                     </td>
 
                     <td>
+                      <div
+                        style={{
+                          display: "inline-block",
+                          background: "rgba(243, 107, 11, 0.15)",
+                          color: "var(--adm-orange)",
+                          border: "1px solid rgba(243, 107, 11, 0.3)",
+                          borderRadius: "50px",
+                          padding: "2px 8px",
+                          fontSize: "11px",
+                          fontWeight: 700,
+                        }}
+                      >
+                        {res.activityLabel || "Vente & Commerce"}
+                      </div>
+                    </td>
+
+                    <td>
                       <div style={{ fontWeight: 600 }}>{res.selectedOffer}</div>
-                      <div style={{ fontSize: "12px", color: "var(--adm-text-muted)" }}>
+                      <div style={{ fontSize: "11.5px", color: "var(--adm-text-muted)" }}>
                         {res.liveFormat}
                       </div>
                     </td>
 
                     <td>
                       <div style={{ fontWeight: 700 }}>{res.eventDate}</div>
-                      <div style={{ fontSize: "12px", color: "var(--adm-text-muted)" }}>
+                      <div style={{ fontSize: "12px", color: "var(--adm-orange)" }}>
                         {res.assignedSlotLabel || res.selectedSlot}
                       </div>
                     </td>
@@ -287,6 +302,9 @@ export default async function AdminDashboardPage() {
                     <td>
                       <div style={{ fontWeight: 800 }}>
                         {res.budgetEstimated ? formatFcfa(res.budgetEstimated) : "Sur devis"}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "#aaa" }}>
+                        {res.paymentMethodLabel || res.paymentMethod || "T-Money"}
                       </div>
                     </td>
 

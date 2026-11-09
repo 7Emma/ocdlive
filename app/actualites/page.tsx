@@ -36,7 +36,13 @@ export default function ActualitesPage() {
 
       {/* Articles Grid */}
       <section className="container" style={{ marginBottom: "80px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "28px",
+          }}
+        >
           {ARTICLES_DATA.map((article) => (
             <article
               key={article.id}
@@ -51,7 +57,14 @@ export default function ActualitesPage() {
                 transition: "transform 0.25s, border-color 0.25s",
               }}
             >
-              <div style={{ position: "relative", height: "240px", width: "100%", background: "#111" }}>
+              <div
+                style={{
+                  position: "relative",
+                  height: "240px",
+                  width: "100%",
+                  background: "#111",
+                }}
+              >
                 <Image
                   src={article.image}
                   alt={article.title}
@@ -77,31 +90,82 @@ export default function ActualitesPage() {
                 </span>
               </div>
 
-              <div style={{ padding: "28px", display: "flex", flexDirection: "column", gap: "14px", flex: 1, justifyContent: "space-between" }}>
+              <div
+                style={{
+                  padding: "28px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "14px",
+                  flex: 1,
+                  justifyContent: "space-between",
+                }}
+              >
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "12px", color: "var(--muted)", marginBottom: "8px" }}>
-                    <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "16px",
+                      fontSize: "12px",
+                      color: "var(--muted)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                      }}
+                    >
                       <Calendar className="w-3.5 h-3.5 text-[#f36b0b]" />
                       <span>{article.date}</span>
                     </span>
-                    <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                    <span
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                      }}
+                    >
                       <Clock className="w-3.5 h-3.5 text-[#aaa]" />
                       <span>{article.readTime}</span>
                     </span>
                   </div>
 
-                  <h2 style={{ font: "800 20px/1.3 Manrope, sans-serif", margin: "0 0 10px 0", color: "#fff" }}>
-                    <Link href={`/actualites/${article.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                  <h2
+                    style={{
+                      font: "800 20px/1.3 Manrope, sans-serif",
+                      margin: "0 0 10px 0",
+                      color: "#fff",
+                    }}
+                  >
+                    <Link
+                      href={`/actualites/${article.slug}`}
+                      style={{ color: "inherit", textDecoration: "none" }}
+                    >
                       {article.title}
                     </Link>
                   </h2>
 
-                  <p style={{ color: "var(--muted)", fontSize: "13px", lineHeight: 1.6, margin: 0 }}>
+                  <p
+                    style={{
+                      color: "var(--muted)",
+                      fontSize: "13px",
+                      lineHeight: 1.6,
+                      margin: 0,
+                    }}
+                  >
                     {article.excerpt}
                   </p>
                 </div>
 
-                <div style={{ borderTop: "1px solid var(--line)", paddingTop: "14px" }}>
+                <div
+                  style={{
+                    borderTop: "1px solid var(--line)",
+                    paddingTop: "14px",
+                  }}
+                >
                   <Link
                     href={`/actualites/${article.slug}`}
                     className="orange-link"
@@ -122,7 +186,10 @@ export default function ActualitesPage() {
           <div>
             <small>L'actualité du direct</small>
             <h2>Vous souhaitez convier nos équipes sur votre événement ?</h2>
-            <p>Nous couvrons vos conférences de presse, lancements et sommets d'envergure.</p>
+            <p>
+              Nous couvrons vos conférences de presse, lancements et sommets
+              d'envergure.
+            </p>
           </div>
           <Link className="btn white" href="/contact">
             Nous contacter →

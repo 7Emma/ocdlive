@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2, Calendar, Clock, ShieldCheck } from "lucide-react";
 import { submitQuoteAction, QuoteActionState } from "@/app/actions/quote";
-import { PRICING_OFFERS, DAILY_LIVE_SLOTS, LIVE_FORMATS } from "@/lib/data";
+import { PRICING_OFFERS, DAILY_LIVE_SLOTS, LIVE_FORMATS, BUSINESS_ACTIVITIES, PAYMENT_METHODS } from "@/lib/data";
 
 const initialState: QuoteActionState = {
   success: false,
@@ -28,6 +28,9 @@ export default function QuoteForm() {
     phone: "",
     selectedOffer: initialOffer,
     liveFormat: "live-presentiel",
+    activityType: "mode_vetements",
+    activityCustomDetails: "",
+    paymentMethod: "tmoney",
     eventDate: "",
     selectedSlot: "slot-2",
     eventLocation: "",
@@ -51,6 +54,8 @@ export default function QuoteForm() {
   };
 
   if (state.success) {
+    const cleanWaText = `Bonjour l'équipe OCD Live ! Je viens de réserver la référence *#${state.reservationId || "OCD"}* sur le site pour mon activité *${encodeURIComponent(state.activityLabel || "Vente")}* avec le mode de paiement *${encodeURIComponent(state.paymentMethodLabel || "T-Money")}*. Pouvez-vous me confirmer le créneau ? Merci !`;
+
     return (
       <div className="bg-[#121215] border border-[#ff6600]/40 rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-2xl">
         <div className="w-16 h-16 bg-[#ff6600]/20 text-[#ff6600] rounded-full flex items-center justify-center mx-auto">
@@ -58,28 +63,54 @@ export default function QuoteForm() {
         </div>
         <div className="space-y-2">
           <span className="text-xs uppercase tracking-widest font-bold text-[#ff6600]">
-            Réservation enregistrée
+            Réservation enregistrée #{state.reservationId}
           </span>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Demande transmise à l'administrateur
+            Demande transmise à la régie OCD Live
           </h3>
         </div>
         <p className="text-zinc-300 max-w-lg mx-auto text-sm sm:text-base leading-relaxed">
           {state.message}
         </p>
 
-        <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 max-w-md mx-auto text-xs text-zinc-400 space-y-1">
-          <p>
-            <strong className="text-white">Prochaine étape :</strong> L'administrateur vérifie la disponibilité parmi les 4 créneaux quotidiens et vous rappelle pour caler les éléments techniques.
-          </p>
-        </div>
+        {state.activityLabel && (
+          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 max-w-md mx-auto text-xs text-left text-zinc-300 space-y-2">
+            <div className="flex justify-between">
+              <span className="text-zinc-400">Activité :</span>
+              <strong className="text-[#ff6600]">{state.activityLabel}</strong>
+            </div>
+            {state.paymentMethodLabel && (
+              <div className="flex justify-between">
+                <span className="text-zinc-400">Règlement acompte :</span>
+                <strong className="text-white">{state.paymentMethodLabel}</strong>
+              </div>
+            )}
+            {state.depositAmountFcfa && (
+              <div className="flex justify-between border-t border-white/10 pt-2">
+                <span className="text-zinc-400">Acompte à régler :</span>
+                <strong className="text-[#ff6600] font-bold">{state.depositAmountFcfa.toLocaleString("fr-FR")} FCFA</strong>
+              </div>
+            )}
+          </div>
+        )}
 
-        <button
-          onClick={() => window.location.reload()}
-          className="inline-flex items-center gap-2 text-sm text-[#ff6600] hover:text-[#ff8533] underline underline-offset-4 font-semibold pt-3 cursor-pointer"
-        >
-          Effectuer une autre réservation
-        </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+          <a
+            href={`https://wa.me/22890000000?text=${cleanWaText}`}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25d366] hover:bg-[#2ee672] text-[#0b2212] font-extrabold text-sm px-7 py-3.5 rounded-full shadow-lg transition-all"
+          >
+            <span>Confirmer sur WhatsApp (+228 90 00 00 00) ↗</span>
+          </a>
+
+          <button
+            onClick={() => window.location.reload()}
+            className="text-sm text-zinc-400 hover:text-white underline underline-offset-4 cursor-pointer"
+          >
+            Effectuer une autre réservation
+          </button>
+        </div>
       </div>
     );
   }
@@ -129,7 +160,7 @@ export default function QuoteForm() {
           htmlFor="selectedOffer"
           className="block text-xs font-bold uppercase tracking-wider text-white"
         >
-          1. Formule ou Prestation souhaitée <span className="text-[#ff6600]">*</span>
+          1. Formule audiovisuelle souhaitée <span className="text-[#ff6600]">*</span>
         </label>
         <select
           id="selectedOffer"
@@ -140,17 +171,48 @@ export default function QuoteForm() {
         >
           {PRICING_OFFERS.map((offer) => (
             <option key={offer.id} value={offer.slug}>
-              {offer.title} — {offer.price}
+              {offer.title} — {offer.price} ({offer.period})
             </option>
           ))}
           <option value="autre-prestation">Autre besoin personnalisé</option>
         </select>
       </div>
 
-      {/* Étape 2 : Format du Live (Présentiel ou Distance) */}
+      {/* Étape 2 : Choix de l'Activité commerciale ou des Produits */}
+      <div className="space-y-3">
+        <label
+          htmlFor="activityType"
+          className="block text-xs font-bold uppercase tracking-wider text-white"
+        >
+          2. Votre activité commerciale / Produits à diffuser <span className="text-[#ff6600]">*</span>
+        </label>
+        <select
+          id="activityType"
+          name="activityType"
+          value={formData.activityType}
+          onChange={handleChange}
+          className="w-full bg-[#1b1b1f] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#ff6600] focus:ring-1 focus:ring-[#ff6600] transition-colors"
+        >
+          {BUSINESS_ACTIVITIES.map((act) => (
+            <option key={act.id} value={act.id}>
+              {act.icon} {act.label} — ({act.badge})
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          name="activityCustomDetails"
+          value={formData.activityCustomDetails}
+          onChange={handleChange}
+          placeholder="Précisez vos articles (ex: robes de soirée, savons bio, téléphones portables...)"
+          className="w-full bg-[#16161a] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#ff6600] transition-colors"
+        />
+      </div>
+
+      {/* Étape 3 : Format du Live (Présentiel ou Distance) */}
       <div className="space-y-3">
         <label className="block text-xs font-bold uppercase tracking-wider text-white">
-          2. Format du direct <span className="text-[#ff6600]">*</span>
+          3. Format du direct <span className="text-[#ff6600]">*</span>
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {LIVE_FORMATS.map((format) => {
@@ -238,10 +300,36 @@ export default function QuoteForm() {
         </div>
       </div>
 
-      {/* Étape 4 : Coordonnées du contact */}
+      {/* Étape 5 : Choix du Moyen de Paiement */}
+      <div className="space-y-3 pt-2 border-t border-white/5">
+        <label
+          htmlFor="paymentMethod"
+          className="block text-xs font-bold uppercase tracking-wider text-white"
+        >
+          5. Mode de règlement de l'acompte <span className="text-[#ff6600]">*</span>
+        </label>
+        <select
+          id="paymentMethod"
+          name="paymentMethod"
+          value={formData.paymentMethod}
+          onChange={handleChange}
+          className="w-full bg-[#1b1b1f] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#ff6600] focus:ring-1 focus:ring-[#ff6600] transition-colors"
+        >
+          {PAYMENT_METHODS.map((pm) => (
+            <option key={pm.id} value={pm.id}>
+              {pm.icon} {pm.label} — {pm.accountNumber} ({pm.tagline})
+            </option>
+          ))}
+        </select>
+        <p className="text-xs text-zinc-400">
+          Un acompte officiel est demandé pour sécuriser le créneau parmi les 4 du jour. Reçu délivré immédiatement.
+        </p>
+      </div>
+
+      {/* Étape 6 : Coordonnées du contact */}
       <div className="space-y-4 pt-2 border-t border-white/5">
         <span className="block text-xs font-bold uppercase tracking-wider text-white">
-          5. Vos coordonnées
+          6. Vos coordonnées & Adresse
         </span>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

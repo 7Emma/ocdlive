@@ -1,73 +1,48 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useTransition } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import {
+  Clock,
+  MessageSquare,
+  ShieldCheck,
+  Users,
+  ArrowRight,
+  RotateCcw,
+} from "lucide-react";
+import {
+  PRICING_OFFERS,
+  BUSINESS_ACTIVITIES,
+  PAYMENT_METHODS,
+  DAILY_LIVE_SLOTS,
+} from "@/lib/data";
+import { submitQuoteAction } from "@/app/actions/quote";
 import "./reservation.css";
 
-const PACKS = [
-  {
-    id: "live-1h30",
-    slugAliases: ["live-1h30", "pack-1h30", "1h30", "decouverte"],
-    title: "Live Direct 1h30",
-    subtitle: "Équipe dans vos locaux ou en studio",
-    price: "15 000 FCFA",
-    image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&auto=format&fit=crop&q=80",
-    features: "2 caméras, micros pros, direct réseaux & replay HD",
-  },
-  {
-    id: "live-4h",
-    slugAliases: ["live-4h", "pack-4h", "4h", "evenement"],
-    title: "Live Demi-Journée 4h",
-    subtitle: "Équipe dédiée dans vos locaux",
-    price: "30 000 FCFA",
-    image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop&q=80",
-    features: "Multicaméra HD/4K, habillage dynamique, régisseur dédié",
-  },
-  {
-    id: "live-video-hoc",
-    slugAliases: ["live-video-hoc", "pack-live-video", "house-of-challenge"],
-    title: "Pack Live + 1 Vidéo HOC",
-    subtitle: "Direct + publication House of Challenge",
-    price: "50 000 FCFA",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&auto=format&fit=crop&q=80",
-    features: "Live sur place + 1 vidéo montée sur le compte House of Challenge",
-  },
-  {
-    id: "video-bovan",
-    slugAliases: ["video-bovan", "collab-bovan", "bovan"],
-    title: "Vidéo Collaboration avec Bovan",
-    subtitle: "Postée sur le compte officiel de Bovan",
-    price: "75 000 FCFA",
-    image: "/images/bovan-dg.jpg",
-    features: "Interview ou capsule immersive, validation éditoriale Bovan",
-  },
-  {
-    id: "double-video-media",
-    slugAliases: ["double-video-media", "pack-double", "double-impact"],
-    title: "Pack Double Impact",
-    subtitle: "2 vidéos sur Bovan ou House of Challenge",
-    price: "100 000 FCFA",
-    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&auto=format&fit=crop&q=80",
-    features: "2 vidéos publicitaires ou reportages avec visibilité démultipliée",
-  },
-  {
-    id: "campagne-semaine",
-    slugAliases: ["campagne-semaine", "promo-semaine", "campagne"],
-    title: "Campagne 1 Semaine Promo + 2 Vidéos",
-    subtitle: "Équipe mobilisée 1 semaine dans vos locaux",
-    price: "180 000 FCFA",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&auto=format&fit=crop&q=80",
-    features: "Plusieurs directs sur la semaine + 2 vidéos HOC/Bovan + Starlink",
-  },
-];
-
-const SLOTS = [
-  { id: "matin", label: "Matin — 08h00 à 10h00", desc: "Créneau 1 / 4" },
-  { id: "midi", label: "Midi — 11h30 à 13h30", desc: "Créneau 2 / 4" },
-  { id: "apres-midi", label: "Après-midi — 14h00 à 16h00", desc: "Créneau 3 / 4" },
-  { id: "soiree", label: "Soirée — 17h00 à 19h00", desc: "Créneau 4 / 4" },
-];
+const PACKS = PRICING_OFFERS.map((offer) => ({
+  id: offer.id,
+  slugAliases: [offer.slug, offer.id],
+  title: offer.title,
+  subtitle: offer.description,
+  price: offer.price,
+  rawPrice: offer.rawPrice,
+  period: offer.period,
+  isPopular: offer.isPopular,
+  image:
+    offer.id === "video-bovan"
+      ? "/images/bovan-dg.jpg"
+      : offer.id === "live-1h30"
+      ? "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&auto=format&fit=crop&q=80"
+      : offer.id === "live-4h"
+      ? "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop&q=80"
+      : offer.id === "live-video-hoc"
+      ? "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&auto=format&fit=crop&q=80"
+      : offer.id === "double-video-media"
+      ? "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&auto=format&fit=crop&q=80"
+      : "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&auto=format&fit=crop&q=80",
+  features: offer.included.slice(0, 2).join(" · "),
+}));
 
 function ReservationForm() {
   const searchParams = useSearchParams();
@@ -75,6 +50,7 @@ function ReservationForm() {
   // Query parameter parsing
   const paramOffre = searchParams.get("offre") || searchParams.get("pack") || "";
   const paramFormat = searchParams.get("format") || "";
+  const paramActivite = searchParams.get("activite") || "";
 
   const initialPack =
     PACKS.find(
@@ -83,150 +59,324 @@ function ReservationForm() {
         p.slugAliases.includes(paramOffre.toLowerCase())
     )?.id || "live-1h30";
 
-  const initialFormat =
-    paramFormat === "distance" ? "distance" : "presentiel";
+  const initialFormat = paramFormat === "distance" ? "distance" : "presentiel";
 
   const [selectedPack, setSelectedPack] = useState(initialPack);
+  const [selectedActivity, setSelectedActivity] = useState(
+    BUSINESS_ACTIVITIES.some((a) => a.id === paramActivite)
+      ? paramActivite
+      : "mode_vetements"
+  );
+  const [activityCustomDetails, setActivityCustomDetails] = useState("");
   const [selectedFormat, setSelectedFormat] = useState(initialFormat);
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedSlot, setSelectedSlot] = useState("");
-  const [name, setName] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState("slot-2");
+  const [selectedPayment, setSelectedPayment] = useState("tmoney");
+
+  const [fullName, setFullName] = useState("");
+  const [organization, setOrganization] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [consent, setConsent] = useState(true);
+
+  const [isPending, startTransition] = useTransition();
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submittedData, setSubmittedData] = useState<{
+    ref: string;
+    depositAmount: number;
+    activityLabel: string;
+    paymentLabel: string;
+  } | null>(null);
 
   const activePackObj = PACKS.find((p) => p.id === selectedPack) || PACKS[0];
+  const activeActivityObj =
+    BUSINESS_ACTIVITIES.find((a) => a.id === selectedActivity) ||
+    BUSINESS_ACTIVITIES[0];
+  const activePaymentObj =
+    PAYMENT_METHODS.find((p) => p.id === selectedPayment) || PAYMENT_METHODS[0];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const calculatedDeposit =
+    activePackObj.rawPrice <= 30000
+      ? activePackObj.rawPrice
+      : Math.round(activePackObj.rawPrice * 0.5);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate direct admin booking transmission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      window.scrollTo({ top: 300, behavior: "smooth" });
-    }, 700);
+    setSubmitError(null);
+
+    const formData = new FormData();
+    formData.append("fullName", fullName);
+    formData.append("organization", organization);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("selectedOffer", selectedPack);
+    formData.append("liveFormat", selectedFormat);
+    formData.append("activityType", selectedActivity);
+    formData.append("activityCustomDetails", activityCustomDetails);
+    formData.append("paymentMethod", selectedPayment);
+    formData.append("eventDate", selectedDate);
+    formData.append("selectedSlot", selectedSlot);
+    formData.append("eventLocation", location);
+    formData.append("message", message);
+    if (consent) formData.append("consent", "on");
+
+    startTransition(async () => {
+      try {
+        const result = await submitQuoteAction(null, formData);
+        if (result.success) {
+          setSubmittedData({
+            ref: result.reservationId || `OCD-${Date.now().toString().slice(-6)}`,
+            depositAmount: result.depositAmountFcfa || calculatedDeposit,
+            activityLabel: result.activityLabel || activeActivityObj.label,
+            paymentLabel: result.paymentMethodLabel || activePaymentObj.label,
+          });
+          window.scrollTo({ top: 280, behavior: "smooth" });
+        } else {
+          setSubmitError(result.message || "Une erreur est survenue lors de la réservation.");
+        }
+      } catch (err) {
+        console.error("Booking error:", err);
+        setSubmitError("Une erreur réseau est survenue. Veuillez réessayer.");
+      }
+    });
   };
+
+  // WhatsApp click-to-chat payload
+  const waMessage = submittedData
+    ? `Bonjour l'équipe OCD Live ! Je viens d'enregistrer ma réservation sur le site :%0A- Réf : *#${submittedData.ref}*%0A- Pack : *${encodeURIComponent(activePackObj.title)}* (${encodeURIComponent(activePackObj.price)})%0A- Activité : *${encodeURIComponent(submittedData.activityLabel)}*%0A- Date : *${encodeURIComponent(selectedDate)}*%0A- Créneau : *${encodeURIComponent(DAILY_LIVE_SLOTS.find(s => s.id === selectedSlot)?.hours || selectedSlot)}*%0A- Règlement acompte : *${encodeURIComponent(submittedData.paymentLabel)}*%0APouvez-vous me confirmer le créneau et la disponibilité ? Merci !`
+    : "";
 
   return (
     <div className="reservation" id="reservation">
-      {/* PROGRESSION */}
+      {/* BARRE DE PROGRESSION */}
       <div className="reservation-progress" aria-label="Étapes de la réservation">
         <button
           type="button"
-          className={`reservation-step ${!isSubmitted ? "active" : "completed"}`}
+          className={`reservation-step ${!submittedData ? "active" : "completed"}`}
           onClick={() => {
             document.getElementById("step-1")?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>01</span>
-          <small>Prestation</small>
+          <small>Pack</small>
         </button>
 
         <div className={`reservation-progress-line ${selectedPack ? "filled" : ""}`} />
 
         <button
           type="button"
-          className={`reservation-step ${selectedPack ? "active" : ""}`}
+          className={`reservation-step ${selectedActivity ? "active" : ""}`}
           onClick={() => {
             document.getElementById("step-2")?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>02</span>
-          <small>Configuration</small>
+          <small>Activité</small>
         </button>
 
-        <div className={`reservation-progress-line ${selectedDate && selectedSlot ? "filled" : ""}`} />
+        <div className={`reservation-progress-line ${selectedFormat ? "filled" : ""}`} />
 
         <button
           type="button"
-          className={`reservation-step ${selectedDate && selectedSlot ? "active" : ""}`}
+          className={`reservation-step ${selectedFormat ? "active" : ""}`}
           onClick={() => {
             document.getElementById("step-3")?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>03</span>
-          <small>Planification</small>
+          <small>Format</small>
         </button>
 
-        <div className={`reservation-progress-line ${name && phone && email ? "filled" : ""}`} />
+        <div className={`reservation-progress-line ${selectedDate ? "filled" : ""}`} />
 
         <button
           type="button"
-          className={`reservation-step ${isSubmitted ? "active" : ""}`}
+          className={`reservation-step ${selectedDate ? "active" : ""}`}
           onClick={() => {
             document.getElementById("step-4")?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <span>04</span>
-          <small>Confirmation</small>
+          <small>Planning</small>
+        </button>
+
+        <div className={`reservation-progress-line ${selectedPayment ? "filled" : ""}`} />
+
+        <button
+          type="button"
+          className={`reservation-step ${selectedPayment ? "active" : ""}`}
+          onClick={() => {
+            document.getElementById("step-5")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <span>05</span>
+          <small>Paiement</small>
+        </button>
+
+        <div className={`reservation-progress-line ${submittedData ? "filled" : ""}`} />
+
+        <button
+          type="button"
+          className={`reservation-step ${submittedData ? "active" : ""}`}
+          onClick={() => {
+            document.getElementById("step-6")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <span>06</span>
+          <small>Validation</small>
         </button>
       </div>
 
-      {isSubmitted ? (
+      {submittedData ? (
         <div className="reservation-success">
           <div className="reservation-success-icon">✓</div>
-          <h2>Votre demande de réservation est bien reçue !</h2>
+          <span
+            style={{
+              display: "inline-block",
+              background: "rgba(243, 107, 11, 0.18)",
+              color: "var(--orange)",
+              padding: "4px 14px",
+              borderRadius: "50px",
+              fontSize: "12px",
+              fontWeight: 800,
+              letterSpacing: "1px",
+              marginBottom: "12px",
+            }}
+          >
+            RÉSERVATION ENREGISTRÉE #{submittedData.ref}
+          </span>
+          <h2>Votre demande est transmise à la régie OCD Live !</h2>
           <p>
-            Notre régisseur général a reçu votre dossier et étudie la
-            disponibilité parmi nos <strong>4 créneaux quotidiens</strong>. Vous
-            recevrez une confirmation officielle par e-mail et appel sous 24h.
+            Notre régisseur étudie immédiatement votre dossier parmi nos{" "}
+            <strong>4 créneaux quotidiens stricts</strong>. Vous pouvez dès maintenant finaliser
+            votre acompte par <strong>{submittedData.paymentLabel}</strong> ou nous contacter directement sur WhatsApp.
           </p>
 
           <div className="reservation-summary-card">
             <div className="reservation-summary-item">
               <span>Formule choisie :</span>
-              <strong>{activePackObj.title} ({activePackObj.price})</strong>
+              <strong>
+                {activePackObj.title} ({activePackObj.price})
+              </strong>
             </div>
             <div className="reservation-summary-item">
-              <span>Format du direct :</span>
-              <strong>{selectedFormat === "presentiel" ? "En présentiel (Sur le terrain)" : "À distance (Streaming web)"}</strong>
+              <span>Activité commerciale :</span>
+              <strong style={{ color: "var(--orange)" }}>
+                {activeActivityObj.icon} {submittedData.activityLabel}
+              </strong>
             </div>
-            {selectedDate && (
-              <div className="reservation-summary-item">
-                <span>Date souhaitée :</span>
-                <strong>{selectedDate}</strong>
-              </div>
-            )}
-            {selectedSlot && (
-              <div className="reservation-summary-item">
-                <span>Créneau horaire :</span>
-                <strong>{SLOTS.find((s) => s.id === selectedSlot)?.label || selectedSlot}</strong>
-              </div>
-            )}
             <div className="reservation-summary-item">
-              <span>Client :</span>
-              <strong>{name} ({phone})</strong>
+              <span>Format d'intervention :</span>
+              <strong>
+                {selectedFormat === "presentiel"
+                  ? "En présentiel (Équipe dans vos locaux ou Studio)"
+                  : "À distance (Streaming web)"}
+              </strong>
+            </div>
+            <div className="reservation-summary-item">
+              <span>Date & Créneau :</span>
+              <strong>
+                📅 {selectedDate} ({DAILY_LIVE_SLOTS.find(s => s.id === selectedSlot)?.hours || selectedSlot})
+              </strong>
+            </div>
+            <div className="reservation-summary-item">
+              <span>Moyen de règlement retenu :</span>
+              <strong>
+                {activePaymentObj.icon} {submittedData.paymentLabel}
+              </strong>
+            </div>
+            <div className="reservation-summary-item" style={{ borderBottom: "none", paddingTop: "6px" }}>
+              <span>Acompte de verrouillage de créneau :</span>
+              <strong style={{ color: "var(--orange)", fontSize: "16px" }}>
+                {submittedData.depositAmount.toLocaleString("fr-FR")} FCFA
+              </strong>
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+          {/* Instructions de paiement pour l'acompte */}
+          <div
+            style={{
+              background: "rgba(243, 107, 11, 0.1)",
+              border: "1px dashed rgba(243, 107, 11, 0.4)",
+              borderRadius: "16px",
+              padding: "20px",
+              maxWidth: "500px",
+              margin: "0 auto 28px",
+              textAlign: "left",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+              <span style={{ fontSize: "20px" }}>{activePaymentObj.icon}</span>
+              <strong style={{ color: "#fff", fontSize: "14px" }}>
+                Instructions {activePaymentObj.label} :
+              </strong>
+            </div>
+            <p style={{ color: "#ccc", fontSize: "12.5px", margin: "0 0 10px 0", lineHeight: 1.5 }}>
+              {activePaymentObj.instructions}
+            </p>
+            <div style={{ background: "#0a0a0c", padding: "10px 14px", borderRadius: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ color: "#888", fontSize: "12px" }}>Compte officiel :</span>
+              <span style={{ color: "var(--orange)", fontWeight: 900, fontSize: "14px", letterSpacing: "1px" }}>
+                {activePaymentObj.accountNumber}
+              </span>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
+            <a
+              href={`https://wa.me/22890000000?text=${waMessage}`}
+              target="_blank"
+              rel="noreferrer"
+              className="whatsapp-cta-btn"
+            >
+              <MessageSquare className="w-5 h-5" />
+              <span>Finaliser et bloquer le créneau sur WhatsApp ↗</span>
+            </a>
+
             <button
               type="button"
-              className="btn orange"
+              className="btn outline"
               onClick={() => {
-                setIsSubmitted(false);
+                setSubmittedData(null);
               }}
             >
-              Modifier la demande
+              <RotateCcw className="w-4 h-4" /> Modifier ma réservation
             </button>
-            <Link className="btn outline" href="/">
-              Retourner à l'accueil
+
+            <Link className="btn white" href="/">
+              Retour à l'accueil
             </Link>
           </div>
         </div>
       ) : (
         <form className="booking-form" onSubmit={handleSubmit}>
-          {/* ÉTAPE 1 : CHOIX DE LA PRESTATION */}
+          {submitError && (
+            <div
+              style={{
+                background: "rgba(220, 38, 38, 0.15)",
+                border: "1px solid rgba(220, 38, 38, 0.4)",
+                color: "#fca5a5",
+                borderRadius: "14px",
+                padding: "16px 20px",
+                marginBottom: "24px",
+                fontSize: "13.5px",
+              }}
+            >
+              ⚠️ {submitError}
+            </div>
+          )}
+
+          {/* ÉTAPE 1 : CHOIX DE LA PRESTATION (6 PACKS PAIRS) */}
           <section className="form-section" id="step-1">
             <div className="section-title">
               <span className="number">01</span>
               <div>
-                <h2>Choisissez votre prestation</h2>
-                <p>Sélectionnez la formule audiovisuelle adaptée à votre événement.</p>
+                <h2>1. Choisissez votre formule audiovisuelle</h2>
+                <p>
+                  6 formules calibrées avec <strong>une équipe personnalisée dans vos locaux ou en studio</strong> à Lomé.
+                </p>
               </div>
             </div>
 
@@ -247,6 +397,25 @@ function ReservationForm() {
                     />
                     <img src={pack.image} alt={pack.title} />
                     {isSelected && <span className="check">✓</span>}
+                    {pack.isPopular && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "10px",
+                          left: "10px",
+                          background: "var(--orange)",
+                          color: "#170e08",
+                          fontSize: "9px",
+                          fontWeight: 900,
+                          padding: "3px 10px",
+                          borderRadius: "50px",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.5px",
+                        }}
+                      >
+                        Populaire
+                      </span>
+                    )}
                     <div className="pack-info">
                       <h3>{pack.title}</h3>
                       <p>{pack.subtitle}</p>
@@ -258,13 +427,67 @@ function ReservationForm() {
             </div>
           </section>
 
-          {/* ÉTAPE 2 : CONFIGURATION DU DIRECT */}
+          {/* ÉTAPE 2 : SÉLECTION DE L'ACTIVITÉ COMMERCIALE OU DU PRODUIT */}
           <section className="form-section" id="step-2">
             <div className="section-title">
               <span className="number">02</span>
               <div>
-                <h2>Configuration de la prestation</h2>
-                <p>Comment souhaitez-vous organiser votre retransmission en direct ?</p>
+                <h2>2. Quelle est votre activité commerciale ou vos produits ?</h2>
+                <p>
+                  Précisez votre domaine pour que l'équipe technique adapte les plans caméras, la lumière et la mise en valeur.
+                </p>
+              </div>
+            </div>
+
+            <div className="activities-grid">
+              {BUSINESS_ACTIVITIES.map((act) => {
+                const isSelected = selectedActivity === act.id;
+                return (
+                  <label
+                    key={act.id}
+                    className={`activity-card ${isSelected ? "selected" : ""}`}
+                    onClick={() => setSelectedActivity(act.id)}
+                  >
+                    <input
+                      type="radio"
+                      name="activity"
+                      checked={isSelected}
+                      onChange={() => setSelectedActivity(act.id)}
+                    />
+                    <div className="activity-icon">{act.icon}</div>
+                    <div className="activity-body">
+                      <span className="activity-badge">{act.badge}</span>
+                      <h3 className="activity-title">{act.label}</h3>
+                      <p className="activity-desc">{act.description}</p>
+                      <span className="activity-examples">Exemples : {act.examples}</span>
+                    </div>
+                    {isSelected && <span className="check">✓</span>}
+                  </label>
+                );
+              })}
+            </div>
+
+            <div style={{ marginTop: "18px" }} className="field">
+              <label htmlFor="activity-details">
+                Précisions supplémentaires sur vos articles ou votre concept (optionnel) :
+              </label>
+              <input
+                id="activity-details"
+                type="text"
+                placeholder="Ex: Arrivage de robes de soirée chics, gamme de savons éclaircissants bio, téléphones iPhone 15/16..."
+                value={activityCustomDetails}
+                onChange={(e) => setActivityCustomDetails(e.target.value)}
+              />
+            </div>
+          </section>
+
+          {/* ÉTAPE 3 : FORMAT D'INTERVENTION */}
+          <section className="form-section" id="step-3">
+            <div className="section-title">
+              <span className="number">03</span>
+              <div>
+                <h2>3. Format du direct & Déploiement</h2>
+                <p>Où souhaitez-vous que nos caméras et nos équipes opèrent ?</p>
               </div>
             </div>
 
@@ -280,8 +503,12 @@ function ReservationForm() {
                   onChange={() => setSelectedFormat("presentiel")}
                 />
                 <div>
-                  <h3>◉ En présentiel</h3>
-                  <p>Sur le terrain, sur votre site ou notre plateau, avec votre public.</p>
+                  <h3 style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Users className="w-4 h-4 text-[#f36b0b]" /> En présentiel (Dans vos locaux ou au Studio)
+                  </h3>
+                  <p>
+                    Une équipe technique dédiée se déplace directement dans votre boutique, entreprise ou lieu d'événement à Lomé, ou accueil sur notre plateau.
+                  </p>
                 </div>
               </label>
 
@@ -296,26 +523,32 @@ function ReservationForm() {
                   onChange={() => setSelectedFormat("distance")}
                 />
                 <div>
-                  <h3>▣ À distance</h3>
-                  <p>Diffusion multiplateforme et accompagnement technique en ligne.</p>
+                  <h3 style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Clock className="w-4 h-4 text-[#f36b0b]" /> À distance (Streaming hybride web)
+                  </h3>
+                  <p>
+                    Gestion de flux vidéo à distance, duplex multi-intervenants et retransmission simultanée sur vos pages.
+                  </p>
                 </div>
               </label>
             </div>
           </section>
 
-          {/* ÉTAPE 3 : PLANIFICATION */}
-          <section className="form-section" id="step-3">
+          {/* ÉTAPE 4 : PLANIFICATION & CRÉNEAU HORAIRE (4/JOUR MAX) */}
+          <section className="form-section" id="step-4">
             <div className="section-title">
-              <span className="number">03</span>
+              <span className="number">04</span>
               <div>
-                <h2>Planification & Créneaux</h2>
-                <p>Indiquez la date et le créneau souhaité parmi les 4 disponibilités quotidiennes.</p>
+                <h2>4. Planification & Choix du créneau</h2>
+                <p>
+                  Capacité exclusive : <strong>4 créneaux maximum par jour</strong> pour une qualité broadcast irréprochable.
+                </p>
               </div>
             </div>
 
             <div className="fields-grid-2">
               <div className="field">
-                <label htmlFor="res-date">Date souhaitée *</label>
+                <label htmlFor="res-date">Date souhaitée pour votre live *</label>
                 <input
                   id="res-date"
                   type="date"
@@ -327,17 +560,16 @@ function ReservationForm() {
               </div>
 
               <div className="field">
-                <label htmlFor="res-slot">Créneau horaire * (Capacité : 4/jour)</label>
+                <label htmlFor="res-slot">Créneau horaire souhaité *</label>
                 <select
                   id="res-slot"
                   required
                   value={selectedSlot}
                   onChange={(e) => setSelectedSlot(e.target.value)}
                 >
-                  <option value="">Sélectionner un créneau</option>
-                  {SLOTS.map((s) => (
+                  {DAILY_LIVE_SLOTS.map((s) => (
                     <option key={s.id} value={s.id}>
-                      {s.label} ({s.desc})
+                      {s.hours} — {s.label} ({s.description})
                     </option>
                   ))}
                 </select>
@@ -345,36 +577,118 @@ function ReservationForm() {
             </div>
 
             <p className="hint">
-              <span>●</span> Capacité maximale : <strong>4 lives par jour</strong> pour garantir une régie sans faille. La disponibilité est validée par notre équipe.
+              <span>●</span> Limitation technique à 4 lives/jour : La réservation de votre créneau est vérifiée et priorisée selon l'ordre d'arrivée.
             </p>
           </section>
 
-          {/* ÉTAPE 4 : COORDONNÉES */}
-          <section className="form-section" id="step-4">
+          {/* ÉTAPE 5 : MOYEN DE PAIEMENT POUR L'ACOMPTE */}
+          <section className="form-section" id="step-5">
             <div className="section-title">
-              <span className="number">04</span>
+              <span className="number">05</span>
               <div>
-                <h2>Vos coordonnées de contact</h2>
-                <p>Ces informations permettent à notre administrateur de vous envoyer le devis formel.</p>
+                <h2>5. Choisissez votre moyen de paiement</h2>
+                <p>
+                  Pour bloquer votre créneau parmi les 4 du jour, un acompte est requis via l'une de nos méthodes sécurisées.
+                </p>
+              </div>
+            </div>
+
+            <div className="deposit-info-banner" style={{ marginBottom: "20px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <ShieldCheck className="w-5 h-5 text-[#f36b0b]" />
+                <div>
+                  <strong style={{ color: "#fff", fontSize: "14px", display: "block" }}>
+                    Acompte de confirmation : {calculatedDeposit.toLocaleString("fr-FR")} FCFA
+                  </strong>
+                  <span style={{ color: "#aaa", fontSize: "12px" }}>
+                    Garantit la mobilisation de l'équipe et du matériel pour votre créneau. Reçu officiel délivré.
+                  </span>
+                </div>
+              </div>
+              <div style={{ color: "var(--orange)", fontWeight: 800, fontSize: "13px" }}>
+                Paiement direct sécurisé
+              </div>
+            </div>
+
+            <div className="payments-grid">
+              {PAYMENT_METHODS.map((pm) => {
+                const isSelected = selectedPayment === pm.id;
+                return (
+                  <label
+                    key={pm.id}
+                    className={`payment-card ${isSelected ? "selected" : ""}`}
+                    onClick={() => setSelectedPayment(pm.id)}
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      checked={isSelected}
+                      onChange={() => setSelectedPayment(pm.id)}
+                    />
+                    <div>
+                      <div className="payment-card-top">
+                        <span style={{ fontSize: "24px" }}>{pm.icon}</span>
+                        <span className="payment-badge">{pm.badge}</span>
+                      </div>
+                      <h3 style={{ font: "800 15px Manrope, sans-serif", margin: "10px 0 4px", color: "#fff" }}>
+                        {pm.label}
+                      </h3>
+                      <p style={{ color: "#aaa", fontSize: "12px", margin: 0, lineHeight: 1.4 }}>
+                        {pm.tagline}
+                      </p>
+                    </div>
+
+                    <div className="payment-account-box">
+                      <span>Règlement :</span>
+                      <span className="payment-account-number">{pm.accountNumber}</span>
+                    </div>
+
+                    {isSelected && <span className="check">✓</span>}
+                  </label>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* ÉTAPE 6 : COORDONNÉES ET VALIDATION */}
+          <section className="form-section" id="step-6">
+            <div className="section-title">
+              <span className="number">06</span>
+              <div>
+                <h2>6. Vos coordonnées & Adresse de tournage</h2>
+                <p>Informations indispensables pour que l'équipe vous contacte et prépare le direct.</p>
               </div>
             </div>
 
             <div className="fields">
               <div className="fields-grid-2">
                 <div className="field">
-                  <label htmlFor="res-name">Nom complet ou Entreprise *</label>
+                  <label htmlFor="res-name">Nom complet ou Nom de la Boutique / Marque *</label>
                   <input
                     id="res-name"
                     type="text"
-                    placeholder="Ex: Koffi Mensah / Société Tech Togo"
+                    placeholder="Ex: Koffi Mensah / Boutique Élégance Lomé"
                     required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                   />
                 </div>
 
                 <div className="field">
-                  <label htmlFor="res-phone">Téléphone direct (WhatsApp disponible) *</label>
+                  <label htmlFor="res-org">Société / Marque (optionnel)</label>
+                  <input
+                    id="res-org"
+                    type="text"
+                    placeholder="Ex: Mode & Style SARL"
+                    value={organization}
+                    onChange={(e) => setOrganization(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="fields-grid-2">
+                <div className="field">
+                  <label htmlFor="res-phone">Numéro WhatsApp / Téléphone direct *</label>
                   <input
                     id="res-phone"
                     type="tel"
@@ -384,61 +698,85 @@ function ReservationForm() {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
-              </div>
 
-              <div className="fields-grid-2">
                 <div className="field">
                   <label htmlFor="res-email">Adresse e-mail professionnelle *</label>
                   <input
                     id="res-email"
                     type="email"
-                    placeholder="contact@entreprise.tg"
+                    placeholder="contact@boutique.tg"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-
-                <div className="field">
-                  <label htmlFor="res-location">Lieu de l'événement (Vos locaux / Studio / Salle)</label>
-                  <input
-                    id="res-location"
-                    type="text"
-                    placeholder="Ex: Agoè, Lomé / Dans nos locaux d'entreprise / Studio OCD"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                  />
-                </div>
               </div>
 
               <div className="field">
-                <label htmlFor="res-msg">Informations complémentaires & Besoins spécifiques</label>
+                <label htmlFor="res-location">
+                  Adresse exacte où installer l'équipe à Lomé (ou Studio OCD Live) *
+                </label>
+                <input
+                  id="res-location"
+                  type="text"
+                  placeholder="Ex: Boulevard du 13 Janvier, en face de la pharmacie / Quartier Agoè / Studio OCD"
+                  required
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+              </div>
+
+              <div className="field">
+                <label htmlFor="res-msg">Besoins spécifiques pour votre vente ou votre direct</label>
                 <textarea
                   id="res-msg"
-                  rows={4}
-                  placeholder="Objectif du direct, nombre d'intervenants, durée estimée, plateformes cibles (YouTube, Facebook, LinkedIn)..."
+                  rows={3}
+                  placeholder="Objectif de vente, nombre d'articles à présenter, présence de mannequins, diffusion sur TikTok ou Facebook..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </div>
+
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "10px",
+                  fontSize: "12px",
+                  color: "#aaa",
+                  cursor: "pointer",
+                  marginTop: "6px",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  required
+                  style={{ accentColor: "var(--orange)", width: "16px", height: "16px", marginTop: "2px" }}
+                />
+                <span>
+                  J'accepte d'être contacté(e) par l'administrateur OCD Live sur WhatsApp pour valider la disponibilité du créneau et les détails logistiques de l'équipe dans mes locaux.
+                </span>
+              </label>
             </div>
           </section>
 
           {/* VALIDATION */}
           <div className="submit-area">
-            <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? (
-                "Envoi en cours..."
+            <button type="submit" disabled={isPending} className="btn orange" style={{ minWidth: "260px" }}>
+              {isPending ? (
+                "Validation en cours..."
               ) : (
                 <>
-                  Confirmer ma demande de réservation <span>→</span>
+                  Confirmer et Réserver mon direct <ArrowRight className="w-4 h-4 ml-1" />
                 </>
               )}
             </button>
 
-            <p>🔒 Vos informations restent strictement confidentielles.</p>
+            <p>🔒 Réservation directe : aucun débit automatique sans votre accord.</p>
             <small>
-              Votre demande est transmise directement à la direction d'OCD Live. Aucun paiement n'est exigé en ligne : le devis final et la validation du créneau vous sont adressés sous 24h.
+              Votre demande est transmise en temps réel au régisseur d'OCD Live. Vous recevez un récapitulatif avec les coordonnées de transfert {activePaymentObj.label} pour valider le créneau de façon officielle.
             </small>
           </div>
         </form>
@@ -515,35 +853,28 @@ export default function ReservationPage() {
 
       {/* HERO BANNER DE RÉSERVATION AVEC TRANSITION ASYMÉTRIQUE */}
       <section className="reservation-hero">
-        {/* Arc croissant lumineux orange en haut à gauche */}
         <div className="hero-crescent-left" aria-hidden="true" />
 
         <div className="reservation-hero-content">
           <div className="reservation-breadcrumb">
             <Link href="/">Accueil</Link>
             <span>›</span>
-            <span>Réservation</span>
+            <span>Réservation & Planning</span>
           </div>
 
           <span className="eyebrow">
-            <i /> RÉSERVATIONS & CADRAGE TECHNIQUE EN DIRECT
+            <i /> RÉSERVATIONS EN DIRECT · LOMÉ (TOGO)
           </span>
 
           <h1>
-            Réservez votre expérience <span>audiovisuelle.</span>
+            Réservez votre live avec <span>équipe dans vos locaux.</span>
           </h1>
 
           <p>
-            Planifions ensemble votre projet. Remplissez le formulaire
-            et notre équipe vous recontactera rapidement.
+            Vente de vêtements, produits cosmétiques, street food ou événements : choisissez votre pack, votre activité commerciale et votre moyen de paiement sécurisé.
           </p>
         </div>
 
-        {/* Découpe asymétrique en bas du hero :
-            - À gauche : arrondi vers le bas
-            - À droite : arrondi vers le haut
-            - Avec trait orange lumineux
-        */}
         <div className="hero-wave-divider" aria-hidden="true">
           <svg
             viewBox="0 0 1440 120"
@@ -567,7 +898,13 @@ export default function ReservationPage() {
       </section>
 
       {/* FORMULAIRE MULTI-ÉTAPES */}
-      <Suspense fallback={<div className="container" style={{ padding: "80px 0", textAlign: "center" }}>Chargement du module de réservation...</div>}>
+      <Suspense
+        fallback={
+          <div className="container" style={{ padding: "80px 0", textAlign: "center" }}>
+            Chargement du module de réservation...
+          </div>
+        }
+      >
         <ReservationForm />
       </Suspense>
     </main>
